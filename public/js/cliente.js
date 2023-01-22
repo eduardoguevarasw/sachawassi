@@ -284,23 +284,35 @@ const comprobar = async () => {
   let bote_asignado = compra.bote_asignado;
   //buscar en la base de datos
   let resp = await database.from("compras").select("*").eq("fecha", fecha).eq("destino", destino).eq("bote_asignado", bote_asignado);
-  console.log(resp);
+  console.log(asientos);
   let asientosOcupados = [];
-  for (var i = 0; i < resp.length; i++) {
-    asientosOcupados.push(resp[i].asientosArray);
-  }
+  resp.data.forEach(element => {
+    asientosOcupados.push(element.asientosArray);
+  });
   console.log(asientosOcupados);
   let asientosRepetidos = [];
-  for (var i = 0; i < asientos.length; i++) {
+
+  asientos.forEach(element => {
+    asientosOcupados.forEach(element2 => {
+      if(element == element2){
+        asientosRepetidos.push(element);
+      }
+    });
+  });
+  
+  /*
+  for (var i = 0; i < asientos.data.length; i++) {
     for (var j = 0; j < asientosOcupados.length; j++) {
       if (asientos[i] == asientosOcupados[j]) {
         asientosRepetidos.push(asientos[i]);
       }
     }
-  }
+  }*/
   console.log(asientosRepetidos);
   if (asientosRepetidos.length > 0) {
     alert("Los asientos " + asientosRepetidos + " ya estan ocupados");
+    //recargar la pagina
+    location.reload();
   }
   else{
     //guardar en la base de datos
@@ -344,7 +356,6 @@ const comprobar = async () => {
   }
 
 };
-
 /*
 const continuar = async () => {
   //comprobar que todos los campos esten llenos

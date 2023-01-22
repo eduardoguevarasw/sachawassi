@@ -77,48 +77,34 @@ document.getElementById("ingresar").addEventListener("click", function(){
   var securepassword = btoa(contrasena);
   var result = document.getElementById("result");
   console.log(correo, securepassword);
-  if(correo == "" || contrasena == ""){
-    result.innerHTML = "Por favor llene todos los campos 💡";
-    result.style.color = "red";
-    return;
-  }else{
-    //verificar que el usuario exista
-    database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then((response) => {
-      if(response.data.length == 0){
-        result.innerHTML = "Usuario no encontrado ❌";
-        result.style.color = "red";
-        return;
-      }
+  database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then(({ data, error }) => {
+    if (data.length == 0) {
+      console.log(error);
+      result.innerHTML = "Usuario o contraseña incorrectos";
+      result.style.color = "red";
+      //esperar 1 segundo y recargar
+      setTimeout(function(){
+        window.location.reload();
+      }, 1000);
+    }else{
+      console.log(data);
+      result.innerHTML = "Iniciando sesión...";
+      result.style.color = "green";
       //guardar id del usuario en el local storage
-      localStorage.setItem("cedula", response.data[0].cedula);
-      console.log(response.data[0].cedula);
-      result.innerHTML = "Usuario logueado ✅";
-      result.style.color = "green";
-      //si existe una ruta dirigir a index cliente
+      localStorage.setItem("cedula", data[0].cedula);
+      //esperar 5 segundos y redirigir
       let idRuta = localStorage.getItem("idRuta");
       if(idRuta != null){
-      window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
-      }else{
-        window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
-      }
-    });
 
-  }
-    console.log(response);
-   
-      result.innerHTML = "Usuario logueado ✅";
-      result.style.color = "green";
-      //si existe una ruta dirigir a index cliente
-      let idRuta = localStorage.getItem("idRuta");
-      if(idRuta != null){
-      window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
+        setTimeout(function(){
+          window.location.href = "https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html";
+        }, 5000);
       }else{
-        window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
+        window.location.href = "https://eduardoguevarasw.github.io/sachawassionline";
       }
-      //guardar cedula en localstorage
-      localStorage.setItem("cedula", response.data[0].cedula);
-    
-  });
+      
+    }
+  })
 }, false);
 
 

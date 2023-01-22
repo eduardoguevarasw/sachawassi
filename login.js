@@ -77,9 +77,9 @@ document.getElementById("ingresar").addEventListener("click", function(){
   var securepassword = btoa(contrasena);
   var result = document.getElementById("result");
   console.log(correo, securepassword);
-  database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then((response) => {
+  database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then((response,error) => {
     console.log(response);
-    if(response.data.length > 0){
+    if(response){
       result.innerHTML = "Usuario logueado ✅";
       result.style.color = "green";
       //si existe una ruta dirigir a index cliente
@@ -91,8 +91,9 @@ document.getElementById("ingresar").addEventListener("click", function(){
       }
       //guardar cedula en localstorage
       localStorage.setItem("cedula", response.data[0].cedula);
-    }else{
-      result.innerHTML = "Usuario o contraseña incorrectos 🧐";
+    }
+    if(error){
+      result.innerHTML = "Correo o contraseña incorrectos 💡";
       result.style.color = "red";
     }
   });

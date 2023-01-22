@@ -7,7 +7,7 @@ const database = supabase.createClient(url, key);
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", () => {
     localStorage.clear();
-    window.location.href = "https://eduardoguevarasw.github.io/sachawassionline/";
+    window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
 let dataTable;

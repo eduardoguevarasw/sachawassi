@@ -300,14 +300,6 @@ const comprobar = async () => {
     });
   });
   
-  /*
-  for (var i = 0; i < asientos.data.length; i++) {
-    for (var j = 0; j < asientosOcupados.length; j++) {
-      if (asientos[i] == asientosOcupados[j]) {
-        asientosRepetidos.push(asientos[i]);
-      }
-    }
-  }*/
   console.log(asientosRepetidos);
   if (asientosRepetidos.length > 0) {
     alert("Los asientos " + asientosRepetidos + " ya estan ocupados");

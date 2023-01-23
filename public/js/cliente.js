@@ -204,7 +204,7 @@ if(asiento.classList.contains("seat-ocupado")){
 }
 
 
-const pagar = async () => {
+const continuar = async () => {
   //comprobar que todos los campos esten llenos
   if (
     document.getElementById("cedula").value == "" ||

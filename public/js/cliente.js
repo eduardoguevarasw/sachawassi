@@ -203,6 +203,105 @@ if(asiento.classList.contains("seat-ocupado")){
 
 }
 
+
+const pagar = async () => {
+  //comprobar que todos los campos esten llenos
+  if (
+    document.getElementById("cedula").value == "" ||
+    document.getElementById("nombre").value == "" ||
+    document.getElementById("apellido").value == ""
+  ) {
+    alert("Por favor llene todos los campos 💡");
+  } else {
+    let cedulas = document.getElementsByName("cedula");
+    let nombres = document.getElementsByName("nombre");
+    let apellidos = document.getElementsByName("apellido");
+    //validar las cedulas
+    let dni = cedulas.length;
+    let validadas = 0;
+    cedulas.forEach((cedula) => {
+      var cedula = cedula.value;
+      array = cedula.split("");
+      num = array.length;
+      if (num == 10) {
+        total = 0;
+        digito = (array[9] * 1);
+        for (i = 0; i < (num - 1); i++) {
+          mult = 0; if ((i % 2) != 0) { total = total + (array[i] * 1); } else {
+            mult = array[i] * 2; if (mult > 9)
+              total = total + (mult - 9);
+            else
+              total = total + mult;
+          }
+        }
+        decena = total / 10;
+        decena = Math.floor(decena);
+        decena = (decena + 1) * 10;
+        final = (decena - total);
+        if ((final == 10 && digito == 0) || (final == digito)) {
+          //si el numero de cedulas es igual al numero de cedulas validadas
+          validadas++;
+          if (dni == validadas) {
+            let asiento = document.querySelectorAll(".seat-selected");
+            console.log(asiento);
+            let fecha = localStorage.getItem("fechaViaje");
+            console.log(fecha);
+            let destino = localStorage.getItem("destino");
+            console.log(destino);
+            //buscar cedula del usuario en la base de datos
+            let idUsuario = localStorage.getItem("cedula");
+            let bote_asignado = document.getElementById("bote_a").innerHTML;
+            let totalPago = document.getElementById("totalPago").innerHTML;
+            let asientosArray = [];
+            let nombresyapellidos = [];
+            let cedula = [];
+            let nombre = [];
+            let apellido = [];
+            let tx = [];
+            for (var i = 0; i < cedulas.length; i++) {
+              tx.push(Math.floor(Math.random() * 1000000000000));
+              cedula.push(cedulas[i].value);
+              nombre.push(nombres[i].value);
+              apellido.push(apellidos[i].value);
+              asientosArray.push(asientos[i]);
+              nombresyapellidos.push(nombre[i] + " " + apellido[i]);
+            }
+
+            var compra = {
+              cedula,
+              nombre,
+              apellido,
+              asientosArray,
+              nombresyapellidos,
+              fecha,
+              destino,
+              idUsuario,
+              totalPago,
+              bote_asignado,
+              tx,
+            };
+            localStorage.setItem("compra", JSON.stringify(compra));
+            //comprobar que no exista asientos repetidos
+            comprobar();
+          }
+        }
+        else {
+          alert("La cedula:" + cedula + " es invalida ❌")
+          return false;
+        }
+      }
+      else {
+        alert("La cedula:" + cedula + " tiene menos de 10 digitos")
+        return false;
+      }
+    });
+    //no continuar si hay cedulas invalidas
+    //obtener los asientos seleccionados
+
+  }
+
+};
+/*
 const continuar = async () => {
   //comprobar que todos los campos esten llenos
   if (
@@ -273,7 +372,7 @@ const continuar = async () => {
     //comprobar que no exista asientos repetidos
     comprobar();
 }
-}
+}*/
 
 const comprobar = async () => {
   let compra = JSON.parse(localStorage.getItem("compra"));

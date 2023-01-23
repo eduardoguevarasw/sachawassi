@@ -194,6 +194,7 @@ const pagar = async () => {
             let idUsuario = "MCastillo";
             let bote_asignado = document.getElementById("bote_asignado").innerHTML;
             let totalPago = document.getElementById("totalPago").innerHTML;
+            let horaSalida = document.getElementById("horaBoleto").innerHTML;
             let asientosArray = [];
             let nombresyapellidos = [];
             let cedula = [];
@@ -220,6 +221,7 @@ const pagar = async () => {
               idUsuario,
               totalPago,
               bote_asignado,
+              horaSalida,
               tx,
             };
             localStorage.setItem("compra", JSON.stringify(compra));

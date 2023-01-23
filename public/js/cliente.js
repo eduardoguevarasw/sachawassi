@@ -246,12 +246,15 @@ const continuar = async () => {
             console.log(asiento);
             let fecha = localStorage.getItem("fechaViaje");
             console.log(fecha);
+            let origen = localStorage.getItem("origen");
             let destino = localStorage.getItem("destino");
             console.log(destino);
             //buscar cedula del usuario en la base de datos
             let idUsuario = localStorage.getItem("cedula");
             let bote_asignado = document.getElementById("bote_a").innerHTML;
-            let totalPago = document.getElementById("totalPago").innerHTML;
+            let totalPago = sessionStorage.getItem("totalPago");
+            let horaSalida = document.getElementById("horaBoleto").innerHTML;
+
             let asientosArray = [];
             let nombresyapellidos = [];
             let cedula = [];
@@ -274,6 +277,8 @@ const continuar = async () => {
               asientosArray,
               nombresyapellidos,
               fecha,
+              origen,
+              horaSalida,
               destino,
               idUsuario,
               totalPago,

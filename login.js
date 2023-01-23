@@ -50,23 +50,45 @@ document.getElementById("registrar").addEventListener("click", function(){
   var securepassword = btoa(contrasena);
   var result = document.getElementById("result");
      //guardar en supabase
-      var data = {
-        nombres: nombre,
-        apellidos: apellido,
-        cedula: cedula,
-        correo: correo,
-        password: securepassword
-      }
-      database.from('clientes').insert([data]).then((response) => {
-        console.log(response);
-        result.innerHTML = "Usuario registrado ✅";
-        result.style.color = "green";
-        //esperar 5 segundos y redirigir
-        setTimeout(function(){
-          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
-        }, 5000);
-        //redirigir a inicio de client
+     var datos = {
+      nombres: nombre,
+      apellidos: apellido,
+      cedula: cedula,
+      correo: correo,
+      password: securepassword
+    }
+    if(result.innerHTML == "Identificación Correcta ✅"){
+
+      //buscar si ya existe el usuario
+      database.from('clientes').select('*').eq('cedula', cedula).then(({ data, error }) => {
+        if(data.length>0){
+          result.innerHTML = "El usuario ya existe";
+          result.style.color = "red";
+          //esperar 1 segundo y recargar
+          setTimeout(function(){
+            window.location.reload();
+          }, 1000);
+        }else{
+          database.from('clientes').insert([datos]).then((response) => {
+            console.log(response);
+            result.innerHTML = "Usuario registrado ✅";
+            result.style.color = "green";
+            //esperar 5 segundos y redirigir
+            localStorage.setItem("cedula", cedula);
+            setTimeout(function(){
+              //window.location.href = "https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html";
+              window.location.href = "localhost:5173/public/client/index.html";
+            }, 2000);
+            //redirigir a inicio de client
+          });
+        }
       });
+    }else{
+      result.innerHTML = "Por favor verifique su Cédula";
+      result.style.color = "red";
+      //focus en el campo de cedula
+      document.getElementById("cedula").focus();
+    }
   
 }, false);
 
@@ -75,7 +97,7 @@ document.getElementById("ingresar").addEventListener("click", function(){
   var correo = document.getElementById("correologin").value;
   var contrasena = document.getElementById("contrasenalogin").value;
   var securepassword = btoa(contrasena);
-  var result = document.getElementById("result");
+  var result = document.getElementById("resultado");
   console.log(correo, securepassword);
   database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then(({ data, error }) => {
     if (data.length == 0) {

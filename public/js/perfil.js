@@ -9,15 +9,9 @@ logout.addEventListener("click", () => {
     localStorage.clear();
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
-
-
-
 //buscar en la base de datos
 //funcion para obtener datos 
  function obteneruser(){
-    //obtener id de los inputs
-   
-
   //obtener la cedula de localstore
   let dni = localStorage.getItem("cedula");
   console.log(dni);

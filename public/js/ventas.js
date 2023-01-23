@@ -314,7 +314,44 @@ const comprobar = async () => {
     //mostar compra con éxitos
     alert("Venta realizada con éxito ✅");
     //recargar la página
-    location.reload();
+    var ticket = new jsPDF("p", "cm", [7.5, 15]);
+    //pdf de 7.5cm x 10cm
+    ticket.setFontSize(17);
+    //letra en negrita 
+    ticket.setFont("helvetica", "bold");
+    ticket.text(1, 1, "**********************");
+    ticket.text(2, 1.5, "Sacha Wassi");
+    //tamaño de letra 
+    ticket.setFontSize(7);
+    ticket.text(2, 2, "Cooperativa de Transporte Fluvial");
+    ticket.setFontSize(17);
+    ticket.text(1, 2.5, "**********************");
+    ticket.setFontSize(9);
+    ticket.text(1, 3, "Cédula: " + compra.cedula);
+    ticket.text(1, 3.5, "Nombres: " + compra.nombresyapellidos);
+    ticket.text(1, 4, "Fecha de Salida: " + compra.fecha);
+    ticket.setFontSize(9);
+    ticket.text(1, 4.5, "Destino: " + compra.destino);
+    ticket.text(1, 5, "Asientos: " + compra.asientosArray);
+    ticket.text(1, 5.5, "Embarcación:"+compra.bote_asignado);
+    ticket.setFontSize(20);
+    ticket.text(1, 7, "Total:$ " + compra.totalPago);
+    ticket.setFontSize(9);
+    ticket.text(1, 8, "Atendido por: " + compra.idUsuario);
+    let fecha = new Date();
+    //formato de fecha dd/mm/aaaa
+    let dia = fecha.getDate();
+    let mes = fecha.getMonth() + 1;
+    let anio = fecha.getFullYear();
+    let fechaActual = dia + "/" + mes + "/" + anio;
+    ticket.text(1, 8.5, "Fecha de Emisión: " + fechaActual);
+    ticket.text(1, 9, "Gracias por su compra");
+    ticket.text(1, 9.5, "Transacción: " + compra.tx);
+    ticket.setFontSize(9);
+    ticket.text(1.3, 10, "Ahora puedes comprar en línea:");
+    ticket.text(2, 10.5, "www.sachawassi.com");
+    ticket.save("ticket.pdf");
+    //location.reload();
   }
 
 };

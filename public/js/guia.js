@@ -105,7 +105,6 @@ const listarBotes = async () => {
             <td>${bote.asientosArray}</td>
             <td>${bote.destino}</td>
             <td>${bote.bote_asignado}</td>
-            <td>${bote.fecha}</td>
         </tr>
       </div>
 

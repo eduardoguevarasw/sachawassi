@@ -113,6 +113,8 @@ document.getElementById("ingresar").addEventListener("click", function(){
       result.style.color = "green";
       //guardar id del usuario en el local storage
       localStorage.setItem("cedula", data[0].cedula);
+      //guardar el correo 
+      localStorage.setItem("correo", data[0].correo);
       //esperar 5 segundos y redirigir
       let idRuta = localStorage.getItem("idRuta");
       if(idRuta != null){

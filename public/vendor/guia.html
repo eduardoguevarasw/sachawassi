@@ -89,7 +89,17 @@
                     <i class="uil uil-table"></i>
                     <span class="text">Guía de Pasajeros</span>
                 </div>
-
+                Buscar por Fecha: 
+                <div class="row">
+                    <div class="col-4">
+                        <input type="date" id="fecha" name="fecha" class="form-control" placeholder="Fecha">
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-primary" id="buscar" onclick="buscarfecha()">Buscar</button>
+                    </div>
+                </div>
+                <br>
+                <br>
                 <table id="table_id" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>

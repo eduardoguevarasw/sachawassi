@@ -65,16 +65,24 @@ const initDataTable = async () => {
     dataTableisInit = true;
 }
 
+function buscarfecha(){
+    initDataTable();
+}
 
 //funcion para listar los botes
 const listarBotes = async () => {
+
+    //al cambiar la fecha se debe actualizar la tabla
+    let fechaActual = document.getElementById("fecha").value;
+    //cambiar el formato de la fecha en dd/mm/yyyy
+    //determinar la zona horaria
+    let fecha = new Date(fechaActual).toLocaleDateString('es-ES');
     //obtener la fecha de hoy en el formato dd/mm/yyyy
-    let fechaActual = new Date().toLocaleDateString('es-ES')
     let registroBotes = document.getElementById("registroBotes");
     let { data, error } = await database
     .from("compras")
     .select("*")
-    .eq("fecha", fechaActual)
+    .eq("fecha", fecha)
     if (error) {
         console.log("error", error);
         alert("Error al listar los botes ❌");

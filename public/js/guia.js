@@ -77,6 +77,7 @@ const listarBotes = async () => {
     //cambiar el formato de la fecha en dd/mm/yyyy
     //determinar la zona horaria
     let fecha = new Date(fechaActual).toLocaleDateString('es-ES');
+    console.log(fecha);
     //obtener la fecha de hoy en el formato dd/mm/yyyy
     let registroBotes = document.getElementById("registroBotes");
     let { data, error } = await database

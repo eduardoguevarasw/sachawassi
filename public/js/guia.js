@@ -77,13 +77,18 @@ const listarBotes = async () => {
     //cambiar el formato de la fecha en dd/mm/yyyy
     //determinar la zona horaria
     let fecha = new Date(fechaActual).toLocaleDateString('es-ES');
+    //aumentar un dia a la fecha
+    let fecha2 = new Date(fechaActual);
+    fecha2.setDate(fecha2.getDate() + 1);
+    fecha2 = new Date(fecha2).toLocaleDateString('es-ES');
+    console.log(fecha2);
     console.log(fecha);
     //obtener la fecha de hoy en el formato dd/mm/yyyy
     let registroBotes = document.getElementById("registroBotes");
     let { data, error } = await database
     .from("compras")
     .select("*")
-    .eq("fecha", fecha)
+    .eq("fecha", fecha2)
     if (error) {
         console.log("error", error);
         alert("Error al listar los botes ❌");

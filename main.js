@@ -107,16 +107,23 @@ function buscarRutas() {
         if(fechaActual.getMonth() + 1 < 10){
             fechaFormateada = fechaActual.getDate() + "-0" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getFullYear();
         }
+
+
         
        database.from('rutas').select().then(({ data, error }) => {
             document.getElementById("boteList").innerHTML = `<h4>${origen} ➡️ ${destino}   |  ${dia} </h4>`;
             option = "";
             for (var i = 0; i < data.length; i++) {
                 if(fechaFormateada == fechaFormateada2 && horaFormateada > data[i].hora){
-                    document.getElementById("boteList").innerHTML = `<h4>Lo sentimos, no hay rutas disponibles para la fecha seleccionada</h4>`
+                    document.getElementById("boteList").innerHTML = `
+                    <h4>Lo sentimos, no hay rutas disponibles ❌ </h4>
+                    <h4>Por favor, seleccione otra fecha 📆 </h4>`
                 }else{
                     if (data[i].origen == origen && data[i].destino == destino && data[i].dias_disponible.includes(dia) && data[i].estado == "disponible") {
                     
+                        //contar todos los asientos registrados en la tabla botes
+                        
+
                         console.log("si");
                         option += `
                         <tr>

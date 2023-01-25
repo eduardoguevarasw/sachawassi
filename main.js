@@ -54,6 +54,8 @@ fecha.addEventListener("change", function(){
     fechaMin.setDate(fechaMin.getDate());
     const fechaMax = new Date();
     fechaMax.setDate(fechaMax.getDate() + 90);
+    console.log(fechaMin.toISOString().split("T")[0]);
+    console.log(fechaMax.toISOString().split("T")[0]);
     if(fecha.value < fechaMin.toISOString().split("T")[0]){
         alert("La fecha minima es " + fechaMin.toISOString().split("T")[0]);
         fecha.value = "";

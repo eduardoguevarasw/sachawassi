@@ -317,12 +317,12 @@ traer_botes();
 //control de hora 
 const hora = document.querySelector('input[type="time"]');
 hora.setAttribute('min', '06:00');
-hora.setAttribute('max', '21:00');
+hora.setAttribute('max', '17:00');
 
 hora.addEventListener('change', () => {
   const value = hora.value;
-  if (value < '06:00' || value >= '21:00') {
-    alert('Seleccione una hora entre las 6:00 AM y las 21:00 PM');
+  if (value < '06:00' || value >= '17:00') {
+    alert('Seleccione una hora entre las 6:00 AM y las 17:00 PM');
     hora.value = '';
   }
 });

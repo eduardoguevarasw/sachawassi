@@ -72,6 +72,8 @@ function buscarRutas() {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
     const fecha = document.getElementById("fecha").value;
+    const fechaFormateada2 = fecha.split("-").reverse().join("-");
+
     //bajar a #busqueda 
     document.getElementById("busqueda").scrollIntoView();
     //convertir fecha en día de la semana
@@ -100,20 +102,17 @@ function buscarRutas() {
         //si la hora actual es menor a la hora de salida mostrar
         //fecha actual en formato dd/mm/aaaa
         let fechaActual = new Date();
-        let diaActual = fechaActual.getDate();
-        let mesActual = fechaActual.getMonth() + 1;
-        let anioActual = fechaActual.getFullYear();
-        let fechaFormateada = anioActual + "-" + mesActual + "-" + diaActual;
-        //comparar fecha actual con fecha de viaje
-        console.log(fechaFormateada);
-        console.log(fecha);
-        console.log(horaFormateada);
+        //formato dd-mm-aaaa
+        let fechaFormateada = fechaActual.getDate() + "-" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getFullYear();
+        if(fechaActual.getMonth() + 1 < 10){
+            fechaFormateada = fechaActual.getDate() + "-0" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getFullYear();
+        }
         
        database.from('rutas').select().then(({ data, error }) => {
             document.getElementById("boteList").innerHTML = `<h4>${origen} ➡️ ${destino}   |  ${dia} </h4>`;
             option = "";
             for (var i = 0; i < data.length; i++) {
-                if(fechaFormateada == fecha && horaFormateada > data[i].hora){
+                if(fechaFormateada == fechaFormateada2 && horaFormateada > data[i].hora){
                     document.getElementById("boteList").innerHTML = `<h4>Lo sentimos, no hay rutas disponibles para la fecha seleccionada</h4>`
                 }else{
                     if (data[i].origen == origen && data[i].destino == destino && data[i].dias_disponible.includes(dia) && data[i].estado == "disponible") {

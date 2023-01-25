@@ -43,7 +43,72 @@ sidebarToggle.addEventListener("click", () => {
     }
 })
 
+let dataTable;
+let dataTableisInit = false;
 
+const initDataTable = async () => {
+    if(dataTableisInit){
+        dataTable.destroy();
+    };
+
+    await listarBotes();
+
+    dataTable = $("#table_id").DataTable({
+        responsive: true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+        },
+       
+    });
+
+    dataTableisInit = true;
+}
+
+
+//funcion para listar los botes
+const listarBotes = async () => {
+    //obtener la fecha de hoy en el formato dd/mm/yyyy
+    //let fechaActual = new Date().toLocaleDateString('es-ES')
+    let registroBotes = document.getElementById("registroBotes");
+    //var idUsuario = localStorage.getItem("cedula");
+    let { data, error } = await database
+    .from("compras")
+    .select("*")
+    if (error) {
+        console.log("error", error);
+        alert("Error al listar los botes ❌");
+    }
+    //si el idUsuario es igual al idUsuario de la compra
+    //mostrar los datos de la compra
+    data.forEach((bote,index) => {
+            registroBotes.innerHTML += `
+        <tr>
+            <td>${index+1}</td>
+            <td>${bote.cedula}</td>
+            <td>${bote.nombre}</td>
+            <td>${bote.apellido}</td>
+            <td>${bote.asientosArray}</td>
+            <td>${bote.destino}</td>
+            <td>${bote.fecha}</td>
+            <td>${bote.totalPago}</td>
+        </tr>
+      </div>
+        `;
+
+        
+    } );
+}
+
+
+window.addEventListener("load",  async () => {
+ await initDataTable();
+});
+
+
+
+
+
+/*
 function traerCiudades() {
     database.from('rutas').select("origen").then(({ data, error }) => {
         //guara los destinos en un array para no repetir
@@ -83,7 +148,7 @@ function traerCiudades() {
     })
 }
 traerCiudades();
-
+*/
 
 
 //funcion para mostrar los botes disponibles para la fecha actual

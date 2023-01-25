@@ -53,9 +53,13 @@ fecha.addEventListener("change", function(){
     const fechaMin = new Date();
     fechaMin.setDate(fechaMin.getDate());
     const fechaMax = new Date();
-    fechaMax.setDate(fechaMax.getDate() + 30);
+    fechaMax.setDate(fechaMax.getDate() + 90);
     if(fecha.value < fechaMin.toISOString().split("T")[0]){
         alert("La fecha minima es " + fechaMin.toISOString().split("T")[0]);
+        fecha.value = "";
+    }
+    if(fecha.value > fechaMax.toISOString().split("T")[0]){
+        alert("La fecha maxima es " + fechaMax.toISOString().split("T")[0]);
         fecha.value = "";
     }
 });

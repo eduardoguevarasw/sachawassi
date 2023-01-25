@@ -106,11 +106,7 @@ const listarBotes = async () => {
             <td>${bote.destino}</td>
             <td>${bote.bote_asignado}</td>
         </tr>
-      </div>
-
-
-
-        `;
+      </div>`;
     } );
 }
 

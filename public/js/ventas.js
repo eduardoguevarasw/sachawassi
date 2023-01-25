@@ -194,6 +194,7 @@ const pagar = async () => {
             let idUsuario = "MCastillo";
             let bote_asignado = document.getElementById("bote_asignado").innerHTML;
             let totalPago = document.getElementById("totalPago").innerHTML;
+            let idRuta = localStorage.getItem("idRuta");
             //let horaSalida = document.getElementById("horaBoleto").innerHTML;
             let asientosArray = [];
             let nombresyapellidos = [];
@@ -222,6 +223,7 @@ const pagar = async () => {
               totalPago,
               bote_asignado,
               tx,
+              idRuta,
             };
             localStorage.setItem("compra", JSON.stringify(compra));
             //comprobar que no exista asientos repetidos
@@ -288,7 +290,8 @@ const comprobar = async () => {
       idUsuario: compra.idUsuario,
       totalPago: compra.totalPago,
       bote_asignado: compra.bote_asignado,
-      tx: compra.tx
+      tx: compra.tx,
+      idRuta: compra.idRuta
     }
     for(var i = 0; i < datos.cedula.length; i++){
       //guardar en la base de datos uno por uno

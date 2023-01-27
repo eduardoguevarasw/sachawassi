@@ -630,7 +630,7 @@ paypal
 
          alert("Compra realizada con éxito ✅ ");
         //redireccionar a la pagina de index
-          /*let compra = JSON.parse(localStorage.getItem("compra"));
+          let compra = JSON.parse(localStorage.getItem("compra"));
           let correo = localStorage.getItem("correo");
           let body = `
           <h1>Compra de boletos Sacha Wassi</h1>
@@ -650,7 +650,7 @@ paypal
           Body : body
           }).then(
             message => alert(message)
-          );*/
+          );
         window.location.href = "../client/gracias.html";
 
         

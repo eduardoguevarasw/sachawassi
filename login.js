@@ -19,7 +19,7 @@ async function signInWithGoogle() {
         provider: 'google',
         options: {
             remember: true,
-            redirectTo: 'https://eduardoguevarasw.github.io/sachawassi/public/client/index.html',
+            redirectTo: 'https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html',
         }
       
      })
@@ -37,58 +37,120 @@ async function signInWithGoogle() {
 //al hacer click en el boton de registrar usuario
 document.getElementById("registrar").addEventListener("click", function(){
   //verificar que todos los campos estén llenos 
-  if(document.getElementById("nombres").value == "" || document.getElementById("apellidos").value == "" || document.getElementById("cedula").value == "" || document.getElementById("correo").value == "" || document.getElementById("contrasena1").value == ""){
+  if(document.getElementById("nombres").value == "" || document.getElementById("apellidos").value == "" || document.getElementById("identificacion").value == "" || document.getElementById("correo").value == "" || document.getElementById("contrasena1").value == ""){
     result.innerHTML = "Por favor llene todos los campos 💡";
     result.style.color = "red";
     return;
   }
+
   var nombre = document.getElementById("nombres").value;
   var apellido = document.getElementById("apellidos").value;
-  var cedula = document.getElementById("cedula").value;
+  //var cedula = document.getElementById("cedula").value;
   var correo = document.getElementById("correo").value;
   var contrasena = document.getElementById("contrasena1").value;
   var securepassword = btoa(contrasena);
   var result = document.getElementById("result");
+  var pasaporte = document.getElementById("pasaporte").checked;
+  var cedula = document.getElementById("cedula").checked;
+  var identificacion = document.getElementById("identificacion").value;
+  if(pasaporte){
+
+     
      //guardar en supabase
      var datos = {
       nombres: nombre,
       apellidos: apellido,
-      cedula: cedula,
+      cedula: identificacion,
       correo: correo,
       password: securepassword
-    }
-    if(result.innerHTML == "Identificación Correcta ✅"){
+      }
 
-      //buscar si ya existe el usuario
-      database.from('clientes').select('*').eq('cedula', cedula).then(({ data, error }) => {
-        if(data.length>0){
-          result.innerHTML = "El usuario ya existe";
-          result.style.color = "red";
-          //esperar 1 segundo y recargar
-          setTimeout(function(){
-            window.location.reload();
-          }, 1000);
-        }else{
-          database.from('clientes').insert([datos]).then((response) => {
-            console.log(response);
-            result.innerHTML = "Usuario registrado ✅";
-            result.style.color = "green";
-            //esperar 5 segundos y redirigir
-            localStorage.setItem("cedula", cedula);
-            setTimeout(function(){
-              window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
-            }, 2000);
-            //redirigir a inicio de client
-          });
+    result.innerHTML = "Identificación Correcta ✅";
+    result.style.color = "green";
+
+  }else if(cedula){
+
+    var dni = identificacion;
+      array = dni.split("");
+      num = array.length;
+      if (num == 10) {
+        total = 0;
+        digito = (array[9] * 1);
+        for (i = 0; i < (num - 1); i++) {
+          mult = 0; if ((i % 2) != 0) { total = total + (array[i] * 1); } else {
+            mult = array[i] * 2; if (mult > 9)
+              total = total + (mult - 9);
+            else
+              total = total + mult;
+          }
         }
-      });
-    }else{
-      result.innerHTML = "Por favor verifique su Cédula";
-      result.style.color = "red";
-      //focus en el campo de cedula
-      document.getElementById("cedula").focus();
-    }
-  
+        decena = total / 10;
+        decena = Math.floor(decena);
+        decena = (decena + 1) * 10;
+        final = (decena - total);
+        if ((final == 10 && digito == 0) || (final == digito)) {
+          result.innerHTML = "Identificación Correcta ✅";
+          result.style.color = "green";
+          //guardar en supabase
+          var datos = {
+            nombres: nombre,
+            apellidos: apellido,
+            cedula: identificacion,
+            correo: correo,
+            password: securepassword
+          }
+        }
+      }
+  }
+     
+  if(result.innerHTML == "Identificación Correcta ✅"){
+
+        //buscar si ya existe el usuario
+        database.from('clientes').select('*').eq('cedula', identificacion).then(({ data, error }) => {
+          
+          console.log(data);
+          console.log(error);
+          if(data.length > 0){
+            result.innerHTML = "El usuario ya existe";
+            result.style.color = "red";
+            //esperar 1 segundo y recargar
+            /*
+            setTimeout(function(){
+              window.location.reload();
+            }, 1000);*/
+          }else{
+            //buscar el correo si existe
+            database.from('clientes').select('*').eq('correo', correo).then(({ data, error }) => {
+              console.log(data);
+              console.log(error);
+              if(data.length > 0){
+                result.innerHTML = "El correo ya existe";
+                result.style.color = "red";
+                //esperar 1 segundo y recargar
+                /*
+                setTimeout(function(){
+                  window.location.reload();
+                }, 1000);*/
+              }else{
+                database.from('clientes').insert([datos]).then((response) => {
+                  console.log(response);
+                  result.innerHTML = "Usuario registrado ✅";
+                  result.style.color = "green";
+                  //esperar 5 segundos y redirigir
+                  localStorage.setItem("cedula", identificacion  );
+                  window.location.href = "http://localhost:5173/public/client/index.html";
+                  //redirigir a inicio de client
+                });
+              }
+            });
+          }
+        });
+      }else{
+        result.innerHTML = "Por favor verifique su Cédula";
+        result.style.color = "red";
+        //focus en el campo de cedula
+        document.getElementById("cedula").focus();
+      }
 }, false);
 
 //iniciar sesión
@@ -98,6 +160,7 @@ document.getElementById("ingresar").addEventListener("click", function(){
   var securepassword = btoa(contrasena);
   var result = document.getElementById("resultado");
   console.log(correo, securepassword);
+  //login con los datos ingresados
   database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then(({ data, error }) => {
     if (data.length == 0) {
       console.log(error);
@@ -113,23 +176,22 @@ document.getElementById("ingresar").addEventListener("click", function(){
       result.style.color = "green";
       //guardar id del usuario en el local storage
       localStorage.setItem("cedula", data[0].cedula);
-      //guardar el correo 
-      localStorage.setItem("correo", data[0].correo);
       //esperar 5 segundos y redirigir
       let idRuta = localStorage.getItem("idRuta");
       if(idRuta != null){
+
         setTimeout(function(){
-          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
+          window.location.href = "https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html";
         }, 5000);
       }else{
-        window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
+        window.location.href = "https://eduardoguevarasw.github.io/sachawassionline";
       }
       
     }
   })
 }, false);
 
-
+/*
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -310,4 +372,4 @@ $("#cedula").validarCedulaEC({
   onInvalid: function () {
     $("#result").html("identificación No válida ❌");
   },
-});
+});*/

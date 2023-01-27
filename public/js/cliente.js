@@ -644,8 +644,8 @@ paypal
           `
           Email.send({
           SecureToken : "57189a0f-872e-468f-848a-fd3186d3e85d",
-          To : "edugvra@icloud.com",
-          From : "SachaWassi@gmail.com",
+          To : correo,
+          From : "andriuedg@gmail.com",
           Subject : "SachaWassi",
           Body : body
           }).then(

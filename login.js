@@ -177,6 +177,8 @@ document.getElementById("ingresar").addEventListener("click", function(){
       //guardar id del usuario en el local storage
       localStorage.setItem("cedula", data[0].cedula);
       //esperar 5 segundos y redirigir
+      //guardar el correo 
+      localStorage.setItem("correo", correo);
       let idRuta = localStorage.getItem("idRuta");
       if(idRuta != null){
 

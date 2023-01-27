@@ -19,7 +19,7 @@ async function signInWithGoogle() {
         provider: 'google',
         options: {
             remember: true,
-            redirectTo: 'https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html',
+            redirectTo: 'https://eduardoguevarasw.github.io/sachawassi/public/client/index.html',
         }
       
      })
@@ -181,10 +181,10 @@ document.getElementById("ingresar").addEventListener("click", function(){
       if(idRuta != null){
 
         setTimeout(function(){
-          window.location.href = "https://eduardoguevarasw.github.io/sachawassionline/public/client/index.html";
+          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
         }, 5000);
       }else{
-        window.location.href = "https://eduardoguevarasw.github.io/sachawassionline";
+        window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
       }
       
     }

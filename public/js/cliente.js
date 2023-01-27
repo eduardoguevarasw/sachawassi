@@ -651,7 +651,7 @@ paypal
           }).then(
             message => alert(message)
           );
-        window.location.href = "../client/gracias.html";
+         //window.location.href = "../client/gracias.html";
 
         
       });

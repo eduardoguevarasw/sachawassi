@@ -638,7 +638,7 @@ paypal
           <p>Fecha: ${compra.fecha}</p>
           <p>Destino: ${compra.destino}</p>
           <p>Bote: ${compra.bote_asignado}</p>
-          <p>Asientos: ${compra.asientosArray}</p>
+          <p>No de Asiento: ${compra.asientosArray}</p>
           <p>Nombres y apellidos: ${compra.nombresyapellidos}</p>
           <p>Total: ${compra.totalPago}</p>
           `
@@ -649,7 +649,7 @@ paypal
           Subject : "SachaWassi",
           Body : body
           }).then(
-            message => alert(message)
+            message => alert("")
           );
          //window.location.href = "../client/gracias.html";
 

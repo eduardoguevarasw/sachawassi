@@ -630,7 +630,29 @@ paypal
 
         alert("Compra realizada con éxito ✅ ");
         //redireccionar a la pagina de index
+          let compra = JSON.parse(localStorage.getItem("compra"));
+          let correo = compra.correo;
+          let body = `
+          <h1>Compra de boletos Sacha Wassi</h1>
+          <h2>Detalles de la compra</h2>
+          <p>Fecha: ${compra.fecha}</p>
+          <p>Destino: ${compra.destino}</p>
+          <p>Bote: ${compra.bote_asignado}</p>
+          <p>Asientos: ${compra.asientosArray}</p>
+          <p>Nombres y apellidos: ${compra.nombresyapellidos}</p>
+          <p>Total: ${compra.totalPago}</p>
+          `
+          Email.send({
+          SecureToken : "57189a0f-872e-468f-848a-fd3186d3e85d",
+          To : correo,
+          From : "SachaWassi@gmail.com",
+          Subject : "SachaWassi",
+          Body : body
+          }).then(
+            message => alert(message)
+          );
         window.location.href = "../client/gracias.html";
+
         
       });
     },

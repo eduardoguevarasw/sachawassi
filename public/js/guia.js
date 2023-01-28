@@ -74,6 +74,7 @@ const listarBotes = async () => {
 
     //al cambiar la fecha se debe actualizar la tabla
     let fechaActual = document.getElementById("fecha").value;
+    console.log(fechaActual);
     //cambiar el formato de la fecha en dd/mm/yyyy
     //determinar la zona horaria
     let fecha = new Date(fechaActual).toLocaleDateString('es-ES');
@@ -88,7 +89,7 @@ const listarBotes = async () => {
     let { data, error } = await database
     .from("compras")
     .select("*")
-    .eq("fecha", fecha2)
+    .eq("fecha", fechaActual)
     if (error) {
         console.log("error", error);
         alert("Error al listar los botes ❌");

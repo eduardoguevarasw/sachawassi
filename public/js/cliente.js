@@ -649,9 +649,9 @@ paypal
           Subject : "SachaWassi",
           Body : body
           }).then(
-            message => alert("")
+            message => alert("Boleto enviado a su correo")
           );
-         //window.location.href = "../client/gracias.html";
+         window.location.href = "../client/gracias.html";
 
         
       });

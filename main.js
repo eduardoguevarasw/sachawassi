@@ -146,7 +146,7 @@ function buscarRutas() {
 function procesoCompra(id) {
     let fechaViaje = document.getElementById("fecha").value;
     //dar formato a la fecha 01 a 1 
-    let fecha = fechaViaje.split("-");
+    /*let fecha = fechaViaje.split("-");
     let dia = fecha[2];
     let mes = fecha[1];
     let anio = fecha[0];
@@ -156,8 +156,8 @@ function procesoCompra(id) {
     if (mes < 10) {
         mes = mes.replace("0", "");
     }
-    let fechaFormateada = dia + "/" + mes + "/" + anio;
-    localStorage.setItem("fechaViaje", fechaFormateada);
+    let fechaFormateada = dia + "/" + mes + "/" + anio;*/
+    localStorage.setItem("fechaViaje", fechaViaje);
     localStorage.setItem("idRuta", id);
     //comprobar si hay usuario logueado
     if (localStorage.getItem("cedula") == null) {

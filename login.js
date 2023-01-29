@@ -139,7 +139,7 @@ document.getElementById("registrar").addEventListener("click", function(){
                   result.style.color = "green";
                   //esperar 5 segundos y redirigir
                   localStorage.setItem("cedula", identificacion  );
-                  window.location.href = "http://localhost:5173/public/client/index.html";
+                  window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
                   //redirigir a inicio de client
                 });
               }

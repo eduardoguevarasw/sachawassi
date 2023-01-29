@@ -104,6 +104,7 @@ ganancias();
 //obtener fecha de inicio 
 let datagrafica =[];
 let destinos = [];
+let botes = [];
 
 function reporteFechas(){
     //datagrafica = [];
@@ -126,7 +127,7 @@ function reporteFechas(){
             contador++;
             total += Number(item.totalPago);
             datagrafica.push({x: item.fecha, totalPago: item.totalPago});
-
+            myChart.update();  
         });
         //convertir el total a formato de moneda USD
         total = total.toLocaleString("en-US", {
@@ -151,15 +152,38 @@ function reporteFechas(){
             if(!existe){
                 destinos.push({x: item.destino, total: couter});
             }
+            mygraf.update();
         });
+        //guardar en una matriz los botes sin repetir y cuantas veces se repite
+        let couter2=0;
+        response.data.forEach((item) => {
+            let existe = false;
+            for(let i = 0; i < botes.length; i++){
+                if(botes[i].x === item.bote_asignado){
+                    existe = true;
+                    couter2++;
+                    botes[i].total = couter2;
+                    break;
+                }
+                
+            }
+            
+            if(!existe){
+                botes.push({x: item.bote_asignado, total: couter2});
+            }
+            mygraf2.update();
+        });
+
         ventas.innerHTML = total;
         boletos.innerHTML = contador;
         
         
+        
     })    
 
-    myChart.update();   
-    mygraf.update();
+     
+    
+   
     
 }
 
@@ -210,3 +234,24 @@ const graf = document.getElementById('reportes2').getContext('2d');
             }
         }
 });
+
+const graf2 = document.getElementById('reportes3').getContext('2d');
+    const mygraf2 = new Chart(graf2, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Botes',
+                data: botes,
+                parsing: {
+                    yAxisKey: 'total'
+                }
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });

@@ -115,6 +115,30 @@
                     </div>
                 </div>
             </div>
+            <div class="activity">
+                <div class="title">
+                  <i class="uil uil-table"></i>
+                    <span class="text">Reportes</span>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-primary" id="btnBuscar" onclick="reporteFechas()">Buscar</button>
+                    </div>
+                    <br>
+                 </div>
+                 <div>
+                    <canvas id="reportes" width="100" height="20"></canvas>
+                 </div>
+                 <div>
+                    <canvas id="reportes2" width="100" height="20"></canvas>
+                 </div>
+            </div>
         </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

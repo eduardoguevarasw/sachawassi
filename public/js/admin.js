@@ -1,8 +1,6 @@
 const key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdmxqendwemljd3lucW1pcnVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2NTU5NjcsImV4cCI6MTk4MzIzMTk2N30.Jj6AQlRlabhEBppjaP9Bw0kBa77HHOBTTLNsy5cv2EY";
 const url = "https://gfvljzwpzicwynqmirui.supabase.co";
 const database = supabase.createClient(url, key);
-
-
 const body = document.querySelector("body"),
       modeToggle = body.querySelector(".mode-toggle");
       sidebar = body.querySelector("nav");
@@ -94,9 +92,123 @@ function ganancias (){
             currency: "USD",
         });
         ventas.innerHTML = total;
+        //guardar en localstorage
+        localStorage.setItem("ganancias", total);
     })
     .catch((error) => {
         console.log("error", error);
     });
 }
 ganancias();
+
+//obtener fecha de inicio 
+let datagrafica =[];
+let destinos = [];
+
+function reporteFechas(){
+    //datagrafica = [];
+    const fechaInicio = document.getElementById("fechaInicio");
+    const fechaFin = document.getElementById("fechaFin");
+    
+    //console.log(fechaInicio.value);
+    //console.log(fechaFin.value);
+    database
+    .from("compras")
+    .select("*")
+    .gte("fecha", fechaInicio.value)
+    .lte("fecha", fechaFin.value)
+    .then((response) => {
+        //console.log("data", response.data);
+        let total = 0;
+        let contador = 0;
+        //datagrafica = [];
+        response.data.forEach((item) => {
+            contador++;
+            total += Number(item.totalPago);
+            datagrafica.push({x: item.fecha, totalPago: item.totalPago});
+
+        });
+        //convertir el total a formato de moneda USD
+        total = total.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+        });
+        
+        //guardar en una matriz los destinos sin repetir y cuantas veces se repite
+       let couter=0;
+        response.data.forEach((item) => {
+            let existe = false;
+            for(let i = 0; i < destinos.length; i++){
+                if(destinos[i].x === item.destino){
+                    existe = true;
+                    couter++;
+                    destinos[i].total = couter;
+                    break;
+                }
+                
+            }
+            
+            if(!existe){
+                destinos.push({x: item.destino, total: couter});
+            }
+        });
+        ventas.innerHTML = total;
+        boletos.innerHTML = contador;
+        
+        
+    })    
+    console.log(datagrafica);
+    console.log(destinos);
+    //myChart.data.datasets[0].data = datagrafica;
+    myChart.update();   
+    mygraf.update();
+    
+}
+
+const ctx = document.getElementById('reportes').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+            datasets: [{
+              label: 'ventas',
+              data: datagrafica,
+              parsing: {
+                yAxisKey: 'totalPago'
+              }
+              
+            },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});
+
+const graf = document.getElementById('reportes2').getContext('2d');
+    const mygraf = new Chart(graf, {
+        type: 'bar',
+        data: {
+
+            datasets: [{
+              label: 'destinos',
+              data: destinos,
+              parsing: {
+                yAxisKey: 'total'
+              }
+              
+            },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});

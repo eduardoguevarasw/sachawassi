@@ -339,7 +339,7 @@ const comprobar = async () => {
     ticket.setFontSize(20);
     ticket.text(1, 7, "Total:$ " + compra.totalPago);
     ticket.setFontSize(9);
-    ticket.text(1, 8, "Atendido por: " + compra.idUsuario);
+   // ticket.text(1, 8, "Atendido por: " + compra.idUsuario);
     let fecha = new Date();
     //formato de fecha dd/mm/aaaa
     let dia = fecha.getDate();

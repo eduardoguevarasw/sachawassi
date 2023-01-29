@@ -44,22 +44,15 @@ function traerCiudades() {
 }
 traerCiudades();
 
-/*const minValue = new Date();
+const minValue = new Date();
 minValue.setDate(minValue.getDate());
-document.getElementById('fecha').min = minValue.toISOString().split("T")[0];*/
+document.getElementById('fecha').min = minValue.toISOString().split("T")[0];
 //controlar la fecha minima
 const fecha = document.getElementById("fecha");
 fecha.addEventListener("change", function(){
-    const fechaMin = new Date();
-    fechaMin.setDate(fechaMin.getDate());
     const fechaMax = new Date();
     fechaMax.setDate(fechaMax.getDate() + 90);
-    console.log(fechaMin.toISOString().split("T")[0]);
     console.log(fechaMax.toISOString().split("T")[0]);
-    if(fecha.value < fechaMin.toISOString().split("T")[0]){
-        alert("La fecha minima es " + fechaMin.toISOString().split("T")[0]);
-        fecha.value = "";
-    }
     if(fecha.value > fechaMax.toISOString().split("T")[0]){
         alert("La fecha maxima es " + fechaMax.toISOString().split("T")[0]);
         fecha.value = "";

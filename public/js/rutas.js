@@ -156,6 +156,12 @@ btnAgregar.addEventListener("click", async (e) => {
           <input type="number" id="precio${contadorFila+1}" class="form-control" required>
       </div>
   </div>
+  <div class="col-md-2">
+      <div class="form-group">  
+          <label for="precio">Hora de Llegada Aprox</label>
+          <input type="time" id="llegada${contadorFila+1}" class="form-control" required>
+      </div>
+  </div>
   <div class="col-md-1">
       <div class="form-group">
           <label for="fecha">Guardar</label>
@@ -196,6 +202,7 @@ function SaveFila(fila) {
   let precio = document.getElementById("precio" + fila).value;
   let origen = document.getElementById("origen").value;
   let hora = document.getElementById("hora").value;
+  let llegada = document.getElementById("llegada").value;
   let bote_asignado = document.getElementById("bote_asignado").value;
   let lunes = document.getElementById("lunes").checked;
   let martes = document.getElementById("martes").checked;
@@ -253,6 +260,7 @@ function SaveFila(fila) {
           hora,
           bote_asignado,
           dias_disponible,
+          llegada
         };
         console.log(data);
         deleteFila(fila-1);
@@ -355,6 +363,12 @@ const editBote = async (id) => {
   </div>
   <div class="col-md-2">
       <div class="form-group">  
+          <label for="precio">Hora Llegada</label>
+          <input type="time" id="llegada" class="form-control" required>
+      </div>
+  </div>
+  <div class="col-md-2">
+      <div class="form-group">  
           <label for="precio">Estado</label>
           <select id="estado" name="estado" class="form-control" >
               <option value="disponible">Disponible</option>
@@ -422,6 +436,7 @@ function updateRuta(id) {
   let destino = document.getElementById("destino").value;
   let precio = document.getElementById("precio").value;
   let hora = document.getElementById("hora").value;
+  let llegada = document.getElementById("llegada").value;
   let bote_asignado = document.getElementById("bote_asignado").value;
   let estado = document.getElementById("estado").value;
   console.log(estado);
@@ -451,7 +466,8 @@ function updateRuta(id) {
             hora: hora,
             bote_asignado: bote_asignado,
             dias_disponible: dias_disponible,
-            estado: estado
+            estado: estado,
+            llegada: llegada
           }
           if (document.getElementById("lunes").checked) {
             data.dias_disponible.push("lunes");

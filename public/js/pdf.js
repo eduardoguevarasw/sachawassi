@@ -56,7 +56,7 @@ compra.cedula.forEach(function (element, index) {
         {
             "Cédula": compra.cedula[index],
             "Nombres": compra.nombresyapellidos[index],
-            "Asientos": compra.asientosArray[index],
+            "Asiento No": compra.asientosArray[index],
             
         }
     );

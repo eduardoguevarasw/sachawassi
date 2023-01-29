@@ -157,9 +157,7 @@ function reporteFechas(){
         
         
     })    
-    console.log(datagrafica);
-    console.log(destinos);
-    //myChart.data.datasets[0].data = datagrafica;
+
     myChart.update();   
     mygraf.update();
     

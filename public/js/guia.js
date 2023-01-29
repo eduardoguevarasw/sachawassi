@@ -89,7 +89,7 @@ const listarBotes = async () => {
     let { data, error } = await database
     .from("compras")
     .select("*")
-    .eq("fecha", fecha2)
+    .eq("fecha", fechaActual)
     if (error) {
         console.log("error", error);
         alert("Error al listar los botes ❌");

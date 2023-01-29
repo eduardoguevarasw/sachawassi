@@ -353,7 +353,9 @@ const comprobar = async () => {
     ticket.text(1.3, 10, "Ahora puedes comprar en línea:");
     ticket.text(2, 10.5, "www.sachawassi.com");
     ticket.save("ticket.pdf");
-    //location.reload();
+    
+    //esperar 5 segundos y recargar la página
+      setTimeout(function(){{location.reload();}}, 3000);
   }
 
 };

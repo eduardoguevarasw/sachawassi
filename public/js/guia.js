@@ -73,7 +73,7 @@ function buscarfecha(){
 const listarBotes = async () => {
 
     //al cambiar la fecha se debe actualizar la tabla
-    let fechaActual = document.getElementById("fecha").value;
+    //let fechaActual = document.getElementById("fecha").value;
     console.log(fechaActual);
     //cambiar el formato de la fecha en dd/mm/yyyy
     //determinar la zona horaria

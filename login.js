@@ -36,6 +36,7 @@ async function signInWithGoogle() {
 
 //al hacer click en el boton de registrar usuario
 document.getElementById("registrar").addEventListener("click", function(){
+  var result = document.getElementById("result");
   //verificar que todos los campos estén llenos 
   if(document.getElementById("nombres").value == "" || document.getElementById("apellidos").value == "" || document.getElementById("identificacion").value == "" || document.getElementById("correo").value == "" || document.getElementById("contrasena1").value == ""){
     result.innerHTML = "Por favor llene todos los campos 💡";
@@ -49,7 +50,7 @@ document.getElementById("registrar").addEventListener("click", function(){
   var correo = document.getElementById("correo").value;
   var contrasena = document.getElementById("contrasena1").value;
   var securepassword = btoa(contrasena);
-  var result = document.getElementById("result");
+  
   var pasaporte = document.getElementById("pasaporte").checked;
   var cedula = document.getElementById("cedula").checked;
   var identificacion = document.getElementById("identificacion").value;

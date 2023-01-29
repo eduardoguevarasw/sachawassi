@@ -70,6 +70,7 @@ const infoRuta = async () => {
                 <strong>${data[0].origen} ➡️ ${data[0].destino}</strong>
                 <p class="mb-0">Precio: $ <strong id="precioBoleto">${data[0].precio}</strong></p>
                 <p class="mb-0">Hora: <strong id="horaBoleto">${data[0].hora}</strong></p>
+                <p class="mb-0">Llegada Aprox: <strong id="llegadaBoleto">${data[0].llegada}</strong></p>
                 </div>
                 `;
         }
@@ -137,6 +138,7 @@ let asientosSelected = document.getElementById("asientosSelected");
 let precioBoleto = document.getElementById("precioBoleto");
 let agregarPasajero = document.getElementById("pasajeros");
 let horaBoleto = document.getElementById("horaBoleto");
+let llegadaBoleto = document.getElementById("llegadaBoleto");
 console.log(precioBoleto);
 let totalPago = document.getElementById("totalPago");
 
@@ -254,6 +256,7 @@ const continuar = async () => {
             let bote_asignado = document.getElementById("bote_a").innerHTML;
             let totalPago = sessionStorage.getItem("totalPago");
             let horaSalida = document.getElementById("horaBoleto").innerHTML;
+            let llegadaBoleto = document.getElementById("llegadaBoleto").innerHTML;
 
             let asientosArray = [];
             let nombresyapellidos = [];
@@ -279,6 +282,7 @@ const continuar = async () => {
               fecha,
               origen,
               horaSalida,
+              llegadaBoleto,
               destino,
               idUsuario,
               totalPago,

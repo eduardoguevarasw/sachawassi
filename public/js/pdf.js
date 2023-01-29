@@ -20,11 +20,13 @@ pdf.setFontType("normal");
 pdf.text(20, 50, 'Boleto:');
 pdf.text(20, 60, 'Fecha de Salida:');
 pdf.text(20, 70, 'Hora de Salida:');
+pdf.text(110, 70, 'Hora Llegada (Aprox):');
 pdf.text(110,50, 'Embarcación:');
 pdf.setFontType("bold");
 pdf.text(38, 50, ''+compra.tx[0]);
 pdf.text(64, 60,''+ compra.fecha);
 pdf.text(60, 70, ''+ compra.horaSalida);
+pdf.text(150, 70, ''+ compra.horaLlegada);
 pdf.text(150,50, ''+compra.bote_asignado);
 //linea
 //letra normal 

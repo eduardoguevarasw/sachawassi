@@ -44,6 +44,10 @@ sidebarToggle.addEventListener("click", () => {
     }
 })
 
+const minValue = new Date();
+minValue.setDate(minValue.getDate());
+document.getElementById('fecha').min = minValue.toISOString().split("T")[0];
+
 function traerCiudades() {
     database.from('rutas').select("origen").then(({ data, error }) => {
         //guara los destinos en un array para no repetir

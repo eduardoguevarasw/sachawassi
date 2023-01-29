@@ -26,7 +26,7 @@ pdf.setFontType("bold");
 pdf.text(38, 50, ''+compra.tx[0]);
 pdf.text(64, 60,''+ compra.fecha);
 pdf.text(60, 70, ''+ compra.horaSalida);
-pdf.text(150, 70, ''+ compra.horaLlegada);
+pdf.text(150, 70, ''+ compra.llegadaBoleto);
 pdf.text(150,50, ''+compra.bote_asignado);
 //linea
 //letra normal 

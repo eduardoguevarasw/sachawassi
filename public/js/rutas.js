@@ -202,7 +202,7 @@ function SaveFila(fila) {
   let precio = document.getElementById("precio" + fila).value;
   let origen = document.getElementById("origen").value;
   let hora = document.getElementById("hora").value;
-  let llegada = document.getElementById("llegada").value;
+  let llegada = document.getElementById("llegada"+fila).value;
   let bote_asignado = document.getElementById("bote_asignado").value;
   let lunes = document.getElementById("lunes").checked;
   let martes = document.getElementById("martes").checked;

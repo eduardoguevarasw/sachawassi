@@ -70,7 +70,7 @@ compra.cedula.forEach(function (element, index) {
     
 
     pdf.table(15, 130, pasajeros , [
-        'Cédula', 'Nombres', 'Asientos'
+        'Cédula', 'Nombres', 'Asiento No'
     ],
         {headerBackgroundColor: '#0298', headerTextColor: '#FFFFFF', fontSize: 10, fontStyle: 'normal', overflow: 'linebreak', autoSize: true, printHeaders: true}
     );

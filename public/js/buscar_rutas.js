@@ -85,7 +85,7 @@ function traerCiudades() {
 traerCiudades();
 
 
-
+/*
 async function mostrarbotes(){
  //obtener la fecha actual en formato lunes, martes, miercoles, etc
     let fecha = new Date();
@@ -136,8 +136,8 @@ async function mostrarbotes(){
        
     }
     botes_disponibles.innerHTML = opcion;
-}
-mostrarbotes();
+}*/
+
 
 //funcion comprar
 function comprar(id){

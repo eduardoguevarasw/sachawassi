@@ -109,8 +109,8 @@ function buscarRutas() {
             for (var i = 0; i < data.length; i++) {
                 if(fechaFormateada == fechaFormateada2 && horaFormateada > data[i].hora){
                     document.getElementById("boteList").innerHTML = `
-                    <h4>Lo sentimos, no hay rutas disponibles ❌ </h4>
-                    <h4>Por favor, seleccione otra fecha 📆 </h4>`
+                    <h4>Lo sentimos,ruta fuera de horario ❌ </h4>
+                    <h4>🕙 ${data[i].hora} </h4>`
                 }else{
                     if (data[i].origen == origen && data[i].destino == destino && data[i].dias_disponible.includes(dia) && data[i].estado == "disponible") {
                     

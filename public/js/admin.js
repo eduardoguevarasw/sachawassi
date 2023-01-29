@@ -169,7 +169,7 @@ const ctx = document.getElementById('reportes').getContext('2d');
         data: {
 
             datasets: [{
-              label: 'ventas',
+              label: 'Ventas',
               data: datagrafica,
               parsing: {
                 yAxisKey: 'totalPago'
@@ -193,7 +193,7 @@ const graf = document.getElementById('reportes2').getContext('2d');
         data: {
 
             datasets: [{
-              label: 'destinos',
+              label: 'Destinos',
               data: destinos,
               parsing: {
                 yAxisKey: 'total'

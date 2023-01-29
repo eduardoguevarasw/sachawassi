@@ -105,6 +105,55 @@ ganancias();
 let datagrafica =[];
 let destinos = [];
 
+const ctx = document.getElementById('reportes').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+            datasets: [{
+              label: 'ventas',
+              data: datagrafica,
+              parsing: {
+                yAxisKey: 'totalPago'
+              }
+              
+            },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});
+
+const graf = document.getElementById('reportes2').getContext('2d');
+    const mygraf = new Chart(graf, {
+        type: 'bar',
+        data: {
+
+            datasets: [{
+              label: 'destinos',
+              data: destinos,
+              parsing: {
+                yAxisKey: 'total'
+              }
+              
+            },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});
+
+
 function reporteFechas(){
     //datagrafica = [];
     const fechaInicio = document.getElementById("fechaInicio");
@@ -163,50 +212,3 @@ function reporteFechas(){
     
 }
 
-const ctx = document.getElementById('reportes').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-
-            datasets: [{
-              label: 'ventas',
-              data: datagrafica,
-              parsing: {
-                yAxisKey: 'totalPago'
-              }
-              
-            },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-});
-
-const graf = document.getElementById('reportes2').getContext('2d');
-    const mygraf = new Chart(graf, {
-        type: 'bar',
-        data: {
-
-            datasets: [{
-              label: 'destinos',
-              data: destinos,
-              parsing: {
-                yAxisKey: 'total'
-              }
-              
-            },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-});

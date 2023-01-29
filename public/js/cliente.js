@@ -653,7 +653,7 @@ paypal
             
           );
           //redireccionar en 5 segundos
-          setTimeout(function(){window.location.href = "../client/gracias.html" }, 3000);
+          //setTimeout(function(){window.location.href = "../client/gracias.html" }, 5000);
           
 
         

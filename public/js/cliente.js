@@ -649,11 +649,11 @@ paypal
           Subject : "SachaWassi",
           Body : body
           }).then(
-            message => alert("Boleto enviado a su correo")
+            message => alert("Boleto enviado a su correo ✅")
             
           );
           //redireccionar en 5 segundos
-          //setTimeout(function(){window.location.href = "../client/gracias.html" }, 5000);
+          setTimeout(function(){window.location.href = "../client/gracias.html" }, 5000);
           
 
         

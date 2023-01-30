@@ -158,9 +158,10 @@ if(asiento.classList.contains("seat-ocupado")){
     <div class="card">
         <div class="card-body">
         <h5 class="card-title">Asiento ${id}</h5>
-        <div id="result">👤</div>
-        <label>Cédula</label>
-        <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Cédula" required/><br>
+        <input type="radio" class="form-control" id="identificacion" name="identificacion" value="Cedula" checked>
+        <input type="radio"  class="form-control" id="identificacion" name="identificacion" value="Pasaporte">
+        <label>Cédula o Pasaporte</label>
+        <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Indentificación" required/><br>
         <label>Nombre</label>
         <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Nombre"><br>
         <label>Apellido</label>
@@ -215,7 +216,9 @@ const continuar = async () => {
   ) {
     alert("Por favor llene todos los campos 💡");
   } else {
-    let cedulas = document.getElementsByName("cedula");
+    //si esta marcado como cedula continuar 
+    if (document.getElementById("identificacion").checked) {
+      let cedulas = document.getElementsByName("cedula");
     let nombres = document.getElementsByName("nombre");
     let apellidos = document.getElementsByName("apellido");
     //validar las cedulas
@@ -304,9 +307,61 @@ const continuar = async () => {
         return false;
       }
     });
-    //no continuar si hay cedulas invalidas
-    //obtener los asientos seleccionados
+    }else{
+      //guardar los datos de la compra
+            let cedulas = document.getElementsByName("cedula");
+            let nombres = document.getElementsByName("nombre");
+            let apellidos = document.getElementsByName("apellido");
+            let asiento = document.querySelectorAll(".seat-selected");
+            console.log(asiento);
+            let fecha = localStorage.getItem("fechaViaje");
+            console.log(fecha);
+            let origen = localStorage.getItem("origen");
+            let destino = localStorage.getItem("destino");
+            console.log(destino);
+            //buscar cedula del usuario en la base de datos
+            let idUsuario = localStorage.getItem("cedula");
+            let bote_asignado = document.getElementById("bote_a").innerHTML;
+            let totalPago = sessionStorage.getItem("totalPago");
+            let horaSalida = document.getElementById("horaBoleto").innerHTML;
+            let llegadaBoleto = document.getElementById("llegadaBoleto").innerHTML;
 
+            let asientosArray = [];
+            let nombresyapellidos = [];
+            let cedula = [];
+            let nombre = [];
+            let apellido = [];
+            let tx = [];
+            for (var i = 0; i < cedulas.length; i++) {
+              tx.push(Math.floor(Math.random() * 1000000000000));
+              cedula.push(cedulas[i].value);
+              nombre.push(nombres[i].value);
+              apellido.push(apellidos[i].value);
+              asientosArray.push(asientos[i]);
+              nombresyapellidos.push(nombre[i] + " " + apellido[i]);
+            }
+
+            var compra = {
+              cedula,
+              nombre,
+              apellido,
+              asientosArray,
+              nombresyapellidos,
+              fecha,
+              origen,
+              horaSalida,
+              llegadaBoleto,
+              destino,
+              idUsuario,
+              totalPago,
+              bote_asignado,
+              tx,
+            };
+            localStorage.setItem("compra", JSON.stringify(compra));
+            //comprobar que no exista asientos repetidos
+            comprobar();
+
+    }
   }
 
 };

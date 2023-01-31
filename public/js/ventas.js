@@ -307,8 +307,8 @@ const comprobar = async () => {
           idUsuario: datos.idUsuario,
           totalPago: datos.totalPago,
           bote_asignado: datos.bote_asignado,
-          tx: datos.tx[i]
-          
+          tx: datos.tx[i],
+          idRuta: datos.idRuta
         })
     }
     //let resp = await database.from("compras").insert([compra]);

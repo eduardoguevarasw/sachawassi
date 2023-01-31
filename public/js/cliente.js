@@ -256,6 +256,7 @@ const continuar = async () => {
             console.log(destino);
             //buscar cedula del usuario en la base de datos
             let idUsuario = localStorage.getItem("cedula");
+            let idRuta = localStorage.getItem("idRuta");
             let bote_asignado = document.getElementById("bote_a").innerHTML;
             let totalPago = sessionStorage.getItem("totalPago");
             let horaSalida = document.getElementById("horaBoleto").innerHTML;
@@ -291,6 +292,7 @@ const continuar = async () => {
               totalPago,
               bote_asignado,
               tx,
+              idRuta
             };
             localStorage.setItem("compra", JSON.stringify(compra));
             //comprobar que no exista asientos repetidos
@@ -321,6 +323,7 @@ const continuar = async () => {
             console.log(destino);
             //buscar cedula del usuario en la base de datos
             let idUsuario = localStorage.getItem("cedula");
+            let idRuta = localStorage.getItem("idRuta");
             let bote_asignado = document.getElementById("bote_a").innerHTML;
             let totalPago = sessionStorage.getItem("totalPago");
             let horaSalida = document.getElementById("horaBoleto").innerHTML;
@@ -356,6 +359,7 @@ const continuar = async () => {
               totalPago,
               bote_asignado,
               tx,
+              idRuta
             };
             localStorage.setItem("compra", JSON.stringify(compra));
             //comprobar que no exista asientos repetidos
@@ -484,7 +488,8 @@ const comprobar = async () => {
       idUsuario: compra.idUsuario,
       totalPago: compra.totalPago,
       bote_asignado: compra.bote_asignado,
-      tx: compra.tx
+      tx: compra.tx,
+      idRuta: compra.idRuta
     }
     for(var i = 0; i < datos.cedula.length; i++){
       //guardar en la base de datos uno por uno
@@ -500,7 +505,8 @@ const comprobar = async () => {
           idUsuario: datos.idUsuario,
           totalPago: datos.totalPago,
           bote_asignado: datos.bote_asignado,
-          tx: datos.tx[i]
+          tx: datos.tx[i],
+          idRuta: datos.idRuta
           
         })
     }

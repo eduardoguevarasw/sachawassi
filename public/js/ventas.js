@@ -77,22 +77,30 @@ function seleccionarAsiento(id) {
       precio.push(precioBoleto.innerHTML);
       asientosSelected.innerHTML = asientos;
       usuarios.innerHTML += `
-        <div class="row" id="pasajero${id}">
-        <div class="col-sm-12">
-        <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">Asiento ${id}</h5>
-        <div id="result">👤</div>
-        <label>Cédula</label>
-        <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Cédula" required/><br>
-        <label>Nombre</label>
-        <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Nombre"><br>
-        <label>Apellido</label>
-        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido"><br>
-        </div>
-        </div>
-        </div>
-        </div>
+      <div class="row" id="pasajero${id}">
+      <div class="col-sm-12">
+      <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">ASIENTO ${id}</h5>
+      <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+      <label class="form-check-label" for="inlineRadio1">Cédula</label>
+      </div>
+      <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+      <label class="form-check-label" for="inlineRadio2">Pasaporte</label>
+      </div>
+      <br>
+      <label>Indeficación</label>
+      <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Ej: 1500XXXXX" required/><br>
+      <label>Nombre</label>
+      <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Juan"><br>
+      <label>Apellido</label>
+      <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Pérez"><br>
+      </div>
+      </div>
+      </div>
+      </div>
       `;
       console.log(precio);
       //sumar los precios
@@ -158,7 +166,11 @@ const pagar = async () => {
     let cedulas = document.getElementsByName("cedula");
     let nombres = document.getElementsByName("nombre");
     let apellidos = document.getElementsByName("apellido");
-    //validar las cedulas
+    
+    //si el checkbox de cedula esta seleccionado
+    if (document.getElementById("inlineRadio1").checked) {
+
+      //validar las cedulas
     let dni = cedulas.length;
     let validadas = 0;
     cedulas.forEach((cedula) => {
@@ -243,7 +255,56 @@ const pagar = async () => {
     });
     //no continuar si hay cedulas invalidas
     //obtener los asientos seleccionados
+    }else{
+      let asiento = document.querySelectorAll(".seat-selected");
+      console.log(asiento);
+      let fecha = localStorage.getItem("fechaViaje");
+      console.log(fecha);
+      let destino = localStorage.getItem("destino");
+      console.log(destino);
+      let origen  = localStorage.getItem("origen");
+      //buscar cedula del usuario en la base de datos
+      let idUsuario = "MCastillo";
+      let bote_asignado = document.getElementById("bote_asignado").innerHTML;
+      let totalPago = document.getElementById("totalPago").innerHTML;
+      let idRuta = localStorage.getItem("idRuta");
+      let asientosArray = [];
+      let nombresyapellidos = [];
+      let cedula = [];
+      let nombre = [];
+      let apellido = [];
+      let tx = [];
+      for (var i = 0; i < cedulas.length; i++) {
+        tx.push(Math.floor(Math.random() * 1000000000000));
+        cedula.push(cedulas[i].value);
+        nombre.push(nombres[i].value);
+        apellido.push(apellidos[i].value);
+        asientosArray.push(asientos[i]);
+        nombresyapellidos.push(nombre[i] + " " + apellido[i]);
+      }
 
+      var compra = {
+        cedula,
+        nombre,
+        apellido,
+        asientosArray,
+        nombresyapellidos,
+        fecha,
+        origen,
+        destino,
+        idUsuario,
+        totalPago,
+        bote_asignado,
+        tx,
+        idRuta,
+      };
+      localStorage.setItem("compra", JSON.stringify(compra));
+      //comprobar que no exista asientos repetidos
+      comprobar();
+
+    }
+
+    
   }
 
 };

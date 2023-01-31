@@ -50,28 +50,27 @@ const checkAsiento = async () => {
     if (resp2.data[i].fecha == fecha && resp2.data[i].bote_asignado == bote) {
       let asiento = resp2.data[i].asientosArray;
       let seat = document.getElementById(asiento);
-      seat.classList.remove("seat");
-      seat.classList.add("seat-ocupado");
+      //seat.classList.remove("seat");
+      //seat.classList.add("seat-ocupado");
     }
   }
 };
 checkAsiento();
 
-
 //seleccionar asiento cambiar de de class
 asientos = [];
 precio = [];
 function seleccionarAsiento(id) {
- let asientosSelected = document.getElementById("asientosSelected");
- let precioBoleto = document.getElementById("precioBoleto");
- let totalPago = document.getElementById("totalPago");
- let usuarios = document.getElementById("usuarios");
+  let asientosSelected = document.getElementById("asientosSelected");
+  let precioBoleto = document.getElementById("precioBoleto");
+  let totalPago = document.getElementById("totalPago");
+  let usuarios = document.getElementById("usuarios");
   var asiento = document.getElementById(id);
 
-  if(asiento.classList.contains("seat-ocupado")){
+  if (asiento.classList.contains("seat-ocupado")) {
     alert("Asiento ocupado");
-  }else{
-    if(asiento.classList.contains("seat")){
+  } else {
+    if (asiento.classList.contains("seat")) {
       asiento.classList.remove("seat");
       asiento.classList.add("seat-selected");
       asientos.push(id);
@@ -94,34 +93,33 @@ function seleccionarAsiento(id) {
         </div>
         </div>
         </div>
-      `
+      `;
       console.log(precio);
       //sumar los precios
       let suma = 0;
       for (var i in precio) {
-          suma += parseFloat(precio[i].replace("$", ""));
+        suma += parseFloat(precio[i].replace("$", ""));
       }
-      totalPago.innerHTML =suma;
-    }else{
-      if(asiento.classList.contains("seat-selected")){
+      totalPago.innerHTML = suma;
+    } else {
+      if (asiento.classList.contains("seat-selected")) {
         asiento.classList.remove("seat-selected");
         asiento.classList.add("seat");
         asientos.splice(asientos.indexOf(id), 1);
         precio.splice(precio.indexOf(precioBoleto.innerHTML), 1);
         asientosSelected.innerHTML = asientos;
-        let pasajero = document.getElementById("pasajero"+id);
+        let pasajero = document.getElementById("pasajero" + id);
         pasajero.remove();
         console.log(precio);
         //sumar los precios
         let suma = 0;
         for (var i in precio) {
-            suma += parseFloat(precio[i].replace("$", ""));
+          suma += parseFloat(precio[i].replace("$", ""));
         }
-        totalPago.innerHTML=suma;
+        totalPago.innerHTML = suma;
       }
     }
   }
-  
 }
 
 const infoAsiento = async () => {
@@ -130,17 +128,19 @@ const infoAsiento = async () => {
   //obtener datos de la ruta con el idRuta
   let res = await database.from("rutas").select("*").eq("id", idRuta);
   let destino = document.getElementById("destino");
+  let origen = document.getElementById("origen");
   let bote_asignado = document.getElementById("bote_asignado");
   let fechaviaje = document.getElementById("fecha");
   let hora = document.getElementById("hora");
   let precio = document.getElementById("precioBoleto");
   localStorage.setItem("destino", res.data[0].destino);
+  localStorage.setItem("origen", res.data[0].origen);
   destino.innerHTML = res.data[0].destino;
+  origen.innerHTML = res.data[0].origen;
   bote_asignado.innerHTML = res.data[0].bote_asignado;
   fechaviaje.innerHTML = localStorage.getItem("fechaViaje");
   hora.innerHTML = res.data[0].hora;
   precio.innerHTML = res.data[0].precio;
-
 };
 infoAsiento();
 
@@ -190,12 +190,12 @@ const pagar = async () => {
             console.log(fecha);
             let destino = localStorage.getItem("destino");
             console.log(destino);
+            let origen  = localStorage.getItem("origen");
             //buscar cedula del usuario en la base de datos
             let idUsuario = "MCastillo";
             let bote_asignado = document.getElementById("bote_asignado").innerHTML;
             let totalPago = document.getElementById("totalPago").innerHTML;
             let idRuta = localStorage.getItem("idRuta");
-            //let horaSalida = document.getElementById("horaBoleto").innerHTML;
             let asientosArray = [];
             let nombresyapellidos = [];
             let cedula = [];
@@ -218,6 +218,7 @@ const pagar = async () => {
               asientosArray,
               nombresyapellidos,
               fecha,
+              origen,
               destino,
               idUsuario,
               totalPago,
@@ -253,32 +254,36 @@ const comprobar = async () => {
   let asientos = compra.asientosArray;
   let fecha = compra.fecha;
   let destino = compra.destino;
+  let origen = compra.origen;
   let bote_asignado = compra.bote_asignado;
   //buscar en la base de datos
-  let resp = await database.from("compras").select("*").eq("fecha", fecha).eq("destino", destino).eq("bote_asignado", bote_asignado);
+  let resp = await database
+    .from("compras")
+    .select("*")
+    .eq("fecha", fecha)
+    .eq("destino", destino)
+    .eq("bote_asignado", bote_asignado);
   console.log(resp);
   let asientosOcupados = [];
-  resp.data.forEach(element => {
-    asientosOcupados.push(element.asientosArray);
-  });
+  for (var i = 0; i < resp.length; i++) {
+    asientosOcupados.push(resp[i].asientosArray);
+  }
   console.log(asientosOcupados);
   let asientosRepetidos = [];
-
-  asientos.forEach(element => {
-    asientosOcupados.forEach(element2 => {
-      if(element == element2){
-        asientosRepetidos.push(element);
+  for (var i = 0; i < asientos.length; i++) {
+    for (var j = 0; j < asientosOcupados.length; j++) {
+      if (asientos[i] == asientosOcupados[j]) {
+        asientosRepetidos.push(asientos[i]);
       }
-    });
-  });
+    }
+  }
   console.log(asientosRepetidos);
   if (asientosRepetidos.length > 0) {
     alert("Los asientos " + asientosRepetidos + " ya estan ocupados");
-  }
-  else{
+  } else {
     //guardar en la base de datos
     //generar un número de transacción de 12 digitos
-    
+
     var datos = {
       cedula: compra.cedula,
       nombre: compra.nombre,
@@ -287,29 +292,30 @@ const comprobar = async () => {
       nombresyapellidos: compra.nombresyapellidos,
       fecha: compra.fecha,
       destino: compra.destino,
+      origen: compra.origen,
       idUsuario: compra.idUsuario,
       totalPago: compra.totalPago,
       bote_asignado: compra.bote_asignado,
       tx: compra.tx,
       idRuta: compra.idRuta
-    }
-    for(var i = 0; i < datos.cedula.length; i++){
+    };
+    for (var i = 0; i < datos.cedula.length; i++) {
       //guardar en la base de datos uno por uno
-      let resp = await database.from("compras").insert(
-        {
-          cedula: datos.cedula[i],
-          nombre: datos.nombre[i],
-          apellido: datos.apellido[i],
-          asientosArray: datos.asientosArray[i],
-          nombresyapellidos: datos.nombresyapellidos[i],
-          fecha: datos.fecha,
-          destino: datos.destino,
-          idUsuario: datos.idUsuario,
-          totalPago: datos.totalPago,
-          bote_asignado: datos.bote_asignado,
-          tx: datos.tx[i],
-          idRuta: datos.idRuta
-        })
+      let resp = await database.from("compras").insert({
+        cedula: datos.cedula[i],
+        nombre: datos.nombre[i],
+        apellido: datos.apellido[i],
+        asientosArray: datos.asientosArray[i],
+        nombresyapellidos: datos.nombresyapellidos[i],
+        fecha: datos.fecha,
+        destino: datos.destino,
+        origen: datos.origen,
+        idUsuario: datos.idUsuario,
+        totalPago: datos.totalPago,
+        bote_asignado: datos.bote_asignado,
+        tx: datos.tx[i],
+        idRuta: datos.idRuta
+      });
     }
     //let resp = await database.from("compras").insert([compra]);
     console.log(resp);
@@ -334,12 +340,12 @@ const comprobar = async () => {
     ticket.text(1, 4, "Fecha de Salida: " + compra.fecha);
     ticket.setFontSize(9);
     ticket.text(1, 4.5, "Destino: " + compra.destino);
-    ticket.text(1, 5, "No de Asiento: " + compra.asientosArray);
+    ticket.text(1, 5, "Asientos: " + compra.asientosArray);
     ticket.text(1, 5.5, "Embarcación:"+compra.bote_asignado);
     ticket.setFontSize(20);
     ticket.text(1, 7, "Total:$ " + compra.totalPago);
     ticket.setFontSize(9);
-   // ticket.text(1, 8, "Atendido por: " + compra.idUsuario);
+    ticket.text(1, 8, "Atendido por: " + compra.idUsuario);
     let fecha = new Date();
     //formato de fecha dd/mm/aaaa
     let dia = fecha.getDate();
@@ -353,23 +359,22 @@ const comprobar = async () => {
     ticket.text(1.3, 10, "Ahora puedes comprar en línea:");
     ticket.text(2, 10.5, "www.sachawassi.com");
     ticket.save("ticket.pdf");
-    
-    //esperar 5 segundos y recargar la página
-      setTimeout(function(){{location.reload();}}, 3000);
-  }
 
+
+    //location.reload();
+  }
 };
 
+(function () {
+  var __bind = function (fn, me) {
+    return function () {
+      return fn.apply(me, arguments);
+    };
+  };
 
-
-
-
-(function() {
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  (function($) {
+  (function ($) {
     var RucValidatorEc, jQueryRucValidatorEc;
-    RucValidatorEc = (function() {
+    RucValidatorEc = (function () {
       function RucValidatorEc(numero) {
         this.numero = numero;
         this.numero = this.numero.toString();
@@ -379,8 +384,27 @@ const comprobar = async () => {
         this.already_validated = false;
       }
 
-      RucValidatorEc.prototype.validate = function() {
-        var digito_verificador, i, modulo, multiplicadores, p, producto, productos, provincias, residuo, suma, tercer_digito, verificador, _i, _j, _k, _l, _len, _len1, _ref, _ref1;
+      RucValidatorEc.prototype.validate = function () {
+        var digito_verificador,
+          i,
+          modulo,
+          multiplicadores,
+          p,
+          producto,
+          productos,
+          provincias,
+          residuo,
+          suma,
+          tercer_digito,
+          verificador,
+          _i,
+          _j,
+          _k,
+          _l,
+          _len,
+          _len1,
+          _ref,
+          _ref1;
         if ((_ref = this.numero.length) !== 10 && _ref !== 13) {
           this.valid = false;
           throw new Error("Longitud incorrecta.");
@@ -448,7 +472,9 @@ const comprobar = async () => {
         digito_verificador = residuo === 0 ? 0 : modulo - residuo;
         if (tercer_digito === 6) {
           if (this.numero.substr(9, 4) !== "0001") {
-            throw new Error("RUC de empresa del sector público debe terminar en 0001");
+            throw new Error(
+              "RUC de empresa del sector público debe terminar en 0001"
+            );
           }
           this.valid = digito_verificador === verificador;
         }
@@ -467,7 +493,7 @@ const comprobar = async () => {
         return this;
       };
 
-      RucValidatorEc.prototype.isValid = function() {
+      RucValidatorEc.prototype.isValid = function () {
         if (!this.already_validated) {
           this.validate();
         }
@@ -475,22 +501,28 @@ const comprobar = async () => {
       };
 
       return RucValidatorEc;
-
     })();
-    jQueryRucValidatorEc = (function() {
+    jQueryRucValidatorEc = (function () {
       function jQueryRucValidatorEc($node, options) {
         this.$node = $node;
         this.options = options;
         this.validateContent = __bind(this.validateContent, this);
-        this.options = $.extend({}, $.fn.validarCedulaEC.defaults, this.options);
+        this.options = $.extend(
+          {},
+          $.fn.validarCedulaEC.defaults,
+          this.options
+        );
         this.$node.on(this.options.events, this.validateContent);
       }
 
-      jQueryRucValidatorEc.prototype.validateContent = function() {
+      jQueryRucValidatorEc.prototype.validateContent = function () {
         var check, error, numero_de_cedula, _ref;
         numero_de_cedula = this.$node.val().toString();
         check = this.options.strict;
-        if (!check && ((_ref = numero_de_cedula.length) === 10 || _ref === 13)) {
+        if (
+          !check &&
+          ((_ref = numero_de_cedula.length) === 10 || _ref === 13)
+        ) {
           check = true;
         }
         if (check) {
@@ -512,29 +544,27 @@ const comprobar = async () => {
       };
 
       return jQueryRucValidatorEc;
-
     })();
-    $.fn.validarCedulaEC = function(options) {
-      this.each(function() {
+    $.fn.validarCedulaEC = function (options) {
+      this.each(function () {
         return new jQueryRucValidatorEc($(this), options);
       });
       return this;
     };
     $.fn.validarCedulaEC.RucValidatorEc = RucValidatorEc;
-    return $.fn.validarCedulaEC.defaults = {
+    return ($.fn.validarCedulaEC.defaults = {
       strict: true,
       events: "change",
       the_classes: "invalid",
-      onValid: function() {
+      onValid: function () {
         return null;
       },
-      onInvalid: function() {
+      onInvalid: function () {
         return null;
-      }
-    };
+      },
+    });
   })(jQuery);
-
-}).call(this);
+}.call(this));
 
 $("#cedula").validarCedulaEC({
   events: "keyup",
@@ -552,6 +582,6 @@ $("#cedula").validarCedulaEC({
 
 const logout = document.querySelector(".logout");
 logout.addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
-})
+  localStorage.clear();
+  window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
+});

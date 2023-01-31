@@ -172,6 +172,7 @@ function reporteFechas(){
             total += Number(item.totalPago);
            /// datagrafica.push({x: item.fecha, totalPago: item.totalPago});
             fechas_compras.push(item.fecha);
+            myChart.update();  
         });
         //convertir el total a formato de moneda USD
         total = total.toLocaleString("en-US", {
@@ -203,7 +204,7 @@ function reporteFechas(){
     console.log(datagrafica); 
     console.log(destinos);
     //myChart.data.datasets[0].data = datagrafica;
-    myChart.update();   
+     
     //mygraf.update();
     
 }

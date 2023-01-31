@@ -211,3 +211,29 @@ const ctx = document.getElementById('reportes').getContext('2d');
         }
 });
 
+function reporteRuta(){
+
+    const origen = document.getElementById("origen");
+    const destino = document.getElementById("destino");
+    console.log(origen.value);
+    console.log(destino.value);
+    //buscar las compras que coicidan con el origen y destino
+    database.from("compras").eq("origen",origen.value).eq("destino",destino.value)
+    .then((response)=>{
+        console.log(response.data);
+        let total = 0;
+        let contador = 0;
+        response.data.forEach((item) => {
+            contador++;
+            total += Number(item.totalPago);
+        });
+        //convertir el total a formato de moneda USD
+        total = total.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+        });
+        ventas.innerHTML = total;
+        boletos.innerHTML = contador;
+    })
+   
+}

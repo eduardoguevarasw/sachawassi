@@ -166,7 +166,6 @@ if(asiento.classList.contains("seat-ocupado")){
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
         <label class="form-check-label" for="inlineRadio2">Pasaporte</label>
         </div>
-        <label>Cédula o Pasaporte</label>
         <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Indentificación" required/><br>
         <label>Nombre</label>
         <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Nombre"><br>

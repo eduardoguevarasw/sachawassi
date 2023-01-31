@@ -158,8 +158,14 @@ if(asiento.classList.contains("seat-ocupado")){
     <div class="card">
         <div class="card-body">
         <h5 class="card-title">Asiento ${id}</h5>
-        <input type="radio" class="form-control" id="identificacion" name="identificacion" value="Cedula" checked>
-        <input type="radio"  class="form-control" id="identificacion" name="identificacion" value="Pasaporte">
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label" for="inlineRadio1">Cédula</label>
+        </div>
+        <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+        <label class="form-check-label" for="inlineRadio2">Pasaporte</label>
+        </div>
         <label>Cédula o Pasaporte</label>
         <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Indentificación" required/><br>
         <label>Nombre</label>

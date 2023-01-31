@@ -698,14 +698,44 @@ paypal
           let compra = JSON.parse(localStorage.getItem("compra"));
           let correo = localStorage.getItem("correo");
           let body = `
-          <h1>Compra de boletos Sacha Wassi</h1>
-          <h2>Detalles de la compra</h2>
-          <p>Fecha: ${compra.fecha}</p>
-          <p>Destino: ${compra.destino}</p>
-          <p>Bote: ${compra.bote_asignado}</p>
-          <p>No de Asiento: ${compra.asientosArray}</p>
-          <p>Nombres y apellidos: ${compra.nombresyapellidos}</p>
-          <p>Total: ${compra.totalPago}</p>
+          <table style="undefined;table-layout: fixed; width: 750px">
+<colgroup>
+<col style="width: 212px">
+<col style="width: 236px">
+<col style="width: 302px">
+</colgroup>
+<thead>
+  <tr>
+    <th>SACHAWASSI</th>
+    <th colspan="2">SISTEMA DE COMPRA DE COMPRA DE PASAJES ONLINE</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Embarcación</td>
+    <td>Fecha</td>
+    <td>Destino</td>
+  </tr>
+  <tr>
+    <td>${compra.bote_asignado}</td>
+    <td>${compra.fecha}</td>
+    <td>${compra.destino}</td>
+  </tr>
+  <tr>
+    <td>Datos del Pasajero</td>
+    <td colspan="2">${compra.nombresyapellidos}</td>
+  </tr>
+  <tr>
+    <td>Número de Asientos</td>
+    <td colspan="2">${compra.asientosArray}</td>
+  </tr>
+  <tr>
+    <td>Hora de Salida</td>
+    <td>${compra.hora}</td>
+    <td>Total: ${compra.totalPago}</td>
+  </tr>
+</tbody>
+</table>
           `
           Email.send({
           SecureToken : "57189a0f-872e-468f-848a-fd3186d3e85d",

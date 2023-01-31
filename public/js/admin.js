@@ -41,6 +41,50 @@ logout.addEventListener("click", () => {
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
+//obtener datos de la base de datos para el select
+const origen = document.getElementById("origen");
+const destino = document.getElementById("destino");
+function getDestinos(){
+    database.from('rutas').select("destino").then(({ data, error }) => {
+        //guara los destinos en un array para no repetir
+        let destinos = [];
+        if (error) {
+            console.log('error', error)
+        }else{
+            for (let i = 0; i < data.length; i++) {
+                destinos.push(data[i].destino);
+            }
+            //eliminar los destinos repetidos
+            let destinosUnicos = [...new Set(destinos)];
+            console.log(destinosUnicos);
+            let destino = document.getElementById("destino");
+            for (let i = 0; i < destinosUnicos.length; i++) {
+                destino.innerHTML += `<option value="${destinosUnicos[i]}">${destinosUnicos[i]}</option>`;
+            }
+        }
+    })
+
+    database.from('rutas').select("origen").then(({ data, error }) => {
+        //guara los destinos en un array para no repetir
+        let origenes = [];
+        if (error) {
+            console.log('error', error)
+        }else{
+            for (let i = 0; i < data.length; i++) {
+                origenes.push(data[i].origen);
+            }
+            //eliminar los destinos repetidos
+            let origenesUnicos = [...new Set(origenes)];
+            console.log(origenesUnicos);
+            let origen = document.getElementById("origen");
+            for (let i = 0; i < origenesUnicos.length; i++) {
+                origen.innerHTML += `<option value="${origenesUnicos[i]}">${origenesUnicos[i]}</option>`;
+            }
+        }
+    })
+
+}
+getDestinos();
 
 
 const boletos = document.getElementById("boletosvendidos");
@@ -104,7 +148,6 @@ ganancias();
 //obtener fecha de inicio 
 let datagrafica =[];
 let destinos = [];
-let botes = [];
 
 function reporteFechas(){
     //datagrafica = [];
@@ -113,6 +156,7 @@ function reporteFechas(){
     
     //console.log(fechaInicio.value);
     //console.log(fechaFin.value);
+    let fechas_compras = [];
     database
     .from("compras")
     .select("*")
@@ -126,8 +170,8 @@ function reporteFechas(){
         response.data.forEach((item) => {
             contador++;
             total += Number(item.totalPago);
-            datagrafica.push({x: item.fecha, totalPago: item.totalPago});
-            myChart.update();  
+           /// datagrafica.push({x: item.fecha, totalPago: item.totalPago});
+            fechas_compras.push(item.fecha);
         });
         //convertir el total a formato de moneda USD
         total = total.toLocaleString("en-US", {
@@ -155,22 +199,22 @@ function reporteFechas(){
         boletos.innerHTML = contador;
         
         
-        
     })    
-
-     
-    
-   
+    console.log(datagrafica); 
+    console.log(destinos);
+    //myChart.data.datasets[0].data = datagrafica;
+    myChart.update();   
+    //mygraf.update();
     
 }
 
 const ctx = document.getElementById('reportes').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
 
             datasets: [{
-              label: 'Ventas',
+              label: 'ventas',
               data: datagrafica,
               parsing: {
                 yAxisKey: 'totalPago'
@@ -187,6 +231,30 @@ const ctx = document.getElementById('reportes').getContext('2d');
             }
         }
 });
+
+/*const graf = document.getElementById('reportes2').getContext('2d');
+    const mygraf = new Chart(graf, {
+        type: 'bar',
+        data: {
+
+            datasets: [{
+              label: 'destinos',
+              data: destinos,
+              parsing: {
+                yAxisKey: 'total'
+              }
+              
+            },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});*/
 
 function reporteRuta(){
 

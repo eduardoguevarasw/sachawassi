@@ -147,7 +147,7 @@ ganancias();
 
 //obtener fecha de inicio 
 let datagrafica =[];
-let destinos = [];
+
 
 function reporteFechas(){
     //datagrafica = [];
@@ -172,7 +172,6 @@ function reporteFechas(){
             total += Number(item.totalPago);
            /// datagrafica.push({x: item.fecha, totalPago: item.totalPago});
             fechas_compras.push(item.fecha);
-            myChart.update();  
         });
         //convertir el total a formato de moneda USD
         total = total.toLocaleString("en-US", {
@@ -193,7 +192,7 @@ function reporteFechas(){
             datagrafica.push({x: fechas[i], totalPago: totalFecha});
         }
         console.log(datagrafica);
-        
+
         
 
         ventas.innerHTML = total;
@@ -204,7 +203,7 @@ function reporteFechas(){
     console.log(datagrafica); 
     console.log(destinos);
     //myChart.data.datasets[0].data = datagrafica;
-     
+    myChart.update();   
     //mygraf.update();
     
 }
@@ -233,13 +232,68 @@ const ctx = document.getElementById('reportes').getContext('2d');
         }
 });
 
-/*const graf = document.getElementById('reportes2').getContext('2d');
+
+
+/*;*/
+
+let destinos = [];
+
+function reporteRuta(){
+
+    const origen = document.getElementById("origen").value;
+    const destino = document.getElementById("destino").value;
+    console.log(origen);
+    console.log(destino);
+    //buscar las compras que coicidan con el origen y destino
+    let destinos_compras = [];
+    database
+    .from("compras")
+    .select("*")
+    .eq("origen", origen)
+    .eq("destino", destino)
+    .then((response) => {
+        console.log("data", response.data);
+        let total = 0;
+        let contador = 0;
+        response.data.forEach((item) => {
+            contador++;
+            total += Number(item.totalPago);
+            destinos_compras.push(item.destino);
+        });
+        //convertir el total a formato de moneda USD
+        total = total.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+        });
+
+        //por cada destino en destinos sumar los totales
+        let llegadas = [...new Set(destinos_compras)];
+        console.log(llegadas);
+        for (let i = 0; i < llegadas.length; i++) {
+            let totalLlegada = 0;
+            for (let j = 0; j < response.data.length; j++) {
+                if (llegadas[i] == response.data[j].destino) {
+                    totalLlegada += Number(response.data[j].totalPago);
+                }
+            }
+            destinos.push({x: llegadas[i], total: totalLlegada});
+        }
+        ventas.innerHTML = total;
+        boletos.innerHTML = contador;
+    })
+
+    mygraf.update();
+    console.log("destino");
+    console.log(destinos);
+}
+
+const graf = document.getElementById('reportesRuta').getContext('2d');
     const mygraf = new Chart(graf, {
         type: 'bar',
         data: {
 
             datasets: [{
-              label: 'destinos',
+              label: 'Ventas',
               data: destinos,
               parsing: {
                 yAxisKey: 'total'
@@ -255,34 +309,63 @@ const ctx = document.getElementById('reportes').getContext('2d');
                 }
             }
         }
-});*/
+})
 
-function reporteRuta(){
+let vector1=[];
 
-    const origen = document.getElementById("origen").value;
-    const destino = document.getElementById("destino").value;
-    console.log(origen);
-    console.log(destino);
-    //buscar las compras que coicidan con el origen y destino
+
+function destinosComprados(){
     database
     .from("compras")
     .select("*")
-    .eq("origen", origen)
-    .eq("destino", destino)
     .then((response) => {
-        console.log("data", response.data);
-        let total = 0;
         let contador = 0;
+        let vector2 = [];
         response.data.forEach((item) => {
             contador++;
-            total += Number(item.totalPago);
+            vector2.push(item.destino);
         });
-        //convertir el total a formato de moneda USD
-        total = total.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-        });
-        ventas.innerHTML = total;
-        boletos.innerHTML = contador;
+
+        let llegadas = [...new Set(vector2)];
+        console.log(llegadas);
+        for (let i = 0; i < llegadas.length; i++) {
+            let totalLlegada = 0;
+            for (let j = 0; j < response.data.length; j++) {
+                if (llegadas[i] == response.data[j].destino) {
+                    totalLlegada++;
+                }
+            }
+            vector1.push({x: llegadas[i], total: totalLlegada});
+            console.log(vector1);
+        }
+        
     })
+    mydestin.update();
+    console.log("Destinos");
+    console.log(vector1);
 }
+
+
+const destin = document.getElementById('reportesDestino').getContext('2d');
+    const mydestin = new Chart(destin, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Destinos',
+                data: vector1,
+                parsing: {
+                    yAxisKey: 'total'
+                }
+            }]
+            
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+

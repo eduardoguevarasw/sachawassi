@@ -135,44 +135,21 @@ function reporteFechas(){
             currency: "USD",
         });
         
-        //guardar en una matriz los destinos sin repetir y cuantas veces se repite
-       let couter=0;
-        response.data.forEach((item) => {
-            let existe = false;
-            for(let i = 0; i < destinos.length; i++){
-                if(destinos[i].x === item.destino){
-                    existe = true;
-                    couter++;
-                    destinos[i].total = couter;
-                    break;
+        //por cada fecha en fechas_compras sumar los totales
+        let fechas = [...new Set(fechas_compras)];
+        console.log(fechas);
+        for (let i = 0; i < fechas.length; i++) {
+            let totalFecha = 0;
+            for (let j = 0; j < response.data.length; j++) {
+                if (fechas[i] == response.data[j].fecha) {
+                    totalFecha += Number(response.data[j].totalPago);
                 }
-                
             }
-            
-            if(!existe){
-                destinos.push({x: item.destino, total: couter});
-            }
-            mygraf.update();
-        });
-        //guardar en una matriz los botes sin repetir y cuantas veces se repite
-        let couter2=0;
-        response.data.forEach((item) => {
-            let existe = false;
-            for(let i = 0; i < botes.length; i++){
-                if(botes[i].x === item.bote_asignado){
-                    existe = true;
-                    couter2++;
-                    botes[i].total = couter2;
-                    break;
-                }
-                
-            }
-            
-            if(!existe){
-                botes.push({x: item.bote_asignado, total: couter2});
-            }
-            mygraf2.update();
-        });
+            datagrafica.push({x: fechas[i], totalPago: totalFecha});
+        }
+        console.log(datagrafica);
+        
+        
 
         ventas.innerHTML = total;
         boletos.innerHTML = contador;

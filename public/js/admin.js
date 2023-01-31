@@ -41,50 +41,6 @@ logout.addEventListener("click", () => {
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
-//obtener datos de la base de datos para el select
-const origen = document.getElementById("origen");
-const destino = document.getElementById("destino");
-function getDestinos(){
-    database.from('rutas').select("destino").then(({ data, error }) => {
-        //guara los destinos en un array para no repetir
-        let destinos = [];
-        if (error) {
-            console.log('error', error)
-        }else{
-            for (let i = 0; i < data.length; i++) {
-                destinos.push(data[i].destino);
-            }
-            //eliminar los destinos repetidos
-            let destinosUnicos = [...new Set(destinos)];
-            console.log(destinosUnicos);
-            let destino = document.getElementById("destino");
-            for (let i = 0; i < destinosUnicos.length; i++) {
-                destino.innerHTML += `<option value="${destinosUnicos[i]}">${destinosUnicos[i]}</option>`;
-            }
-        }
-    })
-
-    database.from('rutas').select("origen").then(({ data, error }) => {
-        //guara los destinos en un array para no repetir
-        let origenes = [];
-        if (error) {
-            console.log('error', error)
-        }else{
-            for (let i = 0; i < data.length; i++) {
-                origenes.push(data[i].origen);
-            }
-            //eliminar los destinos repetidos
-            let origenesUnicos = [...new Set(origenes)];
-            console.log(origenesUnicos);
-            let origen = document.getElementById("origen");
-            for (let i = 0; i < origenesUnicos.length; i++) {
-                origen.innerHTML += `<option value="${origenesUnicos[i]}">${origenesUnicos[i]}</option>`;
-            }
-        }
-    })
-
-}
-getDestinos();
 
 
 const boletos = document.getElementById("boletosvendidos");
@@ -148,6 +104,7 @@ ganancias();
 //obtener fecha de inicio 
 let datagrafica =[];
 let destinos = [];
+let botes = [];
 
 function reporteFechas(){
     //datagrafica = [];
@@ -170,7 +127,7 @@ function reporteFechas(){
             contador++;
             total += Number(item.totalPago);
             datagrafica.push({x: item.fecha, totalPago: item.totalPago});
-
+            myChart.update();  
         });
         //convertir el total a formato de moneda USD
         total = total.toLocaleString("en-US", {
@@ -195,17 +152,38 @@ function reporteFechas(){
             if(!existe){
                 destinos.push({x: item.destino, total: couter});
             }
+            mygraf.update();
         });
+        //guardar en una matriz los botes sin repetir y cuantas veces se repite
+        let couter2=0;
+        response.data.forEach((item) => {
+            let existe = false;
+            for(let i = 0; i < botes.length; i++){
+                if(botes[i].x === item.bote_asignado){
+                    existe = true;
+                    couter2++;
+                    botes[i].total = couter2;
+                    break;
+                }
+                
+            }
+            
+            if(!existe){
+                botes.push({x: item.bote_asignado, total: couter2});
+            }
+            mygraf2.update();
+        });
+
         ventas.innerHTML = total;
         boletos.innerHTML = contador;
         
         
+        
     })    
-    console.log(datagrafica); 
-    console.log(destinos);
-    //myChart.data.datasets[0].data = datagrafica;
-    myChart.update();   
-    //mygraf.update();
+
+     
+    
+   
     
 }
 
@@ -215,7 +193,7 @@ const ctx = document.getElementById('reportes').getContext('2d');
         data: {
 
             datasets: [{
-              label: 'ventas',
+              label: 'Ventas',
               data: datagrafica,
               parsing: {
                 yAxisKey: 'totalPago'
@@ -233,72 +211,3 @@ const ctx = document.getElementById('reportes').getContext('2d');
         }
 });
 
-/*const graf = document.getElementById('reportes2').getContext('2d');
-    const mygraf = new Chart(graf, {
-        type: 'bar',
-        data: {
-
-            datasets: [{
-              label: 'destinos',
-              data: destinos,
-              parsing: {
-                yAxisKey: 'total'
-              }
-              
-            },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-});*/
-
-function reporteRuta(){
-
-    const origen = document.getElementById("origen");
-    const destino = document.getElementById("destino");
-    console.log(origen.value);
-    console.log(destino.value);
-    //buscar en rutas el id de la ruta que coincida con origen y destino
-    database
-    .from("rutas")
-    .select("*")
-    .eq("origen", origen.value)
-    .eq("destino", destino.value)
-    .then((response) => {
-        console.log("data", response.data); 
-        //buscar en compras los boletos vendidos de esa ruta
-        let idRuta =[];
-        response.data.forEach((item) => {
-            idRuta.push(item.id);
-        });  
-        console.log(idRuta);
-        //buscar en compras los boletos vendidos de esas rutas
-        idRuta.forEach((item) => {
-            database
-            .from("compras")
-            .select("*")
-            .eq("idRuta", item)
-            .then((response) => {
-                console.log("data", response.data);
-                let total = 0;
-                let contador = 0;
-                response.data.forEach((item) => {
-                    contador++;
-                    total += Number(item.totalPago);
-                });
-                //convertir el total a formato de moneda USD
-                total = total.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                });
-                ventas.innerHTML = total;
-                boletos.innerHTML = contador;
-            })
-        });
-    })
-}

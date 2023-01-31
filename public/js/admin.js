@@ -213,14 +213,18 @@ const ctx = document.getElementById('reportes').getContext('2d');
 
 function reporteRuta(){
 
-    const origen = document.getElementById("origen");
-    const destino = document.getElementById("destino");
-    console.log(origen.value);
-    console.log(destino.value);
+    const origen = document.getElementById("origen").value;
+    const destino = document.getElementById("destino").value;
+    console.log(origen);
+    console.log(destino);
     //buscar las compras que coicidan con el origen y destino
-    database.from("compras").eq("origen",origen.value).eq("destino",destino.value)
-    .then((response)=>{
-        console.log(response.data);
+    database
+    .from("compras")
+    .select("*")
+    .eq("origen", origen)
+    .eq("destino", destino)
+    .then((response) => {
+        console.log("data", response.data);
         let total = 0;
         let contador = 0;
         response.data.forEach((item) => {
@@ -235,5 +239,4 @@ function reporteRuta(){
         ventas.innerHTML = total;
         boletos.innerHTML = contador;
     })
-   
 }

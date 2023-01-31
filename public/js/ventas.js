@@ -50,8 +50,8 @@ const checkAsiento = async () => {
     if (resp2.data[i].fecha == fecha && resp2.data[i].bote_asignado == bote) {
       let asiento = resp2.data[i].asientosArray;
       let seat = document.getElementById(asiento);
-      //seat.classList.remove("seat");
-      //seat.classList.add("seat-ocupado");
+      seat.classList.remove("seat");
+      seat.classList.add("seat-ocupado");
     }
   }
 };

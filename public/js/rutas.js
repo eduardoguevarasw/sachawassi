@@ -398,6 +398,7 @@ const editBote = async (id) => {
   document.getElementById("destino").value = res.data[0].destino;
   document.getElementById("precio").value = res.data[0].precio;
   document.getElementById("hora").value = res.data[0].hora;
+  document.getElementById("llegada").value = res.data[0].llegada;
   document.getElementById("bote_asignado").value = res.data[0].bote_asignado;
   document.getElementById("estado").value = res.data[0].estado;
   let dias = res.data[0].dias_disponible;

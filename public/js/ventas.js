@@ -396,7 +396,7 @@ const comprobar = async () => {
     ticket.setFontSize(17);
     ticket.text(1, 2.5, "**********************");
     ticket.setFontSize(9);
-    ticket.text(1, 3, "Cédula: " + compra.cedula);
+    ticket.text(1, 3, "C.I/Passport: " + compra.cedula);
     ticket.text(1, 3.5, "Nombres: " + compra.nombresyapellidos);
     ticket.text(1, 4, "Fecha de Salida: " + compra.fecha);
     ticket.setFontSize(9);
@@ -415,7 +415,7 @@ const comprobar = async () => {
     let fechaActual = dia + "/" + mes + "/" + anio;
     ticket.text(1, 8.5, "Fecha de Emisión: " + fechaActual);
     ticket.text(1, 9, "Gracias por su compra");
-    ticket.text(1, 9.5, "Transacción: " + compra.tx);
+    ticket.text(1, 9.5, "Transacción: " + compra.tx[0]);
     ticket.setFontSize(9);
     ticket.text(1.3, 10, "Ahora puedes comprar en línea:");
     ticket.text(2, 10.5, "www.sachawassi.com");

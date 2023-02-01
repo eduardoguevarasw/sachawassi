@@ -401,7 +401,7 @@ const comprobar = async () => {
     ticket.text(1, 4, "Fecha de Salida: " + compra.fecha);
     ticket.setFontSize(9);
     ticket.text(1, 4.5, "Destino: " + compra.destino);
-    ticket.text(1, 5, "Asientos: " + compra.asientosArray);
+    ticket.text(1, 5, "No de Asiento: " + compra.asientosArray);
     ticket.text(1, 5.5, "Embarcación:"+compra.bote_asignado);
     ticket.setFontSize(20);
     ticket.text(1, 7, "Total:$ " + compra.totalPago);

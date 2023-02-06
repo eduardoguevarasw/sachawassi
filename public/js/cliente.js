@@ -495,6 +495,7 @@ const comprobar = async () => {
       asientosArray: compra.asientosArray,
       nombresyapellidos: compra.nombresyapellidos,
       fecha: compra.fecha,
+      origen: compra.origen,
       destino: compra.destino,
       idUsuario: compra.idUsuario,
       totalPago: compra.totalPago,

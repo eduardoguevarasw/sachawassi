@@ -212,7 +212,7 @@ if(asiento.classList.contains("seat-ocupado")){
 const continuar = async () => {
   //comprobar que todos los campos esten llenos
   if (
-    document.getElementById("indentificacion").value == "" ||
+    document.getElementById("identificacion").value == "" ||
     document.getElementById("nombre").value == "" ||
     document.getElementById("apellido").value == ""
   ) {
@@ -221,7 +221,7 @@ const continuar = async () => {
     //si esta marcado como cedula continuar 
     let tipoDNI = document.getElementById("tipoDNI").value;
     if (tipoDNI == "cedula") {
-    let cedulas = document.getElementsByName("indentificacion");
+    let cedulas = document.getElementsByName("cedula");
     let nombres = document.getElementsByName("nombre");
     let apellidos = document.getElementsByName("apellido");
     //validar las cedulas

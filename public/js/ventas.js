@@ -91,7 +91,7 @@ function seleccionarAsiento(id) {
       <label class="form-check-label" for="inlineRadio2">Pasaporte</label>
       </div>
       <br>
-      <label>Indeficación</label>
+      <label>Indenficación</label>
       <input class="form-control" type="text" id="cedula" name="cedula" placeholder="Ej: 1500XXXXX" required/><br>
       <label>Nombre</label>
       <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Juan"><br>

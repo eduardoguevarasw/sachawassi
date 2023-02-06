@@ -158,14 +158,11 @@ if(asiento.classList.contains("seat-ocupado")){
     <div class="card">
         <div class="card-body">
         <h5 class="card-title">Asiento ${id}</h5>
-        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="cedula" value="option1">
-        <label class="form-check-label" for="inlineRadio1">Cédula</label>
-        </div>
-        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="pasaporte" value="option2">
-        <label class="form-check-label" for="inlineRadio2">Pasaporte</label>
-        </div>
+        <select class="form-control" id="tipoDNI" name="tipoDNI">
+        <option value="cedula">Cédula</option>
+        <option value="pasaporte">Pasaporte</option>
+        <select>
+        <br>
         <input class="form-control" type="text" id="identificacion" name="cedula" placeholder="Indentificación" required/><br>
         <label>Nombre</label>
         <input type="text"  class="form-control" id="nombre" name="nombre" placeholder="Nombre"><br>
@@ -222,8 +219,9 @@ const continuar = async () => {
     alert("Por favor llene todos los campos 💡");
   } else {
     //si esta marcado como cedula continuar 
-    if (document.getElementById("cedula").checked) {
-      let cedulas = document.getElementsByName("indentificacion");
+    let tipoDNI = document.getElementById("tipoDNI").value;
+    if (tipoDNI == "cedula") {
+    let cedulas = document.getElementsByName("indentificacion");
     let nombres = document.getElementsByName("nombre");
     let apellidos = document.getElementsByName("apellido");
     //validar las cedulas
@@ -313,7 +311,7 @@ const continuar = async () => {
         alert("La cedula:" + cedula + " no tiene los 10 digitos ❌")
         return false;
       }
-    });
+      });
     }else{
       //guardar los datos de la compra
             let cedulas = document.getElementsByName("identificacion");

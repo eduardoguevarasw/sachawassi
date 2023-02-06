@@ -455,6 +455,11 @@ const comprobar = async () => {
   let fecha = compra.fecha;
   let destino = compra.destino;
   let bote_asignado = compra.bote_asignado;
+  console.log(asientos);
+  console.log(fecha);
+  console.log(destino);
+  console.log(bote_asignado);
+
   //buscar en la base de datos
   let resp = await database.from("compras").select("*").eq("fecha", fecha).eq("destino", destino).eq("bote_asignado", bote_asignado);
   console.log(asientos);

@@ -507,6 +507,7 @@ const comprobar = async () => {
           asientosArray: datos.asientosArray[i],
           nombresyapellidos: datos.nombresyapellidos[i],
           fecha: datos.fecha,
+          origen: datos.origen,
           destino: datos.destino,
           idUsuario: datos.idUsuario,
           totalPago: datos.totalPago,

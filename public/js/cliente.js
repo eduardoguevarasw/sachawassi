@@ -315,7 +315,7 @@ const continuar = async () => {
     }else{
       if(tipoDNI == "pasaporte"){
       //guardar los datos de la compra
-            let cedulas = document.getElementsByName("identificacion");
+            let cedulas = document.getElementsByName("cedula");
             let nombres = document.getElementsByName("nombre");
             let apellidos = document.getElementsByName("apellido");
             let asiento = document.querySelectorAll(".seat-selected");

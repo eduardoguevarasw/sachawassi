@@ -313,6 +313,7 @@ const continuar = async () => {
       }
       });
     }else{
+      if(tipoDNI == "pasaporte"){
       //guardar los datos de la compra
             let cedulas = document.getElementsByName("identificacion");
             let nombres = document.getElementsByName("nombre");
@@ -367,6 +368,7 @@ const continuar = async () => {
             localStorage.setItem("compra", JSON.stringify(compra));
             //comprobar que no exista asientos repetidos
             comprobar();
+          }
 
     }
   }

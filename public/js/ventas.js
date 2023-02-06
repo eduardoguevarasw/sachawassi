@@ -396,7 +396,7 @@ const comprobar = async () => {
     ticket.setFontSize(17);
     ticket.text(1, 2.5, "**********************");
     ticket.setFontSize(9);
-    ticket.text(1, 3, "C.I/Passport: " + compra.cedula);
+    ticket.text(1, 3, "C.I/Pasaporte: " + compra.cedula);
     ticket.text(1, 3.5, "Nombres: " + compra.nombresyapellidos);
     ticket.text(1, 4, "Fecha de Salida: " + compra.fecha);
     ticket.setFontSize(9);

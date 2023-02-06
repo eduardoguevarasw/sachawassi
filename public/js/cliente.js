@@ -313,6 +313,7 @@ const continuar = async () => {
       }
       });
     }else{
+      let tipoDNI = document.getElementById("tipoDNI").value;
       if(tipoDNI == "pasaporte"){
       //guardar los datos de la compra
             let cedulas = document.getElementsByName("cedula");

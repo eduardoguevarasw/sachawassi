@@ -8,6 +8,19 @@ const minValue = new Date();
 minValue.setDate(minValue.getDate());
 document.getElementById('checkin').min = minValue.toISOString().split("T")[0]
 
+let selectpais = document.getElementById('pais');
+//obtener los paises de rest countries 
+fetch('https://restcountries.eu/rest/v2/all')
+.then(response => response.json())
+.then(data => {
+    data.forEach(element => {
+        let option = document.createElement('option');
+        option.value = element.name;
+        option.innerHTML = element.name;
+        selectpais.appendChild(option);
+    });
+})
+
 function reservar(){
      //guardar en la base de datos
      const nombre = document.getElementById('nombre').value;

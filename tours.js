@@ -10,7 +10,7 @@ document.getElementById('checkin').min = minValue.toISOString().split("T")[0]
 
 let selectpais = document.getElementById('pais');
 //obtener los paises de rest countries 
-fetch('https://restcountries.eu/rest/v2/all')
+fetch('https://restcountries.com/v3.1/all')
 .then(response => response.json())
 .then(data => {
     data.forEach(element => {

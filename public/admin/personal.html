@@ -115,7 +115,7 @@
             <div class="box box1">
             </div>
             <div class="box box2">
-              <i class="uil uil-map-marker"></i>
+              <i class="uil uil-users"></i>
               <span class="text">Personal Administrativo</span>
               <br />
               <p>Cédula</p>
@@ -130,14 +130,14 @@
                 type="text"
                 id="nombre"
                 class="form-control"
-                placeholder=""
+                placeholder="Jose"
               />
               <p>Apellidos</p>
               <input
                 type="text"
                 id="apellido"
                 class="form-control"
-                placeholder=""
+                placeholder="Perez"
               />
               <p>Contraseña</p>
               <input
@@ -155,13 +155,13 @@
               />
               <br />
               <br />
-              <p>Estado</p>
-              <select class="form-control" id="estado">
-                <option value="disponible">Disponible</option>
-                <option value="no disponible">No Disponible</option>
+              <p>Rol</p>
+              <select class="form-control" id="rol">
+                <option value="admin">Administrador</option>
+                <option value="vendor">Vendedor</option>
               </select>
               <br />
-              <button type="button" class="btnGuardar" onclick="registrarCiudad()" id="saveBote" >
+              <button type="button" class="btnGuardar" onclick="registrarPersonal()" id="saveBote" >
                 Registrar
               </button>
               <button type="button" hidden onclick="editCiudad()" class="btnEdit" id="updateBote" >

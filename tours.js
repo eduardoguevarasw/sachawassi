@@ -13,10 +13,11 @@ let selectpais = document.getElementById('pais');
 fetch('https://restcountries.com/v3.1/all')
 .then(response => response.json())
 .then(data => {
+    //console.log(data);
     data.forEach(element => {
         let option = document.createElement('option');
-        option.value = element.name;
-        option.innerHTML = element.name;
+        option.value = element.name.common;
+        option.innerHTML = element.name.common;
         selectpais.appendChild(option);
     });
 })

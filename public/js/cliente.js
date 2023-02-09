@@ -678,7 +678,7 @@ function eliminartx(){
   }
 }
 
-/*
+
 paypal
   .Buttons({
     // Sets up the transaction when a payment button is clicked
@@ -786,7 +786,6 @@ paypal
 //en caso de rechazo
 //cerrar sesion si hizo click 
 
-*/
 
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", () => {

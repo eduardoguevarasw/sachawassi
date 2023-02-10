@@ -30,4 +30,25 @@ logout.addEventListener("click", () => {
     document.getElementById("correo").value = data[0].correo;
   })
  }
-  obteneruser();
+obteneruser();
+
+//funcion para actualizar datos
+function actualizar(){
+  //obtener la cedula de localstore
+  let dni = localStorage.getItem("cedula");
+  console.log(dni);
+  //buscar con el dni en la base de datos
+  database
+  .from('clientes')
+  .select('*')
+  .eq('cedula', dni)
+  .then(({ data, error }) => {
+    console.log(data)
+    console.log(error)
+    document.getElementById("cedula").value = data[0].cedula;
+    document.getElementById("nombres").value = data[0].nombres;
+    document.getElementById("apellidos").value = data[0].apellidos;
+    document.getElementById("correo").value = data[0].correo;
+  })
+
+};

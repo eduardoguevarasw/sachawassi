@@ -158,6 +158,7 @@ document.getElementById("registrar").addEventListener(
                       let idRuta = localStorage.getItem("idRuta");
                       if (idRuta != null) {
                         setTimeout(function () {
+                          localStorage.setItem("sesion", true);
                           window.location.href =
                             "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
                         }, 5000);
@@ -218,6 +219,7 @@ document.getElementById("ingresar").addEventListener(
           let idRuta = localStorage.getItem("idRuta");
           if (idRuta != null) {
             setTimeout(function () {
+              localStorage.setItem("sesion", true);
               window.location.href =
                 "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
             }, 5000);

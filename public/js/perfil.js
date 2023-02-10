@@ -37,18 +37,23 @@ function actualizar(){
   //obtener la cedula de localstore
   let dni = localStorage.getItem("cedula");
   console.log(dni);
-  //buscar con el dni en la base de datos
+  //obtener los nuevos datos 
+  let cedula = document.getElementById("cedula").value;
+  let nombres = document.getElementById("nombres").value;
+  let apellidos = document.getElementById("apellidos").value;
+  let correo = document.getElementById("correo").value;
+  //actualizar los datos
   database
   .from('clientes')
-  .select('*')
+  .update({ cedula: cedula, nombres: nombres, apellidos: apellidos, correo: correo })
   .eq('cedula', dni)
   .then(({ data, error }) => {
-    console.log(data)
-    console.log(error)
-    document.getElementById("cedula").value = data[0].cedula;
-    document.getElementById("nombres").value = data[0].nombres;
-    document.getElementById("apellidos").value = data[0].apellidos;
-    document.getElementById("correo").value = data[0].correo;
+    if(error){
+      console.log(error);
+    }else{
+      alert("Datos actualizados correctamente ✅");
+      window.location.href = "https://eduardoguevarasw.github.io/sachawassi/perfil.html";
+    }
   })
 
 };

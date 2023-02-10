@@ -1,4 +1,5 @@
-const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdmxqendwemljd3lucW1pcnVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2NTU5NjcsImV4cCI6MTk4MzIzMTk2N30.Jj6AQlRlabhEBppjaP9Bw0kBa77HHOBTTLNsy5cv2EY";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdmxqendwemljd3lucW1pcnVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2NTU5NjcsImV4cCI6MTk4MzIzMTk2N30.Jj6AQlRlabhEBppjaP9Bw0kBa77HHOBTTLNsy5cv2EY";
 const url = "https://gfvljzwpzicwynqmirui.supabase.co";
 const database = supabase.createClient(url, key);
 
@@ -15,81 +16,86 @@ sign_in_btn.addEventListener("click", () => {
 });
 
 async function signInWithGoogle() {
-    const { data, error } = await database.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            remember: true,
-            redirectTo: 'https://eduardoguevarasw.github.io/sachawassi/public/client/index.html',
-        }
-      
-     })
-    if (error) {
-        console.log(error)
-    }
-    if (data) {
-      //guardar id del usuario en el local storage
-      localStorage.setItem("cedula", data.user.id);
-      console.log(data.user.id);
-    }
+  const { data, error } = await database.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      remember: true,
+      redirectTo:
+        "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html",
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
+  if (data) {
+    //guardar id del usuario en el local storage
+    localStorage.setItem("cedula", data.user.id);
+    console.log(data.user.id);
+  }
 }
 
-
 //al hacer click en el boton de registrar usuario
-document.getElementById("registrar").addEventListener("click", function(){
-  var result = document.getElementById("result");
-  //verificar que todos los campos estén llenos 
-  if(document.getElementById("nombres").value == "" || document.getElementById("apellidos").value == "" || document.getElementById("identificacion").value == "" || document.getElementById("correo").value == "" || document.getElementById("contrasena1").value == ""){
-    result.innerHTML = "Por favor llene todos los campos 💡";
-    result.style.color = "red";
-    return;
-  }
+document.getElementById("registrar").addEventListener(
+  "click",
+  function () {
+    var result = document.getElementById("result");
+    //verificar que todos los campos estén llenos
+    if (
+      document.getElementById("nombres").value == "" ||
+      document.getElementById("apellidos").value == "" ||
+      document.getElementById("identificacion").value == "" ||
+      document.getElementById("correo").value == "" ||
+      document.getElementById("contrasena1").value == ""
+    ) {
+      result.innerHTML = "Por favor llene todos los campos 💡";
+      result.style.color = "red";
+      return;
+    }
 
-  var nombre = document.getElementById("nombres").value;
-  var apellido = document.getElementById("apellidos").value;
-  //var cedula = document.getElementById("cedula").value;
-  var correo = document.getElementById("correo").value;
-  var contrasena = document.getElementById("contrasena1").value;
-  var securepassword = btoa(contrasena);
-  
-  var pasaporte = document.getElementById("pasaporte").checked;
-  var cedula = document.getElementById("cedula").checked;
-  var identificacion = document.getElementById("identificacion").value;
-  if(pasaporte){
+    var nombre = document.getElementById("nombres").value;
+    var apellido = document.getElementById("apellidos").value;
+    //var cedula = document.getElementById("cedula").value;
+    var correo = document.getElementById("correo").value;
+    var contrasena = document.getElementById("contrasena1").value;
+    var securepassword = btoa(contrasena);
 
-     
-     //guardar en supabase
-     var datos = {
-      nombres: nombre,
-      apellidos: apellido,
-      cedula: identificacion,
-      correo: correo,
-      password: securepassword
-      }
+    var pasaporte = document.getElementById("pasaporte").checked;
+    var cedula = document.getElementById("cedula").checked;
+    var identificacion = document.getElementById("identificacion").value;
+    if (pasaporte) {
+      //guardar en supabase
+      var datos = {
+        nombres: nombre,
+        apellidos: apellido,
+        cedula: identificacion,
+        correo: correo,
+        password: securepassword,
+      };
 
-    result.innerHTML = "Identificación Correcta ✅";
-    result.style.color = "green";
-
-  }else if(cedula){
-
-    var dni = identificacion;
+      result.innerHTML = "Identificación Correcta ✅";
+      result.style.color = "green";
+    } else if (cedula) {
+      var dni = identificacion;
       array = dni.split("");
       num = array.length;
       if (num == 10) {
         total = 0;
-        digito = (array[9] * 1);
-        for (i = 0; i < (num - 1); i++) {
-          mult = 0; if ((i % 2) != 0) { total = total + (array[i] * 1); } else {
-            mult = array[i] * 2; if (mult > 9)
-              total = total + (mult - 9);
-            else
-              total = total + mult;
+        digito = array[9] * 1;
+        for (i = 0; i < num - 1; i++) {
+          mult = 0;
+          if (i % 2 != 0) {
+            total = total + array[i] * 1;
+          } else {
+            mult = array[i] * 2;
+            if (mult > 9) total = total + (mult - 9);
+            else total = total + mult;
           }
         }
         decena = total / 10;
         decena = Math.floor(decena);
         decena = (decena + 1) * 10;
-        final = (decena - total);
-        if ((final == 10 && digito == 0) || (final == digito)) {
+        final = decena - total;
+        if ((final == 10 && digito == 0) || final == digito) {
           result.innerHTML = "Identificación Correcta ✅";
           result.style.color = "green";
           //guardar en supabase
@@ -98,20 +104,22 @@ document.getElementById("registrar").addEventListener("click", function(){
             apellidos: apellido,
             cedula: identificacion,
             correo: correo,
-            password: securepassword
-          }
+            password: securepassword,
+          };
         }
       }
-  }
-     
-  if(result.innerHTML == "Identificación Correcta ✅"){
+    }
 
-        //buscar si ya existe el usuario
-        database.from('clientes').select('*').eq('cedula', identificacion).then(({ data, error }) => {
-          
+    if (result.innerHTML == "Identificación Correcta ✅") {
+      //buscar si ya existe el usuario
+      database
+        .from("clientes")
+        .select("*")
+        .eq("cedula", identificacion)
+        .then(({ data, error }) => {
           console.log(data);
           console.log(error);
-          if(data.length > 0){
+          if (data.length > 0) {
             result.innerHTML = "El usuario ya existe";
             result.style.color = "red";
             //esperar 1 segundo y recargar
@@ -119,82 +127,110 @@ document.getElementById("registrar").addEventListener("click", function(){
             setTimeout(function(){
               window.location.reload();
             }, 1000);*/
-          }else{
+          } else {
             //buscar el correo si existe
-            database.from('clientes').select('*').eq('correo', correo).then(({ data, error }) => {
-              console.log(data);
-              console.log(error);
-              if(data.length > 0){
-                result.innerHTML = "El correo ya existe";
-                result.style.color = "red";
-                //esperar 1 segundo y recargar
-                /*
+            database
+              .from("clientes")
+              .select("*")
+              .eq("correo", correo)
+              .then(({ data, error }) => {
+                console.log(data);
+                console.log(error);
+                if (data.length > 0) {
+                  result.innerHTML = "El correo ya existe";
+                  result.style.color = "red";
+                  //esperar 1 segundo y recargar
+                  /*
                 setTimeout(function(){
                   window.location.reload();
                 }, 1000);*/
-              }else{
-                database.from('clientes').insert([datos]).then((response) => {
-                  console.log(response);
-                  result.innerHTML = "Usuario registrado ✅";
-                  result.style.color = "green";
-                  //esperar 5 segundos y redirigir
-                  localStorage.setItem("cedula", identificacion  );
-                  localStorage.setItem("correo", correo);
-                  window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
-                  //redirigir a inicio de client
-                });
-              }
-            });
+                } else {
+                  database
+                    .from("clientes")
+                    .insert([datos])
+                    .then((response) => {
+                      console.log(response);
+                      result.innerHTML = "Usuario registrado ✅";
+                      result.style.color = "green";
+                      //esperar 5 segundos y redirigir
+                      localStorage.setItem("cedula", identificacion);
+                      localStorage.setItem("correo", correo);
+                      let idRuta = localStorage.getItem("idRuta");
+                      if (idRuta != null) {
+                        setTimeout(function () {
+                          window.location.href =
+                            "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
+                        }, 5000);
+                      } else {
+                        window.location.href =
+                          "https://eduardoguevarasw.github.io/sachawassi";
+                          localStorage.setItem("sesion", true);
+                      }
+                      //redirigir a inicio de client
+                    });
+                }
+              });
           }
         });
-      }else{
-        result.innerHTML = "Por favor verifique su Cédula";
-        result.style.color = "red";
-        //focus en el campo de cedula
-        document.getElementById("cedula").focus();
-      }
-}, false);
+    } else {
+      result.innerHTML = "Por favor verifique su Cédula";
+      result.style.color = "red";
+      //focus en el campo de cedula
+      document.getElementById("cedula").focus();
+    }
+  },
+  false
+);
 
 //iniciar sesión
-document.getElementById("ingresar").addEventListener("click", function(){
-  var correo = document.getElementById("correologin").value;
-  var contrasena = document.getElementById("contrasenalogin").value;
-  var securepassword = btoa(contrasena);
-  var result = document.getElementById("resultado");
-  console.log(correo, securepassword);
-  //login con los datos ingresados
-  database.from('clientes').select('*').eq('correo', correo).eq('password', securepassword).then(({ data, error }) => {
-    if (data.length == 0) {
-      console.log(error);
-      result.innerHTML = "Usuario o contraseña incorrectos";
-      result.style.color = "red";
-      //esperar 1 segundo y recargar
-      setTimeout(function(){
-        window.location.reload();
-      }, 1000);
-    }else{
-      console.log(data);
-      result.innerHTML = "Iniciando sesión...";
-      result.style.color = "green";
-      //guardar id del usuario en el local storage
-      localStorage.setItem("cedula", data[0].cedula);
-      //esperar 5 segundos y redirigir
-      //guardar el correo 
-      localStorage.setItem("correo", correo);
-      let idRuta = localStorage.getItem("idRuta");
-      if(idRuta != null){
-
-        setTimeout(function(){
-          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
-        }, 5000);
-      }else{
-        window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
-        localStorage.setItem("sesion", true);
-      }
-      
-    }
-  })
-}, false);
+document.getElementById("ingresar").addEventListener(
+  "click",
+  function () {
+    var correo = document.getElementById("correologin").value;
+    var contrasena = document.getElementById("contrasenalogin").value;
+    var securepassword = btoa(contrasena);
+    var result = document.getElementById("resultado");
+    console.log(correo, securepassword);
+    //login con los datos ingresados
+    database
+      .from("clientes")
+      .select("*")
+      .eq("correo", correo)
+      .eq("password", securepassword)
+      .then(({ data, error }) => {
+        if (data.length == 0) {
+          console.log(error);
+          result.innerHTML = "Usuario o contraseña incorrectos";
+          result.style.color = "red";
+          //esperar 1 segundo y recargar
+          setTimeout(function () {
+            window.location.reload();
+          }, 1000);
+        } else {
+          console.log(data);
+          result.innerHTML = "Iniciando sesión...";
+          result.style.color = "green";
+          //guardar id del usuario en el local storage
+          localStorage.setItem("cedula", data[0].cedula);
+          //esperar 5 segundos y redirigir
+          //guardar el correo
+          localStorage.setItem("correo", correo);
+          let idRuta = localStorage.getItem("idRuta");
+          if (idRuta != null) {
+            setTimeout(function () {
+              window.location.href =
+                "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
+            }, 5000);
+          } else {
+            window.location.href =
+              "https://eduardoguevarasw.github.io/sachawassi";
+            localStorage.setItem("sesion", true);
+          }
+        }
+      });
+  },
+  false
+);
 
 /*
 (function() {

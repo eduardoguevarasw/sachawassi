@@ -340,7 +340,7 @@ const comprobar = async () => {
   }
   console.log(asientosRepetidos);
   if (asientosRepetidos.length > 0) {
-    alert("Los asientos " + asientosRepetidos + " ya estan ocupados");
+    alert("El asiento: " + asientosRepetidos + " ya esta ocupado");
   } else {
     //guardar en la base de datos
     //generar un número de transacción de 12 digitos
@@ -382,7 +382,7 @@ const comprobar = async () => {
     console.log(resp);
     //mostar compra con éxitos
     alert("Venta realizada con éxito ✅");
-    //recargar la página
+    //generar pdf
     var ticket = new jsPDF("p", "cm", [7.5, 15]);
     //pdf de 7.5cm x 10cm
     ticket.setFontSize(17);
@@ -421,8 +421,10 @@ const comprobar = async () => {
     ticket.text(2, 10.5, "www.sachawassi.com");
     ticket.save("ticket.pdf");
 
-
-    //location.reload();
+    //espera 3 segundos y recarga la página
+    setTimeout(function () {
+      location.reload();
+    }, 3000);
   }
 };
 

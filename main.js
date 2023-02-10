@@ -3,6 +3,14 @@ const key =
 const url = "https://gfvljzwpzicwynqmirui.supabase.co";
 const database = supabase.createClient(url, key);
 
+document.getElementById("miperfil").style.display = "none";
+
+//si sesion es true mostrar el boton de cerrar sesion
+if (sessionStorage.getItem("sesion") == "true") {
+    document.getElementById("sesion").style.display = "none";
+    document.getElementById("miperfil").style.display = "block";
+} 
+
 //traer los datos de ciudades y mostrar en select
 function traerCiudades() {
     database.from('rutas').select("origen").then(({ data, error }) => {

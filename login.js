@@ -163,9 +163,10 @@ document.getElementById("registrar").addEventListener(
                             "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
                         }, 5000);
                       } else {
+                        localStorage.setItem("sesion", true);
                         window.location.href =
                           "https://eduardoguevarasw.github.io/sachawassi";
-                          localStorage.setItem("sesion", true);
+                          
                       }
                       //redirigir a inicio de client
                     });
@@ -224,9 +225,10 @@ document.getElementById("ingresar").addEventListener(
                 "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
             }, 5000);
           } else {
+            localStorage.setItem("sesion", true);
             window.location.href =
               "https://eduardoguevarasw.github.io/sachawassi";
-            localStorage.setItem("sesion", true);
+            
           }
         }
       });

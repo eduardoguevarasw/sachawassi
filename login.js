@@ -189,6 +189,7 @@ document.getElementById("ingresar").addEventListener("click", function(){
         }, 5000);
       }else{
         window.location.href = "https://eduardoguevarasw.github.io/sachawassi";
+        localStorage.setItem("sesion", true);
       }
       
     }

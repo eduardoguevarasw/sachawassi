@@ -6,7 +6,7 @@ const database = supabase.createClient(url, key);
 document.getElementById("miperfil").style.display = "none";
 
 //si sesion es true mostrar el boton de cerrar sesion
-if (sessionStorage.getItem("sesion") == "true") {
+if (localStorage.getItem("sesion") == "true") {
     document.getElementById("sesion").style.display = "none";
     document.getElementById("miperfil").style.display = "block";
 } 

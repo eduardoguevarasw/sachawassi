@@ -52,7 +52,8 @@ function actualizar(){
       console.log(error);
     }else{
       alert("Datos actualizados correctamente ✅");
-      window.location.href = "https://eduardoguevarasw.github.io/sachawassi/perfil.html";
+      //recargar la pagina actualizar 
+      window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/perfil.html";
     }
   })
 

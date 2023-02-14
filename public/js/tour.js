@@ -98,7 +98,7 @@ function guardarTour() {
           console.log(res.error);
           alert("Error al guardar el tour 😢");
         } else {
-           alert("Tour guardado con exito 😎");
+           alert("Tour guardado con exito ✅");
         }
       });
   }

@@ -179,7 +179,7 @@ const selectBote = async (id) => {
     .eq("id", id);
     if (error) {
         console.log("error", error);
-        alert("Error al seleccionar el bote ❌");
+        alert("Error al seleccionar el tour ❌");
     }
     //llenar el formulario con los datos del bote
     document.getElementById("id").value = data[0].id;
@@ -222,7 +222,7 @@ const actualizarBote = async () => {
         console.log("error", error);
         alert("Error al actualizar el tour ❌");
     }else{
-        alert("Bote actualizado con éxito ✅");
+        alert("Tour actualizado con éxito ✅");
         window.reload();
     }
     //actualizar la tabla

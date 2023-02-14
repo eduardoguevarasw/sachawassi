@@ -57,7 +57,7 @@ function guardarTour() {
     alert("Todos los campos son obligatorios 💡");
   } else {
     //obtener url de la imagen del localstorage
-    let imagen = localStorage.getItem("imagen");
+    //let imagen = localStorage.getItem("imagen");
     console.log(imagen);
     database
       .from("tour")
@@ -70,7 +70,7 @@ function guardarTour() {
           noches: noches,
           precio: precio,
           descripcion: descripcion,
-          imagen: imagen,
+          //imagen: imagen,
         },
       ])
       .then((res) => {
@@ -97,7 +97,7 @@ async function subir() {
 
     });
     const file = await res.json();
-    console.log(file.secure_url);
+    console.log(file);
     //guardar la url de la imagen en localstorage
     localStorage.setItem("imagen", file.secure_url);
 }

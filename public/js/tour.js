@@ -58,33 +58,6 @@ async function guardarTour() {
   ) {
     alert("Todos los campos son obligatorios 💡");
   } else {
-    database
-      .from("tour")
-      .insert([
-        {
-          nombre: nombre,
-          origen: origen,
-          destino: destino,
-          dias: dias,
-          noches: noches,
-          precio: precio,
-          descripcion: descripcion,
-          id_image: id_imagen
-        },
-      ])
-      .then((res) => {
-        if (res.error) {
-          alert("Error al guardar el tour 😢");
-        } else {
-            //guardar la imagen en local storage
-           localStorage.setItem("id_imagen", id_imagen);
-           subir();
-        }
-      });
-  }
-}
-
-async function subir() {
     let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
@@ -99,19 +72,32 @@ async function subir() {
     });
     const file = await res.json();
     console.log(file.secure_url);
-    //guardar la url de la imagen en la base de datos
-    //obtener el id de la imagen
-    let id_imagen = localStorage.getItem("id_imagen");
     database
-        .from("tour")
-        .eq("id_image", id_imagen)
-        .insert([
-            {
-                imagen: file.secure_url
-                
-            }
-        ])
+      .from("tour")
+      .insert([
+        {
+          nombre: nombre,
+          origen: origen,
+          destino: destino,
+          dias: dias,
+          noches: noches,
+          precio: precio,
+          descripcion: descripcion,
+          id_image: id_imagen,
+          imagen: file.secure_url
+        },
+      ])
+      .then((res) => {
+        if (res.error) {
+          alert("Error al guardar el tour 😢");
+        } else {
+            
+            alert("Tour guardado con exito 😎");
+        }
+      });
+  }
 }
+
 
 //cerrar sesion si hizo click
 const logout = document.querySelector(".logout");

@@ -101,11 +101,86 @@ const listarBotes = async () => {
             <td>${bote.dias}</td>
             <td>${bote.noches}</td>
             <td><img src="${bote.foto}" width="100px" height="100px"></td>
+            <td>
+                <button class="btnEditar" onclick="selectBote('${bote.id}')">Editar</button>
+            </td>
+            <td>
+                <button class="btnEliminar" onclick="eliminarBote('${bote.id}')">Eliminar</button>
+            </td>
         </tr>
       </div>
         `;
     } );
 }
+
+//funcion para eliminar un bote
+const eliminarBote = async (id) => {
+    let { data, error } = await database
+    .from("tour")
+    .delete()
+    .eq("id", id);
+    if (error) {
+        console.log("error", error);
+        alert("Error al eliminar el bote ❌");
+    }
+    //actualizar la tabla
+    initDataTable();
+};
+
+//funcion para seleccionar un bote
+const selectBote = async (id) => {
+    let { data, error } = await database
+    .from("tour")
+    .select("*")
+    .eq("id", id);
+    if (error) {
+        console.log("error", error);
+        alert("Error al seleccionar el bote ❌");
+    }
+    //llenar el formulario con los datos del bote
+    document.getElementById("id").value = data[0].id;
+    document.getElementById("nombre").value = data[0].nombre;
+    document.getElementById("origen").value = data[0].origen;
+    document.getElementById("destino").value = data[0].destino;
+    document.getElementById("dias").value = data[0].dias;
+    document.getElementById("noches").value = data[0].noches;
+    document.getElementById("precio").value = data[0].precio;
+    document.getElementById("descripcion").value = data[0].descripcion;
+    document.getElementById("btnGuardar").style.display = "none";
+    document.getElementById("btnActualizar").style.display = "block";
+};
+
+//funcion para actualizar un bote
+const actualizarBote = async () => {
+    let id = document.getElementById("id").value;
+    let nombre = document.getElementById("nombre").value;
+    let origen = document.getElementById("origen").value;
+    let destino = document.getElementById("destino").value;
+    let dias = document.getElementById("dias").value;
+    let noches = document.getElementById("noches").value;
+    let precio = document.getElementById("precio").value;
+    let descripcion = document.getElementById("descripcion").value;
+    let imagen = localStorage.getItem("imagen");
+    let { data, error } = await database
+    .from("tour")
+    .update({
+        nombre: nombre,
+        origen: origen,
+        destino: destino,
+        dias: dias,
+        noches: noches,
+        precio: precio,
+        descripcion: descripcion,
+        foto: imagen
+    })
+    .eq("id", id);
+    if (error) {
+        console.log("error", error);
+        alert("Error al actualizar el bote ❌");
+    }
+    //actualizar la tabla
+    initDataTable();
+};
 
 window.addEventListener("load",  async () => {
  await initDataTable();

@@ -36,9 +36,10 @@ sidebarToggle.addEventListener("click", () => {
 })
 
 //seleccionar solo fechas anteriores a la actual 
-let today = new Date().toISOString().substr(0, 10);
-document.getElementById("fecha").value = today;
-
+let maxValue = new Date();
+maxValue.setDate(maxValue.getDate() - 1);
+maxValue = maxValue.toISOString().split("T")[0];
+document.getElementById("fecha").setAttribute("max", maxValue);
 
 let dataTable;
 let dataTableisInit = false;

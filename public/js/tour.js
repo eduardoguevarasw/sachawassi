@@ -45,21 +45,8 @@ async function guardarTour() {
   let precio = document.getElementById("precio").value;
   let descripcion = document.getElementById("descripcion").value;
   let foto = document.getElementById("imagen").files[0];
-    
-
-  if (
-    nombre === "" ||
-    origen === "" ||
-    destino === "" ||
-    dias === "" ||
-    noches === "" ||
-    precio === "" ||
-    descripcion === ""
-  ) {
-    alert("Todos los campos son obligatorios 💡");
-  } else {
-    const CLOUDINARY_PRESET = 'sachawassi';
-    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
+  const CLOUDINARY_PRESET = 'sachawassi';
+  const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
     //guardar la imagen en cloudinary
     const formData = new FormData();
     formData.append('file', foto);
@@ -71,7 +58,17 @@ async function guardarTour() {
     });
     const file = await res.json();
     console.log(file.secure_url);
-    
+  if (
+    nombre === "" ||
+    origen === "" ||
+    destino === "" ||
+    dias === "" ||
+    noches === "" ||
+    precio === "" ||
+    descripcion === ""
+  ) {
+    alert("Todos los campos son obligatorios 💡");
+  } else {
     database
       .from("tour")
       .insert([

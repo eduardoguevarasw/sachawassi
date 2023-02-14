@@ -36,53 +36,6 @@ sidebarToggle.addEventListener("click", () => {
   }
 });
 
-function guardarTour() {
-  let nombre = document.getElementById("nombre").value;
-  let origen = document.getElementById("origen").value;
-  let destino = document.getElementById("destino").value;
-  let dias = document.getElementById("dias").value;
-  let noches = document.getElementById("noches").value;
-  let precio = document.getElementById("precio").value;
-  let descripcion = document.getElementById("descripcion").value;
-
-  if (
-    nombre === "" ||
-    origen === "" ||
-    destino === "" ||
-    dias === "" ||
-    noches === "" ||
-    precio === "" ||
-    descripcion === ""
-  ) {
-    alert("Todos los campos son obligatorios 💡");
-  } else {
-    //obtener url de la imagen del localstorage
-    //let imagen = localStorage.getItem("imagen");
-    console.log(imagen);
-    database
-      .from("tour")
-      .insert([
-        {
-          nombre: nombre,
-          origen: origen,
-          destino: destino,
-          dias: dias,
-          noches: noches,
-          precio: precio,
-          descripcion: descripcion,
-          //imagen: imagen,
-        },
-      ])
-      .then((res) => {
-        if (res.error) {
-          alert("Error al guardar el tour 😢");
-        } else {
-           alert("Tour guardado con exito 😎");
-        }
-      });
-  }
-}
-
 async function subir() {
     let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';
@@ -99,8 +52,59 @@ async function subir() {
     const file = await res.json();
     console.log(file);
     //guardar la url de la imagen en localstorage
-    localStorage.setItem("imagen", file.secure_url);
+    localStorage.setItem("imagen", file.url);
 }
+
+function guardarTour() {
+  let nombre = document.getElementById("nombre").value;
+  let origen = document.getElementById("origen").value;
+  let destino = document.getElementById("destino").value;
+  let dias = document.getElementById("dias").value;
+  let noches = document.getElementById("noches").value;
+  let precio = document.getElementById("precio").value;
+  let descripcion = document.getElementById("descripcion").value;
+  let imagen = localStorage.getItem("imagen");
+  console.log(imagen);
+
+  if (
+    nombre === "" ||
+    origen === "" ||
+    destino === "" ||
+    dias === "" ||
+    noches === "" ||
+    precio === "" ||
+    descripcion === ""
+  ) {
+    alert("Todos los campos son obligatorios 💡");
+  } else {
+    //obtener url de la imagen del localstorage
+    
+    database
+      .from("tour")
+      .insert([
+        {
+          nombre: nombre,
+          origen: origen,
+          destino: destino,
+          dias: dias,
+          noches: noches,
+          precio: precio,
+          descripcion: descripcion,
+          imagen: imagen,
+        },
+      ])
+      .then((res) => {
+        if (res.error) {
+          console.log(res.error);
+          alert("Error al guardar el tour 😢");
+        } else {
+           alert("Tour guardado con exito 😎");
+        }
+      });
+  }
+}
+
+
 
 //cerrar sesion si hizo click
 const logout = document.querySelector(".logout");

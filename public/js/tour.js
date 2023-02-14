@@ -73,7 +73,7 @@ function guardarTour() {
         if (res.error) {
           alert("Error al guardar el tour 😢");
         } else {
-           alert("Tour guardado con exito 😎");
+           subir();
         }
       });
   }

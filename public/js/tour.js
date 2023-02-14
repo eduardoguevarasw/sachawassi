@@ -35,7 +35,7 @@ sidebarToggle.addEventListener("click", () => {
     localStorage.setItem("status", "open");
   }
 });
-
+document.getElementById("btnActualizar").style.display = "none";
 
 let dataTable;
 let dataTableisInit = false;

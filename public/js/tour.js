@@ -44,20 +44,7 @@ async function guardarTour() {
   let noches = document.getElementById("noches").value;
   let precio = document.getElementById("precio").value;
   let descripcion = document.getElementById("descripcion").value;
-  let foto = document.getElementById("imagen").files[0];
-  const CLOUDINARY_PRESET = 'sachawassi';
-  const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
-    //guardar la imagen en cloudinary
-    const formData = new FormData();
-    formData.append('file', foto);
-    formData.append('upload_preset', CLOUDINARY_PRESET);
-    const res = await fetch(CLOUDINARY_URL, {
-        method: 'POST',
-        body: formData
 
-    });
-    const file = await res.json();
-    console.log(file.secure_url);
   if (
     nombre === "" ||
     origen === "" ||
@@ -80,19 +67,43 @@ async function guardarTour() {
           noches: noches,
           precio: precio,
           descripcion: descripcion,
-          imagen: file.secure_url
         },
       ])
       .then((res) => {
         if (res.error) {
           alert("Error al guardar el tour 😢");
         } else {
-           alert("Tour guardado con exito 😎");
+           subir();
         }
       });
   }
 }
 
+async function subir() {
+    let foto = document.getElementById("imagen").files[0];
+    const CLOUDINARY_PRESET = 'sachawassi';
+    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
+    //guardar la imagen en cloudinary
+    const formData = new FormData();
+    formData.append('file', foto);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    const res = await fetch(CLOUDINARY_URL, {
+        method: 'POST',
+        body: formData
+
+    });
+    const file = await res.json();
+    console.log(file.secure_url);
+    //guardar la url de la imagen en la base de datos
+    database
+        .from("tour")
+        .insert([
+            {
+                imagen: file.secure_url
+                
+            }
+        ])
+}
 
 //cerrar sesion si hizo click
 const logout = document.querySelector(".logout");

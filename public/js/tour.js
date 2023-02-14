@@ -90,7 +90,7 @@ function guardarTour() {
           noches: noches,
           precio: precio,
           descripcion: descripcion,
-          imagen: imagen,
+          foto: imagen,
         },
       ])
       .then((res) => {

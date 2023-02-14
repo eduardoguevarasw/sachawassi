@@ -36,7 +36,7 @@ sidebarToggle.addEventListener("click", () => {
   }
 });
 
-function guardarTour() {
+async function guardarTour() {
   let nombre = document.getElementById("nombre").value;
   let origen = document.getElementById("origen").value;
   let destino = document.getElementById("destino").value;
@@ -44,6 +44,8 @@ function guardarTour() {
   let noches = document.getElementById("noches").value;
   let precio = document.getElementById("precio").value;
   let descripcion = document.getElementById("descripcion").value;
+  let foto = document.getElementById("imagen").files[0];
+    
 
   if (
     nombre === "" ||
@@ -56,31 +58,6 @@ function guardarTour() {
   ) {
     alert("Todos los campos son obligatorios 💡");
   } else {
-    database
-      .from("tour")
-      .insert([
-        {
-          nombre: nombre,
-          origen: origen,
-          destino: destino,
-          dias: dias,
-          noches: noches,
-          precio: precio,
-          descripcion: descripcion,
-        },
-      ])
-      .then((res) => {
-        if (res.error) {
-          alert("Error al guardar el tour 😢");
-        } else {
-           subir();
-        }
-      });
-  }
-}
-
-async function subir() {
-    let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
     //guardar la imagen en cloudinary
@@ -93,17 +70,32 @@ async function subir() {
 
     });
     const file = await res.json();
-    console.log(file);
-    //guardar la url de la imagen en la base de datos
+    console.log(file.secure_url);
+    
     database
-        .from("tour")
-        .insert([
-            {
-                imagen: file.secure_url
-                
-            }
-        ])
+      .from("tour")
+      .insert([
+        {
+          nombre: nombre,
+          origen: origen,
+          destino: destino,
+          dias: dias,
+          noches: noches,
+          precio: precio,
+          descripcion: descripcion,
+          imagen: file.secure_url
+        },
+      ])
+      .then((res) => {
+        if (res.error) {
+          alert("Error al guardar el tour 😢");
+        } else {
+           alert("Tour guardado con exito 😎");
+        }
+      });
+  }
 }
+
 
 //cerrar sesion si hizo click
 const logout = document.querySelector(".logout");

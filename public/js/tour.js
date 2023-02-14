@@ -60,7 +60,6 @@ sidebarToggle.addEventListener("click", () => {
     let imagen = localStorage.getItem("imagen");
     database
       .from("tour")
-      .eq("imagen", imagen)
       .insert([
         {
           nombre: nombre,
@@ -70,6 +69,7 @@ sidebarToggle.addEventListener("click", () => {
           noches: noches,
           precio: precio,
           descripcion: descripcion,
+          imagen: imagen,
         },
       ])
       .then((res) => {
@@ -99,15 +99,6 @@ async function subir() {
     console.log(file.secure_url);
     //guardar la url de la imagen en localstorage
     localStorage.setItem("imagen", file.secure_url);
-    //guardar la url de la imagen en la base de datos
-    database
-        .from("tour")
-        .insert([
-            {
-                imagen: file.secure_url
-                
-            }
-        ])
 }
 
 //cerrar sesion si hizo click

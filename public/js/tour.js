@@ -83,7 +83,7 @@ const cargarCiudadesOrigen = async () => {
     }
     data.forEach((ciudad) => {
         selectOrigen.innerHTML += `
-        <option value="${ciudad.id}">${ciudad.nombre}</option>
+        <option value="${ciudad.nombre}">${ciudad.nombre}</option>
         `;
     } );
 
@@ -103,7 +103,7 @@ const cargarCiudadesDestino = async () => {
     }
     data.forEach((ciudad) => {
         selectDestino.innerHTML += `
-        <option value="${ciudad.id}">${ciudad.nombre}</option>
+        <option value="${ciudad.nombre}">${ciudad.nombre}</option>
         `;
     } );
 };

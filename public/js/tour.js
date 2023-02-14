@@ -36,6 +36,82 @@ sidebarToggle.addEventListener("click", () => {
   }
 });
 
+
+let dataTable;
+let dataTableisInit = false;
+
+const initDataTable = async () => {
+    if(dataTableisInit){
+        dataTable.destroy();
+    };
+
+    await listarBotes();
+
+    dataTable = $("#table_id").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                download: 'open'
+            }
+        ],
+        responsive: true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+        },
+       
+    });
+
+    dataTableisInit = true;
+}
+
+
+function buscarfecha(){
+    initDataTable();
+}
+
+//funcion para listar los botes
+const listarBotes = async () => {
+    //al cambiar la fecha se debe actualizar la tabla
+    //let fechaActual = document.getElementById("fechaCompra").value;
+    //cambiar el formato de la fecha en dd/mm/yyyy
+    //determinar la zona horaria
+    //let fecha = new Date(fechaActual).toLocaleDateString();
+    console.log();
+    let registroBotes = document.getElementById("registroBotes");
+    let { data, error } = await database
+    .from("tour")
+    .select("*")
+    //.eq("checkin", fecha)
+    if (error) {
+        console.log("error", error);
+        alert("Error al listar los botes ❌");
+    }
+    //buscar la el destino con la id de la ruta
+    
+    data.forEach((bote,index) => {
+        registroBotes.innerHTML += `
+        <tr>
+            <td>${index+1}</td>
+            <td>${bote.nombre}</td>
+            <td>${bote.origen}</td>
+            <td>${bote.destino}</td>
+            <td>${bote.precio}</td>
+            <td>${bote.descripcion}</td>
+            <td>${bote.dias}</td>
+            <td>${bote.noches}</td>
+            <td><img src="${bote.foto}" width="100px" height="100px"></td>
+        </tr>
+      </div>
+        `;
+    } );
+}
+
+window.addEventListener("load",  async () => {
+ await initDataTable();
+});
+
+
 async function subir() {
     let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';

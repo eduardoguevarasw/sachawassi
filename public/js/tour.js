@@ -70,6 +70,43 @@ function buscarfecha(){
     initDataTable();
 }
 
+//cargar ciudades en el select de origen
+const cargarCiudadesOrigen = async () => {
+    let selectOrigen = document.getElementById("origen");
+    let { data, error } = await database
+    .from("ciudades")
+    .select("*")
+    if (error) {
+        console.log("error", error);
+        alert("Error al listar las ciudades ❌");
+    }
+    data.forEach((ciudad) => {
+        selectOrigen.innerHTML += `
+        <option value="${ciudad.id}">${ciudad.nombre}</option>
+        `;
+    } );
+
+};
+
+//cargar ciudades en el select de destino
+const cargarCiudadesDestino = async () => {
+    let selectDestino = document.getElementById("destino");
+    let { data, error } = await database
+    .from("ciudades")
+    .select("*")
+    if (error) {
+        console.log("error", error);
+        alert("Error al listar las ciudades ❌");
+    }
+    data.forEach((ciudad) => {
+        selectDestino.innerHTML += `
+        <option value="${ciudad.id}">${ciudad.nombre}</option>
+        `;
+    } );
+};
+
+
+
 //funcion para listar los botes
 const listarBotes = async () => {
     //al cambiar la fecha se debe actualizar la tabla

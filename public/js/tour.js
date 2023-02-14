@@ -76,6 +76,7 @@ const cargarCiudadesOrigen = async () => {
     let { data, error } = await database
     .from("ciudades")
     .select("*")
+    .eq("estado", "disponible")
     if (error) {
         console.log("error", error);
         alert("Error al listar las ciudades ❌");
@@ -87,6 +88,7 @@ const cargarCiudadesOrigen = async () => {
     } );
 
 };
+cargarCiudadesOrigen();
 
 //cargar ciudades en el select de destino
 const cargarCiudadesDestino = async () => {
@@ -94,6 +96,7 @@ const cargarCiudadesDestino = async () => {
     let { data, error } = await database
     .from("ciudades")
     .select("*")
+    .eq("estado", "disponible")
     if (error) {
         console.log("error", error);
         alert("Error al listar las ciudades ❌");
@@ -104,6 +107,7 @@ const cargarCiudadesDestino = async () => {
         `;
     } );
 };
+cargarCiudadesDestino();
 
 
 

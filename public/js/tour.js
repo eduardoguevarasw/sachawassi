@@ -44,8 +44,6 @@ async function guardarTour() {
   let noches = document.getElementById("noches").value;
   let precio = document.getElementById("precio").value;
   let descripcion = document.getElementById("descripcion").value;
-  //generar un id unico
-  let id_imagen = Math.floor(Math.random() * 100000000);
 
   if (
     nombre === "" ||
@@ -58,6 +56,30 @@ async function guardarTour() {
   ) {
     alert("Todos los campos son obligatorios 💡");
   } else {
+    database
+      .from("tour")
+      .insert([
+        {
+          nombre: nombre,
+          origen: origen,
+          destino: destino,
+          dias: dias,
+          noches: noches,
+          precio: precio,
+          descripcion: descripcion,
+        },
+      ])
+      .then((res) => {
+        if (res.error) {
+          alert("Error al guardar el tour 😢");
+        } else {
+           subir();
+        }
+      });
+  }
+}
+
+async function subir() {
     let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
@@ -72,32 +94,16 @@ async function guardarTour() {
     });
     const file = await res.json();
     console.log(file.secure_url);
+    //guardar la url de la imagen en la base de datos
     database
-      .from("tour")
-      .insert([
-        {
-          nombre: nombre,
-          origen: origen,
-          destino: destino,
-          dias: dias,
-          noches: noches,
-          precio: precio,
-          descripcion: descripcion,
-          id_image: id_imagen,
-          imagen: file.secure_url
-        },
-      ])
-      .then((res) => {
-        if (res.error) {
-          alert("Error al guardar el tour 😢");
-        } else {
-            
-            alert("Tour guardado con exito 😎");
-        }
-      });
-  }
+        .from("tour")
+        .insert([
+            {
+                imagen: file.secure_url
+                
+            }
+        ])
 }
-
 
 //cerrar sesion si hizo click
 const logout = document.querySelector(".logout");

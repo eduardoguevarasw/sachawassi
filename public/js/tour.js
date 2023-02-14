@@ -121,7 +121,10 @@ const eliminarBote = async (id) => {
     .eq("id", id);
     if (error) {
         console.log("error", error);
-        alert("Error al eliminar el bote ❌");
+        alert("Error al eliminar el tour ❌");
+    }else{
+        alert("Tour eliminado correctamente ✅");
+        window.reload();
     }
     //actualizar la tabla
     initDataTable();
@@ -176,7 +179,10 @@ const actualizarBote = async () => {
     .eq("id", id);
     if (error) {
         console.log("error", error);
-        alert("Error al actualizar el bote ❌");
+        alert("Error al actualizar el tour ❌");
+    }else{
+        alert("Bote actualizado con éxito ✅");
+        window.reload();
     }
     //actualizar la tabla
     initDataTable();

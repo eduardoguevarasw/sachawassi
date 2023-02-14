@@ -36,7 +36,7 @@ sidebarToggle.addEventListener("click", () => {
   }
 });
 
-async function guardarTour() {
+ function guardarTour() {
   let nombre = document.getElementById("nombre").value;
   let origen = document.getElementById("origen").value;
   let destino = document.getElementById("destino").value;
@@ -56,8 +56,11 @@ async function guardarTour() {
   ) {
     alert("Todos los campos son obligatorios 💡");
   } else {
+    //obtener url de la imagen del localstorage
+    let imagen = localStorage.getItem("imagen");
     database
       .from("tour")
+      .eq("imagen", imagen)
       .insert([
         {
           nombre: nombre,
@@ -73,7 +76,7 @@ async function guardarTour() {
         if (res.error) {
           alert("Error al guardar el tour 😢");
         } else {
-           subir();
+           alert("Tour guardado con exito 😎");
         }
       });
   }
@@ -94,6 +97,8 @@ async function subir() {
     });
     const file = await res.json();
     console.log(file.secure_url);
+    //guardar la url de la imagen en localstorage
+    localStorage.setItem("imagen", file.secure_url);
     //guardar la url de la imagen en la base de datos
     database
         .from("tour")

@@ -82,7 +82,7 @@ function guardarTour() {
 async function subir() {
     let foto = document.getElementById("imagen").files[0];
     const CLOUDINARY_PRESET = 'sachawassi';
-    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm'
+    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dau2utfvm/image/upload'
     //guardar la imagen en cloudinary
     const formData = new FormData();
     formData.append('file', foto);

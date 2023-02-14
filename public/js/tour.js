@@ -36,7 +36,7 @@ sidebarToggle.addEventListener("click", () => {
   }
 });
 
- function guardarTour() {
+function guardarTour() {
   let nombre = document.getElementById("nombre").value;
   let origen = document.getElementById("origen").value;
   let destino = document.getElementById("destino").value;
@@ -58,6 +58,7 @@ sidebarToggle.addEventListener("click", () => {
   } else {
     //obtener url de la imagen del localstorage
     let imagen = localStorage.getItem("imagen");
+    console.log(imagen);
     database
       .from("tour")
       .insert([

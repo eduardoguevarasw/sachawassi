@@ -44,6 +44,8 @@ async function guardarTour() {
   let noches = document.getElementById("noches").value;
   let precio = document.getElementById("precio").value;
   let descripcion = document.getElementById("descripcion").value;
+  //generar un id unico
+  let id_imagen = Math.floor(Math.random() * 100000000);
 
   if (
     nombre === "" ||
@@ -67,12 +69,15 @@ async function guardarTour() {
           noches: noches,
           precio: precio,
           descripcion: descripcion,
+          id_image: id_imagen
         },
       ])
       .then((res) => {
         if (res.error) {
           alert("Error al guardar el tour 😢");
         } else {
+            //guardar la imagen en local storage
+           localStorage.setItem("id_imagen", id_imagen);
            subir();
         }
       });
@@ -95,8 +100,11 @@ async function subir() {
     const file = await res.json();
     console.log(file.secure_url);
     //guardar la url de la imagen en la base de datos
+    //obtener el id de la imagen
+    let id_imagen = localStorage.getItem("id_imagen");
     database
         .from("tour")
+        .eq("id_image", id_imagen)
         .insert([
             {
                 imagen: file.secure_url

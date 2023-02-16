@@ -143,11 +143,10 @@ document.getElementById("tourSelect").addEventListener("change", () => {
         console.log("error", error);
         alert("Error al cargar los tours ❌");
     }
-    data.forEach((tour) => {
-        document.getElementById("precio").value = tour.precio;
-        //calcular el total
+    if(data.length > 0){
+        document.getElementById("precio").value = data[0].precio;
         calcularTotal();
-    });
+    }
 })
 
 //funcion para calcular el total

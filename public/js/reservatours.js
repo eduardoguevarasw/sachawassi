@@ -172,7 +172,7 @@ const registrarTour = async () => {
     let telefono = document.getElementById("telefono").value;
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;
-    let checkin = document.getElementById("checkin").value;
+    let checkin = document.getElementById("fecha").value;
     let tour = document.getElementById("tour").value;
     let total = document.getElementById("total").value;
     let { data, error } = await database

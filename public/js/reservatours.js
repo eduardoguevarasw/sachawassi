@@ -35,6 +35,7 @@ sidebarToggle.addEventListener("click", () => {
     }
 })
 
+document.getElementById("btnEditar").style.display = "none";
 
 
 let dataTable;

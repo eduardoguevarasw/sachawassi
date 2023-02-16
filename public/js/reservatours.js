@@ -184,7 +184,7 @@ const registrarTour = async () => {
         console.log("error", error);
         alert("Error al registrar el tour ❌");
     }
-    alert("Tour registrado con exito ✔");
+    alert("Tour registrado con exito ✅");
     location.reload();
 }
 
@@ -198,7 +198,7 @@ const eliminarTour = async (id) => {
         console.log("error", error);
         alert("Error al eliminar el tour ❌");
     }
-    alert("Tour eliminado con exito ✔");
+    alert("Tour eliminado con exito ✅");
     location.reload();
 }
 
@@ -247,7 +247,7 @@ const editarTour = async () => {
         console.log("error", error);
         alert("Error al editar el tour ❌");
     }
-    alert("Tour editado con exito ✔");
+    alert("Tour editado con exito ✅");
     location.reload();
 }
 

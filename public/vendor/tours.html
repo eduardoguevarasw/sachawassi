@@ -112,26 +112,26 @@
                     }
                 </style>
                 <div>
+                    <label>Nombres</label>
                     <div class="fila">
-                        <label>Nombres</label>
                         <input type="text" id="nombre" placeholder="Nombres"  class="form-control"/>
                         <input type="hidden" id="id" />
                     </div>
+                    <label>Apellidos</label>
                     <div class="fila">
-                        <label>Apellidos</label>
                         <input type="text" id="apellido" placeholder="Apellidos"  class="form-control"/>
                     </div>
+                    <label>Correo</label>
                     <div class="fila">
-                        <label>Correo</label>
                         <input type="text" id="correo" placeholder="Correo"  class="form-control"/>
                     </div>
+                    <label>Telefono</label>
                     <div class="fila">
-                        <label>Telefono</label>
                         <input type="text" id="telefono" placeholder="Telefono"  class="form-control"/>
                     </div>
+                    <label>País</label>
                     <div class="fila">
-                        <label>País</label>
-                         <select class="form-select" aria-label="Default select example" id="pais">
+                         <select class="form-control" aria-label="Default select example" id="pais">
                          <option value="AF">Afganistán</option>
                          <option value="AL">Albania</option>
                          <option value="DE">Alemania</option>
@@ -368,9 +368,9 @@
                          <option value="ZW">Zimbabue</option>
                      </select>
                     </div>
+                    <label for="personas">Personas</label>
                     <div class="col-md-3">
-                        <label for="personas">Personas</label>
-                        <select class="form-select" aria-label="Default select example" id="cantidad" required>
+                        <select class="form-control" aria-label="Default select example" id="cantidad" required>
                             <option selected>Seleccionar</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -429,6 +429,8 @@
                             <th>Fecha</th>
                             <th>Tour</th>
                             <th>Total</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody id="registroBotes"></tbody>
@@ -444,6 +446,8 @@
                             <th>Fecha</th>
                             <th>Tour</th>
                             <th>Total</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </tfoot>
                 </table>

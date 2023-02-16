@@ -98,7 +98,7 @@ const listarBotes = async () => {
             <td>${bote.email}</td>
             <td>${bote.telefono}</td>
             <td>${bote.pais}</td>
-            <td>${bote.adultos}</td>
+            <td>${bote.cantidad}</td>
             <td>${bote.checkin}</td>
             <td>${bote.tour}</td>
             <td>${bote.mensaje}</td>

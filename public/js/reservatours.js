@@ -168,7 +168,7 @@ const calcularTotal = () => {
 const registrarTour = async () => {
     let nombre = document.getElementById("nombre").value;
     let apellido = document.getElementById("apellido").value;
-    let email = document.getElementById("email").value;
+    let email = document.getElementById("correo").value;
     let telefono = document.getElementById("telefono").value;
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;

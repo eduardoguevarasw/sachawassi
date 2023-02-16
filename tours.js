@@ -175,10 +175,10 @@ function generarPDF(){
             doc.text(40, 130, "Pais: " + datos.pais);
             doc.text(40, 150, "Telefono: " + datos.telefono);
             doc.text(40, 170, "Fecha: " + datos.checkin);
-            doc.text(40, 190, "Cantidad: " + datos.cantidad);
-            doc.text(40, 210, "Mensaje: " + datos.mensaje);
-            doc.text(40, 230, "Tour: " + datos.tour);
-            doc.text(40, 250, "Total: " + datos.total);
+            doc.text(40, 190, "No de Personas: " + datos.cantidad);
+            //doc.text(40, 210, "Mensaje: " + datos.mensaje);
+            doc.text(40, 210, "Tour: " + datos.tour);
+            doc.text(40, 230, "Total: " + datos.total);
             doc.save("reserva.pdf");
         });
     });

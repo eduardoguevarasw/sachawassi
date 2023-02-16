@@ -190,6 +190,7 @@ const selectBote = async (id) => {
     document.getElementById("noches").value = data[0].noches;
     document.getElementById("precio").value = data[0].precio;
     document.getElementById("descripcion").value = data[0].descripcion;
+    document.getElementById("estado").value = data[0].estado;
     document.getElementById("btnGuardar").style.display = "none";
     document.getElementById("btnActualizar").style.display = "block";
 };

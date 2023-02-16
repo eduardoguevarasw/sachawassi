@@ -102,6 +102,8 @@ const listarBotes = async () => {
             <td>${bote.checkin}</td>
             <td>${bote.tour}</td>
             <td>${bote.total}</td>
+            <td><button class="btn btn-success" onclick="editarBote(${bote.id})">Editar</button></td>
+            <td><button class="btn btn-danger" onclick="eliminarBote(${bote.id})">Eliminar</button></td>
         </tr>
       </div>
         `;

@@ -145,15 +145,20 @@ document.getElementById("tourSelect").addEventListener("change", () => {
         console.log(data);
         document.getElementById("precio").value = data[0].precio;
     })
-    //calcular el total
-    calcularTotal();
+    //despues de 3 segundos se debe calcular el total
+    setTimeout(() => {
+        calcularTotal();
+    }, 3000);
 })
 
 //funcion para calcular el total
 const calcularTotal = () => {
     let cantidad = document.getElementById("cantidad").value;
+    console.log(cantidad);
     let precio = document.getElementById("precio").value;
+    console.log(precio);
     let total = cantidad * precio;
+    console.log(total);
     document.getElementById("total").value = total;
 }
 

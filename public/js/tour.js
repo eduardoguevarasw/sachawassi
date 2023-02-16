@@ -290,7 +290,7 @@ document.getElementById("dias").addEventListener("change", () => {
 function guardarTour() {
   //validar que los campos no esten vacios y que origen y destino sean diferentes
   if (document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" ||  document.getElementById("precio").value < 1 || document.getElementById("descripcion").value == "") {
-    alert("Por favor llene todos los campos");
+    alert("Por favor verifique todos los campos estén correctos o llenos");
     return;
   } else {
     if (document.getElementById("origen").value == document.getElementById("destino").value) {

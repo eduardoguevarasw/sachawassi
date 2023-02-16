@@ -143,7 +143,10 @@ document.getElementById("tourSelect").addEventListener("change", () => {
     .then((response) => {
         data = response.data;
         console.log(data);
+        document.getElementById("precio").value = data[0].precio;
     })
+    //calcular el total
+    calcularTotal();
 })
 
 //funcion para calcular el total

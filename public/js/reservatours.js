@@ -118,7 +118,7 @@ window.addEventListener("load",  async () => {
 const cargarTours = async () => {
     let selectTour = document.getElementById("tour");
     let { data, error } = await database
-    .from("tours")
+    .from("tour")
     .select("*")
     if (error) {
         console.log("error", error);

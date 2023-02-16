@@ -173,7 +173,7 @@ const registrarTour = async () => {
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;
     let checkin = document.getElementById("fecha").value;
-    let tour = document.getElementById("tour").value;
+    let tour = document.getElementById("tourSelect").value;
     let total = document.getElementById("total").value;
     let { data, error } = await database
     .from("reservas")

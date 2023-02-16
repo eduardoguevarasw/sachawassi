@@ -213,12 +213,12 @@ const selectTour = async (id) => {
     let tour = data[0];
     document.getElementById("nombre").value = tour.nombre;
     document.getElementById("apellido").value = tour.apellido;
-    document.getElementById("correo").value = tour.correo;
+    document.getElementById("correo").value = tour.email;
     document.getElementById("telefono").value = tour.telefono;
     document.getElementById("pais").value = tour.pais;
     document.getElementById("cantidad").value = tour.cantidad;
-    document.getElementById("checkin").value = tour.checkin;
-    document.getElementById("tour").value = tour.tour;
+    document.getElementById("fecha").value = tour.checkin;
+    document.getElementById("tourSelect").value = tour.tour;
     document.getElementById("total").value = tour.total;
     document.getElementById("id").value = tour.id;
     document.getElementById("btnEditar").style.display = "block";
@@ -233,8 +233,8 @@ const editarTour = async () => {
     let telefono = document.getElementById("telefono").value;
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;
-    let checkin = document.getElementById("checkin").value;
-    let tour = document.getElementById("tour").value;
+    let checkin = document.getElementById("fecha").value;
+    let tour = document.getElementById("tourSelect").value;
     let total = document.getElementById("total").value;
     let id = document.getElementById("id").value;
     let { data, error } = await database

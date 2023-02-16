@@ -165,20 +165,26 @@ function generarPDF(){
             console.log(res.data[0]);
             let datos = res.data[0];
             //generar pdf
-            var doc = new jsPDF("p", "pt", "letter");
-            doc.setFontSize(18);
-            doc.text(40, 50, "Reserva de Tour");
-            doc.setFontSize(12);
-            doc.text(40, 70, "Nombre: " + datos.nombre);
-            doc.text(40, 90, "Apellido: " + datos.apellido);
-            doc.text(40, 110, "Email: " + datos.email);
-            doc.text(40, 130, "Pais: " + datos.pais);
-            doc.text(40, 150, "Telefono: " + datos.telefono);
-            doc.text(40, 170, "Fecha: " + datos.checkin);
-            doc.text(40, 190, "No de Personas: " + datos.cantidad);
-            //doc.text(40, 210, "Mensaje: " + datos.mensaje);
-            doc.text(40, 210, "Tour: " + datos.tour);
-            doc.text(40, 230, "Total: " + datos.total);
+            var doc = new jsPDF({
+              format: [80, 150]
+            });
+            //tamaño de la letra
+            doc.setFontSize(30);
+            //agregar texto con esas dimenciones
+            doc.text(10, 10, "Sacha Wassi");
+            doc.setFontSize(15);
+            doc.text(10, 15, "Reserva de Tour");
+            doc.setFontSize(10);
+            doc.text(10, 20, "Nombre: " + datos.nombre);
+            doc.text(10, 25, "Apellido: " + datos.apellido);
+            doc.text(10, 30, "Correo: " + datos.email);
+            doc.text(10, 35, "Pais: " + datos.pais);
+            doc.text(10, 40, "Telefono: " + datos.telefono);
+            doc.text(10, 45, "Fecha Salida: " + datos.checkin);
+            doc.text(10, 50, "No Personas: " + datos.cantidad);
+            //doc.text(10, 55, "Mensaje: " + datos.mensaje);
+            doc.text(10, 55, "Tour: " + datos.tour);
+            doc.text(10, 60, "Total a Pagar: " + datos.total);
             doc.save("reserva.pdf");
         });
     });

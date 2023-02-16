@@ -133,10 +133,10 @@ const cargarTours = async () => {
 cargarTours();
 
 //escuchar el evento change del select de tours cambiar el precio
-document.getElementById("tour").addEventListener("change", () => {
+document.getElementById("tourSelect").addEventListener("change", () => {
     let tour = document.getElementById("tour").value;
     let { data, error } = database
-    .from("tours")
+    .from("tour")
     .select("*")
     .eq("nombre", tour)
     if (error) {

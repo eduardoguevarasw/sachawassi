@@ -101,7 +101,6 @@ const listarBotes = async () => {
             <td>${bote.cantidad}</td>
             <td>${bote.checkin}</td>
             <td>${bote.tour}</td>
-            <td>${bote.mensaje}</td>
             <td>${bote.total}</td>
         </tr>
       </div>

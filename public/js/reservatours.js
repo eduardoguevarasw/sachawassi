@@ -148,7 +148,7 @@ document.getElementById("tourSelect").addEventListener("change", () => {
     //despues de 3 segundos se debe calcular el total
     setTimeout(() => {
         calcularTotal();
-    }, 3000);
+    }, 1000);
 })
 
 //funcion para calcular el total
@@ -213,7 +213,7 @@ const selectTour = async (id) => {
     let tour = data[0];
     document.getElementById("nombre").value = tour.nombre;
     document.getElementById("apellido").value = tour.apellido;
-    document.getElementById("email").value = tour.email;
+    document.getElementById("correo").value = tour.correo;
     document.getElementById("telefono").value = tour.telefono;
     document.getElementById("pais").value = tour.pais;
     document.getElementById("cantidad").value = tour.cantidad;
@@ -229,7 +229,7 @@ const selectTour = async (id) => {
 const editarTour = async () => {
     let nombre = document.getElementById("nombre").value;
     let apellido = document.getElementById("apellido").value;
-    let email = document.getElementById("email").value;
+    let email = document.getElementById("correo").value;
     let telefono = document.getElementById("telefono").value;
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;

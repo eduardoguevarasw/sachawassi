@@ -140,11 +140,10 @@ document.getElementById("tourSelect").addEventListener("change", () => {
     .from("tour")
     .select("*")
     .eq("nombre", tour)
-    if (error) {
-        console.log("error", error);
-        alert("Error al cargar los tours ❌");
-    }
-    console.log(data[0].precio);
+    .then((response) => {
+        data = response.data;
+        console.log(data);
+    })
 })
 
 //funcion para calcular el total

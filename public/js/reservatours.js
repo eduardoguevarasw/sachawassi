@@ -36,7 +36,7 @@ sidebarToggle.addEventListener("click", () => {
 })
 
 //boton btn btn-warning en none
-document.getElementById("btn btn-warning").style.display = "none";
+document.getElementById("btnActualizar").style.display = "none";
 
 
 let dataTable;
@@ -223,8 +223,8 @@ const selectTour = async (id) => {
     document.getElementById("tourSelect").value = tour.tour;
     document.getElementById("total").value = tour.total;
     document.getElementById("id").value = tour.id;
-    document.getElementById("btn btn-warning").style.display = "block";
-    document.getElementById("btn btn-primary").style.display = "none";
+    document.getElementById("btnActualizar").style.display = "block";
+    document.getElementById("btnGuardar").style.display = "none";
 }
 
 //funcion para editar un tour

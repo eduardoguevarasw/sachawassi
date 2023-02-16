@@ -135,6 +135,7 @@ cargarTours();
 //escuchar el evento change del select de tours cambiar el precio
 document.getElementById("tourSelect").addEventListener("change", () => {
     let tour = document.getElementById("tourSelect").value;
+    console.log(tour);
     let { data, error } = database
     .from("tour")
     .select("*")
@@ -143,10 +144,7 @@ document.getElementById("tourSelect").addEventListener("change", () => {
         console.log("error", error);
         alert("Error al cargar los tours ❌");
     }
-    if(data.length > 0){
-        document.getElementById("precio").value = data[0].precio;
-        calcularTotal();
-    }
+    console.log(data[0].precio);
 })
 
 //funcion para calcular el total

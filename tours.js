@@ -1,88 +1,97 @@
-const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdmxqendwemljd3lucW1pcnVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2NTU5NjcsImV4cCI6MTk4MzIzMTk2N30.Jj6AQlRlabhEBppjaP9Bw0kBa77HHOBTTLNsy5cv2EY";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdmxqendwemljd3lucW1pcnVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc2NTU5NjcsImV4cCI6MTk4MzIzMTk2N30.Jj6AQlRlabhEBppjaP9Bw0kBa77HHOBTTLNsy5cv2EY";
 const url = "https://gfvljzwpzicwynqmirui.supabase.co";
 const database = supabase.createClient(url, key);
-document.getElementById('paypal-button-container').style.display = "none";
 
-//controlar el calendario 
-const minValue = new Date();
-minValue.setDate(minValue.getDate());
-document.getElementById('checkin').min = minValue.toISOString().split("T")[0]
+//ocultar boton de paypal
+document.getElementById("paypal-button-container").style.display = "none";
+const listarTours = async () => {
+  let tours = document.getElementById("tours");
+  let { data, error } = await database.from("tour").select("*");
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
+  data.forEach((tour) => {
+    tours.innerHTML += `
+        <div class="col">
+            <div class="card">
+            <img src="${tour.foto}" class="card-img-top" alt="..." height="200">
+            <div class="card-body">
+                <input type="hidden" id="id" value="${tour.id}">
+                <h5 class="card-title" id="nametour">${tour.nombre}</h5>
+                <p class="card-text">${tour.descripcion}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">${tour.dias} días - ${tour.noches} noches</li>
+                <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
+                <li class="list-group-item">
+                Incluye:
+                    <ul>Transporte</ul>
+                    <ul>Guía</ul>
+                    <ul>Comidas</ul>
+                    <ul>Entradas</ul>
+                </li>
+                <li class="list-group-item">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}')">
+                    Seleccionar
+                </button>
+                </li>
+            </ul>
+            </div>
+        </div>`;
+  });
+};
+listarTours();
 
-let selectpais = document.getElementById('pais');
-//obtener los paises de rest countries 
-fetch('https://restcountries.com/v3.1/all')
-.then(response => response.json())
-.then(data => {
-    //console.log(data);
-    data.forEach(element => {
-        let option = document.createElement('option');
-        option.value = element.name.common;
-        option.innerHTML = element.name.common;
-        selectpais.appendChild(option);
-    });
-})
-
-function reservar(){
-     //guardar en la base de datos
-     const nombre = document.getElementById('nombre').value;
-     const apellido = document.getElementById('apellido').value;
-     const email = document.getElementById('email').value;
-     const telefono = document.getElementById('telefono').value;
-     const checkin = document.getElementById('checkin').value;
-     const pais = document.getElementById('pais').value;
-     const adultos = document.getElementById('adultos').value;
-     const tour = document.getElementById('tour').value;
-     const mensaje = document.getElementById('mensaje').value;
-      //calcular el precio
-    const precio = 250;
-    const total = precio * adultos;
-    console.log(total);   
-    //generar un id unico
-    const reserva = Math.floor(Math.random() * 1000000000);
-     const data = {
-         nombre,
-         apellido,
-         email,
-         telefono,
-         checkin,
-         pais,
-         adultos,
-         tour,
-         mensaje,
-         total,
-         reserva
-     };
-     console.log(data);
-     localStorage.setItem('totaltour', total);
-     localStorage.setItem('reservatour', reserva);
-     //enviar a la base de datos
-     database.from('tours').insert(data).then(({ data, error }) => {
-         if (error) {
-             console.log('error', error)
-         }else{
-             //mostrar el boton de paypal
-                document.getElementById('paypal-button-container').style.display = "block";
-
-         }
-     });
- 
- 
+function modal(nombreTour,precio) {
+    //agregar datos al tour
+    let nombre = document.getElementById("nombreTour");
+    nombre.value = nombreTour;
+    let price = document.getElementById("precio");
+    price.value = precio;
 }
 
-//funcion para eliminar la transaccion
-function eliminartx(){
-    //obtener el id de la reserva
-    const reserva = localStorage.getItem('reservatour');
-    //eliminar la transaccion
-    database.from('tours').delete().match({ reserva }).then(({ data, error }) => {
-        if (error) {
-            console.log('error', error)
-        }else{
-            alert("Datos de la reserva eliminados");
-        }
-    });
-}
+function enviar() {
 
+  const nombre = document.getElementById("nombre").value;
+  const apellido = document.getElementById("apellido").value;
+  const email = document.getElementById("email").value;
+  const pais = document.getElementById("pais").value;
+  const telefono = document.getElementById("telefono").value;
+  const fecha = document.getElementById("fecha").value;
+  const cantidad = document.getElementById("cantidad").value;
+  const mensaje = document.getElementById("mensaje").value;
+  const nombreTour = document.getElementById("nombreTour").value;
+
+  // const cantidad = document.getElementById("cantidad").value;
+  const precio = document.getElementById("precio").value;
+  const total = cantidad * precio;
+  //guardar total en localstorage
+  sessionStorage.setItem("totalTour", total);
+
+  let datos = {
+    nombre: nombre,
+    apellido: apellido,
+    email: email,
+    pais: pais,
+    telefono: telefono,
+    checkin: fecha,
+    cantidad: cantidad,
+    mensaje: mensaje,
+    tour: nombreTour,
+    total: total,
+  }
+    console.log(datos);
+    //guardar en base de datos 
+    database.from("reservas").insert(datos).then((res) => {
+        //mostrar boton de paypal
+        document.getElementById("paypal-button-container").style.display = "block";
+        //ocultar boton de enviar
+       document.querySelector("btn btn-primary").style.display = "none";
+        
+    } ); 
+}
 
 paypal
   .Buttons({
@@ -99,7 +108,7 @@ paypal
           {
             amount: {
               //obtener el valor de un session storage
-              value:  localStorage.getItem('totaltour'),
+              value: sessionStorage.getItem("totalTour"),
               //value: 16
             },
             //descripcion del producto
@@ -112,7 +121,8 @@ paypal
     onApprove: (data, actions) => {
       return actions.order.capture().then(function (orderData) {
 
-        alert("Pago realizado con exito ✅ ");
+         alert("Compra realizada con éxito ✅ ");
+         
         
       });
     },
@@ -132,5 +142,15 @@ paypal
   })
   .render("#paypal-button-container");
 
+function eliminartx() {
+    //obtener el id de la ultima reserva
+    database.from("reservas").select("*").then((res) => {
+        let id = res.data[res.data.length - 1].id;
+        //eliminar la reserva
+        database.from("reservas").delete().eq("id", id).then((res) => {
+            console.log(res);
+        });
+    });
+}    
+  
 
-   

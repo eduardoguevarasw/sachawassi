@@ -211,6 +211,7 @@ const actualizarBote = async () => {
     let precio = document.getElementById("precio").value;
     let descripcion = document.getElementById("descripcion").value;
     let imagen = localStorage.getItem("imagen");
+    let estado = document.getElementById("estado").value;
     let { data, error } = await database
       .from("tour")
       .update({
@@ -221,7 +222,8 @@ const actualizarBote = async () => {
         noches: noches,
         precio: precio,
         descripcion: descripcion,
-        foto: imagen
+        foto: imagen,
+        estado: estado
       })
       .eq("id", id);
     if (error) {
@@ -305,6 +307,7 @@ function guardarTour() {
       let precio = document.getElementById("precio").value;
       let descripcion = document.getElementById("descripcion").value;
       let imagen = localStorage.getItem("imagen");
+      let estado = document.getElementById("estado").value;
       console.log(imagen);
 
       if (
@@ -332,6 +335,7 @@ function guardarTour() {
               precio: precio,
               descripcion: descripcion,
               foto: imagen,
+              estado: estado
             },
           ])
           .then((res) => {

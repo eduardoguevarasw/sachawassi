@@ -134,7 +134,7 @@ cargarTours();
 
 //escuchar el evento change del select de tours cambiar el precio
 document.getElementById("tourSelect").addEventListener("change", () => {
-    let tour = document.getElementById("tour").value;
+    let tour = document.getElementById("tourSelect").value;
     let { data, error } = database
     .from("tour")
     .select("*")

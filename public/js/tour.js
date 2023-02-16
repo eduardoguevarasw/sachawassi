@@ -197,37 +197,44 @@ const selectBote = async (id) => {
 
 //funcion para actualizar un bote
 const actualizarBote = async () => {
-    let id = document.getElementById("id").value;
-    let nombre = document.getElementById("nombre").value;
-    let origen = document.getElementById("origen").value;
-    let destino = document.getElementById("destino").value;
-    let dias = document.getElementById("dias").value;
-    let noches = document.getElementById("noches").value;
-    let precio = document.getElementById("precio").value;
-    let descripcion = document.getElementById("descripcion").value;
-    let imagen = localStorage.getItem("imagen");
-    let { data, error } = await database
-    .from("tour")
-    .update({
-        nombre: nombre,
-        origen: origen,
-        destino: destino,
-        dias: dias,
-        noches: noches,
-        precio: precio,
-        descripcion: descripcion,
-        foto: imagen
-    })
-    .eq("id", id);
-    if (error) {
-        console.log("error", error);
-        alert("Error al actualizar el tour ❌");
+  //validar que los campos no esten vacios
+    if (document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" || document.getElementById("descripcion").value == "") {
+        alert("Por favor llene todos los campos");
+        return;
     }else{
-        alert("Tour actualizado con éxito ✅");
-        window.reload();
+      let id = document.getElementById("id").value;
+      let nombre = document.getElementById("nombre").value;
+      let origen = document.getElementById("origen").value;
+      let destino = document.getElementById("destino").value;
+      let dias = document.getElementById("dias").value;
+      let noches = document.getElementById("noches").value;
+      let precio = document.getElementById("precio").value;
+      let descripcion = document.getElementById("descripcion").value;
+      let imagen = localStorage.getItem("imagen");
+      let { data, error } = await database
+      .from("tour")
+      .update({
+          nombre: nombre,
+          origen: origen,
+          destino: destino,
+          dias: dias,
+          noches: noches,
+          precio: precio,
+          descripcion: descripcion,
+          foto: imagen
+      })
+      .eq("id", id);
+      if (error) {
+          console.log("error", error);
+          alert("Error al actualizar el tour ❌");
+      }else{
+          alert("Tour actualizado con éxito ✅");
+          window.reload();
+      }
+      //actualizar la tabla
+      initDataTable();
     }
-    //actualizar la tabla
-    initDataTable();
+    
 };
 
 window.addEventListener("load",  async () => {
@@ -253,6 +260,16 @@ async function subir() {
     //guardar la url de la imagen en localstorage
     localStorage.setItem("imagen", file.url);
 }
+
+//al escuchar ingresar un dia en el input dias restar 1 al input noches
+document.getElementById("dias").addEventListener("change", () => {
+    let dias = document.getElementById("dias").value;
+    let noches = document.getElementById("noches").value;
+    if (dias != "") {
+        document.getElementById("noches").value = dias - 1;
+    }
+});
+
 
 function guardarTour() {
   let nombre = document.getElementById("nombre").value;

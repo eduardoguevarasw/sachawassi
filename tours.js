@@ -122,6 +122,8 @@ paypal
       return actions.order.capture().then(function (orderData) {
 
          alert("Compra realizada con éxito ✅ ");
+         //generar pdf con los datos de la compra del tour
+          generarPDF();
          
         
       });
@@ -154,3 +156,30 @@ function eliminartx() {
 }    
   
 
+function generarPDF(){
+    //obtener el id de la ultima reserva
+    database.from("reservas").select("*").then((res) => {
+        let id = res.data[res.data.length - 1].id;
+        //obtener los datos de la reserva
+        database.from("reservas").select("*").eq("id", id).then((res) => {
+            console.log(res.data[0]);
+            let datos = res.data[0];
+            //generar pdf
+            var doc = new jsPDF("p", "pt", "letter");
+            doc.setFontSize(18);
+            doc.text(40, 50, "Reserva de Tour");
+            doc.setFontSize(12);
+            doc.text(40, 70, "Nombre: " + datos.nombre);
+            doc.text(40, 90, "Apellido: " + datos.apellido);
+            doc.text(40, 110, "Email: " + datos.email);
+            doc.text(40, 130, "Pais: " + datos.pais);
+            doc.text(40, 150, "Telefono: " + datos.telefono);
+            doc.text(40, 170, "Fecha: " + datos.checkin);
+            doc.text(40, 190, "Cantidad: " + datos.cantidad);
+            doc.text(40, 210, "Mensaje: " + datos.mensaje);
+            doc.text(40, 230, "Tour: " + datos.tour);
+            doc.text(40, 250, "Total: " + datos.total);
+            doc.save("reserva.pdf");
+        });
+    });
+}

@@ -80,7 +80,7 @@ const listarBotes = async () => {
     console.log();
     let registroBotes = document.getElementById("tours");
     let { data, error } = await database
-    .from("tours")
+    .from("reservas")
     .select("*")
     //.eq("checkin", fecha)
     if (error) {

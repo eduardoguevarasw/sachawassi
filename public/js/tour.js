@@ -272,7 +272,16 @@ document.getElementById("dias").addEventListener("change", () => {
 
 
 function guardarTour() {
-  let nombre = document.getElementById("nombre").value;
+  //validar que los campos no esten vacios y que origen y destino sean diferentes
+  if(document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" || document.getElementById("descripcion").value == ""){
+    alert("Por favor llene todos los campos");
+    return;
+  }else{
+    if (document.getElementById("origen").value == document.getElementById("destino").value) {
+      alert("El origen y el destino no pueden ser iguales");
+      return;
+    }else{
+      let nombre = document.getElementById("nombre").value;
   let origen = document.getElementById("origen").value;
   let destino = document.getElementById("destino").value;
   let dias = document.getElementById("dias").value;
@@ -318,6 +327,10 @@ function guardarTour() {
         }
       });
   }
+
+    }
+  }
+  
 }
 
 

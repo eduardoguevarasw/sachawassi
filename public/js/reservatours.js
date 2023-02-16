@@ -116,7 +116,7 @@ window.addEventListener("load",  async () => {
 
 //funcion para cargar los tours en el select
 const cargarTours = async () => {
-    let selectTour = document.getElementById("tour");
+    let selectTour = document.getElementById("tourSelect");
     let { data, error } = await database
     .from("tour")
     .select("*")

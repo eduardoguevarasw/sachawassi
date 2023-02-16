@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <!--=== Coding by CodingLab | www.codinglabweb.com === -->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="../css/admin.css">
-     
+
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
-
-    <!--<title>Admin Dashboard Panel</title>--> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
+    <!--<title>Admin Dashboard Panel</title>-->
 </head>
+
 <body>
     <nav>
         <div class="logo-name">
@@ -32,43 +31,42 @@
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="./index.html">
-                    <i class="uil uil-estate"></i>
-                    <span class="link-name">Tablero</span>
-                </a></li>
-                <li><a href="./rutas.html">
-                    <i class="uil uil-store"></i>
-                    <span class="link-name">Ventas</span>
-                </a></li>
-                <li><a href="./buscar_rutas.html">
-                    <i class="uil uil-calendar-alt"></i>
-                    <span class="link-name">Buscar Ruta</span>
-                </a></li>
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Tablero</span>
+                    </a></li>
+                    <li><a href="./rutas.html">
+                        <i class="uil uil-store"></i>
+                        <span class="link-name">Ventas</span>
+                    </a></li>
+                    <li><a href="./buscar_rutas.html">
+                        <i class="uil uil-calendar-alt"></i>
+                        <span class="link-name">Buscar Ruta</span>
+                    </a></li>
                 <li><a href="./guia.html">
-                    <i class="uil uil-list-ol-alt"></i>
-                    <span class="link-name">Guía de Pasajeros</span>
-                </a></li>
-                <li><a href="./tours.html">
-                    <i class="uil uil-kayak"></i>
-                    <span class="link-name">Tours</span>
-                </a></li>
+                        <i class="uil uil-list-ol-alt"></i>
+                        <span class="link-name">Guía de Pasajeros</span>
+                    </a></li>
+                    <li><a href="./tours.html">
+                        <i class="uil uil-kayak"></i>
+                        <span class="link-name">Tours</span>
+                    </a></li>
             </ul>
-            
             <ul class="logout-mode">
                 <li><a href="#" class="logout">
-                    <i class="uil uil-signout"></i>
-                    <span class="link-name">Cerrar Sesión</span>
-                </a></li>
+                        <i class="uil uil-signout"></i>
+                        <span class="link-name">Cerrar Sesión</span>
+                    </a></li>
 
                 <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
-                    <span class="link-name">Modo Oscuro</span>
-                </a>
+                        <span class="link-name">Modo Oscuro</span>
+                    </a>
 
-                <div class="mode-toggle">
-                  <span class="switch"></span>
-                </div>
-            </li>
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -81,67 +79,63 @@
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Buscar...">
             </div>
-            
-            <img src="./img/logo-icon.png" alt="">
+
+            <img src="../img/logo-icon.png" alt="">
         </div>
 
         <div class="dash-content">
             <div class="overview">
-                <div class="title">
-                    <i class="uil uil-kayak"></i>
-                    <span class="text">Reservas de Tours</span>
-                </div>
             </div>
+
             <div class="activity">
                 <div class="title">
-                    <table id="table_id" class="display nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Telefono</th>
-                                <th>País</th>
-                                <th>Personas</th>
-                                <th>Fecha Ingreso</th>
-                                <th>Tour</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tours"></tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Telefono</th>
-                                <th>País</th>
-                                <th>Personas</th>
-                                <th>Fecha Ingreso</th>
-                                <th>Tour</th>
-                                <th>Total</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <i class="uil uil-table"></i>
+                    <span class="text">Tours</span>
                 </div>
+                <br>
+                <br>
+                <table id="table_id" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>País</th>
+                            <th>Personas</th>
+                            <th>Fecha</th>
+                            <th>Tour</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registroBotes"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th>País</th>
+                            <th>Personas</th>
+                            <th>Fecha</th>
+                            <th>Tour</th>
+                            <th>Total</th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-        </div>
-    </section>
-       <!--Jquery CDN-->
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-       <!--Datatables CDN-->
-       <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-       <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-       <script type="text/javascript" charset="utf8"
-           src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-       <script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
-       <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-       <script src=" https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-       <script src=" https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
 
+    </section>
+    <!--Jquery CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Datatables CDN-->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../js/reservatours.js"></script>
 </body>
+
 </html>

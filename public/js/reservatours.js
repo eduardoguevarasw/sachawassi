@@ -78,7 +78,7 @@ const listarBotes = async () => {
     //determinar la zona horaria
     //let fecha = new Date(fechaActual).toLocaleDateString();
     console.log();
-    let registroBotes = document.getElementById("tours");
+    let registroBotes = document.getElementById("registroBotes");
     let { data, error } = await database
     .from("reservas")
     .select("*")

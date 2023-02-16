@@ -7,7 +7,7 @@ const database = supabase.createClient(url, key);
 document.getElementById("paypal-button-container").style.display = "none";
 const listarTours = async () => {
   let tours = document.getElementById("tours");
-  let { data, error } = await database.from("tour").select("*");
+  let { data, error } = await database.from("tour").select("*").eq("estado", "disponible")
   if (error) {
     console.log(error);
   }

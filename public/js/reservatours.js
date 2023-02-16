@@ -102,8 +102,8 @@ const listarBotes = async () => {
             <td>${bote.checkin}</td>
             <td>${bote.tour}</td>
             <td>${bote.total}</td>
-            <td><button class="btnEditar" onclick="editarBote(${bote.id})">Editar</button></td>
-            <td><button class="btnEliminar" onclick="eliminarBote(${bote.id})">Eliminar</button></td>
+            <td><button class="btnEditar" onclick="selectTour(${bote.id})">Editar</button></td>
+            <td><button class="btnEliminar" onclick="eliminarTour(${bote.id})">Eliminar</button></td>
         </tr>
       </div>
         `;
@@ -113,6 +113,137 @@ const listarBotes = async () => {
 window.addEventListener("load",  async () => {
  await initDataTable();
 });
+
+//funcion para cargar los tours en el select
+const cargarTours = async () => {
+    let selectTour = document.getElementById("tour");
+    let { data, error } = await database
+    .from("tours")
+    .select("*")
+    if (error) {
+        console.log("error", error);
+        alert("Error al cargar los tours ❌");
+    }
+    data.forEach((tour) => {
+        selectTour.innerHTML += `
+        <option value="${tour.nombre}">${tour.nombre}</option>
+        `;
+    } );
+}
+cargarTours();
+
+//escuchar el evento change del select de tours cambiar el precio
+document.getElementById("tour").addEventListener("change", () => {
+    let tour = document.getElementById("tour").value;
+    let { data, error } = database
+    .from("tours")
+    .select("*")
+    .eq("nombre", tour)
+    if (error) {
+        console.log("error", error);
+        alert("Error al cargar los tours ❌");
+    }
+    data.forEach((tour) => {
+        document.getElementById("precio").value = tour.precio;
+        //calcular el total
+        calcularTotal();
+    });
+})
+
+//funcion para calcular el total
+const calcularTotal = () => {
+    let cantidad = document.getElementById("cantidad").value;
+    let precio = document.getElementById("precio").value;
+    let total = cantidad * precio;
+    document.getElementById("total").value = total;
+}
+
+//funcion para registrar un tour
+const registrarTour = async () => {
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let email = document.getElementById("email").value;
+    let telefono = document.getElementById("telefono").value;
+    let pais = document.getElementById("pais").value;
+    let cantidad = document.getElementById("cantidad").value;
+    let checkin = document.getElementById("checkin").value;
+    let tour = document.getElementById("tour").value;
+    let total = document.getElementById("total").value;
+    let { data, error } = await database
+    .from("reservas")
+    .insert([
+        { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
+    ])
+    if (error) {
+        console.log("error", error);
+        alert("Error al registrar el tour ❌");
+    }
+    alert("Tour registrado con exito ✔");
+    location.reload();
+}
+
+//funcion para eliminar un tour
+const eliminarTour = async (id) => {
+    let { data, error } = await database
+    .from("reservas")
+    .delete()
+    .eq("id", id)
+    if (error) {
+        console.log("error", error);
+        alert("Error al eliminar el tour ❌");
+    }
+    alert("Tour eliminado con exito ✔");
+    location.reload();
+}
+
+//funcion para seleccionar un tour
+const selectTour = async (id) => {
+    let { data, error } = await database
+    .from("reservas")
+    .select("*")
+    .eq("id", id)
+    if (error) {
+        console.log("error", error);
+        alert("Error al seleccionar el tour ❌");
+    }
+    let tour = data[0];
+    document.getElementById("nombre").value = tour.nombre;
+    document.getElementById("apellido").value = tour.apellido;
+    document.getElementById("email").value = tour.email;
+    document.getElementById("telefono").value = tour.telefono;
+    document.getElementById("pais").value = tour.pais;
+    document.getElementById("cantidad").value = tour.cantidad;
+    document.getElementById("checkin").value = tour.checkin;
+    document.getElementById("tour").value = tour.tour;
+    document.getElementById("total").value = tour.total;
+    document.getElementById("id").value = tour.id;
+    document.getElementById("btnEditar").style.display = "block";
+    document.getElementById("btnRegistrar").style.display = "none";
+}
+
+//funcion para editar un tour
+const editarTour = async () => {
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let email = document.getElementById("email").value;
+    let telefono = document.getElementById("telefono").value;
+    let pais = document.getElementById("pais").value;
+    let cantidad = document.getElementById("cantidad").value;
+    let checkin = document.getElementById("checkin").value;
+    let tour = document.getElementById("tour").value;
+    let total = document.getElementById("total").value;
+    let id = document.getElementById("id").value;
+    let { data, error } = await database
+    .from("reservas")
+    .update({ nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total })
+    .eq("id", id)
+    if (error) {
+        console.log("error", error);
+        alert("Error al editar el tour ❌");
+    }
+    alert("Tour editado con exito ✔");
+    location.reload();
+}
 
 //cerrar sesion si hizo click 
 const logout = document.querySelector(".logout");

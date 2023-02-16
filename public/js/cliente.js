@@ -737,6 +737,7 @@ paypal
   </tr>
   <tr>
     <td>Datos del Pasajero</td>
+    <td colspan="2">${compra.cedula}</td>
     <td colspan="2">${compra.nombresyapellidos}</td>
   </tr>
   <tr>
@@ -758,7 +759,7 @@ paypal
           Subject : "SachaWassi",
           Body : body
           }).then(
-            message => alert("Boleto enviado a su correo ✅")
+            message => alert("Datos de la compra enviados a su correo ✅")
             
           );
           //redireccionar en 5 segundos

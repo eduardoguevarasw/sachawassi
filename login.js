@@ -15,24 +15,6 @@ sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 
-async function signInWithGoogle() {
-  const { data, error } = await database.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      remember: true,
-      redirectTo:
-        "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html",
-    },
-  });
-  if (error) {
-    console.log(error);
-  }
-  if (data) {
-    //guardar id del usuario en el local storage
-    localStorage.setItem("cedula", data.user.id);
-    console.log(data.user.id);
-  }
-}
 
 //al hacer click en el boton de registrar usuario
 document.getElementById("registrar").addEventListener(

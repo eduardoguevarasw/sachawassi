@@ -59,3 +59,39 @@ function actualizar(){
 
 };
 
+  //funcion para actualizar contraseña
+  function actualizarpass(){
+    //obtener la contraseña actual
+    let passactual = document.getElementById("contrasenaActual").value;
+    //obtener la nueva contraseña
+    passactual2 = btoa(passactual);
+    let passnueva = document.getElementById("contrasenaNueva").value;
+    passnueva2 = btoa(passnueva);
+    let cedula = document.getElementById("cedula").value;
+  
+    //validar que la contraseña actual sea igual a la que esta en la base de datos
+    let data = database.from('clientes').select('password').eq('cedula', cedula);
+    data.then((res) => {
+      console.log(res.data[0].password);
+      if(res.data[0].password == passactual2){
+        //actualizar la contraseña
+        database
+        .from('clientes')
+        .update({ password: passnueva2 })
+        .eq('cedula', cedula)
+        .then(({ data, error }) => {
+          if(error){
+            console.log(error);
+          }else{
+            alert("Contraseña actualizada correctamente ✅");
+            //recargar la pagina actualizar 
+            window.location.href = "https://eduardoguevarasw.github.io/sachawassi/public/client/perfil.html";
+          }
+        })
+      }else{
+        alert("La contraseña actual no coincide con la que esta en la base de datos ❌");
+      }
+    });
+  
+  }
+

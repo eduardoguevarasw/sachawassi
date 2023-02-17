@@ -44,6 +44,12 @@ const listarTours = async () => {
 };
 listarTours();
 
+//restringir la fecha de checkin a partir de hoy
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#fecha").value = today;
+document.querySelector("#fecha").min = today;
+
+
 function modal(nombreTour,precio) {
     //agregar datos al tour
     let nombre = document.getElementById("nombreTour");

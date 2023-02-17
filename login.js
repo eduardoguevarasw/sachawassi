@@ -127,6 +127,7 @@ document.getElementById("registrar").addEventListener(
                   window.location.reload();
                 }, 1000);*/
                 } else {
+                  //guardar correo en supabase con authentification
                   database
                     .from("clientes")
                     .insert([datos])

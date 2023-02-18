@@ -48,22 +48,27 @@
        </div>
     <div>
         <div class="row">
-            <div class="col">
-                <label for="origen" class="form-label">Origen</label>
-                <select id="origen" class="form-control">
-
-                </select>
-            </div>
-            <div class="col">
-                <label for="destino" class="form-label">Destino</label>
-                <select id="destino" class="form-control">
-                </select>
-            </div>
-            <div class="col">
-                <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha">
-                <button type="button" class="btn btn-primary" id="buscar" onclick="buscarRuta()">Buscar</button>
-            </div>
+            <form class="row g-3">
+                <div class="col-md-6">
+                  <label for="inputEmail4" class="form-label">Origen</label>
+                  <select  class="form-control" id="origen"></select>
+                </div>
+                <div class="col-md-6">
+                  <label for="inputPassword4" class="form-label">Destino</label>
+                  <select class="form-control" id="destino"></select>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputCity" class="form-label">Fecha de Salida</label>
+                  <input type="date" class="form-control" id="fecha">
+                </div>
+                <br>
+                <br>
+                <div class="col-12">
+                    <br>
+                    <br>
+                  <button type="button" class="btn btn-primary" onclick="buscarRuta()" >Buscar Ruta</button>
+                </div>
+              </form>
          </div>
          <div class="row">
             <!--resutado de búsqueda-->

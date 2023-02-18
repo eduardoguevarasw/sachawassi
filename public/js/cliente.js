@@ -736,19 +736,16 @@ paypal
   </tr>
   <tr>
     <td>Datos del Pasajero</td>
-    <td colspan="2">${compra.cedula}</td>
-    <td colspan="2">${compra.nombresyapellidos[0]}</td>
+    <td colspan="2">C.i:${compra.cedula} Nombre: ${compra.nombresyapellidos[0]} </td>
   </tr>
   <tr>
     <td>Número de Asiento/s:</td>
     <td colspan="2">${compra.asientosArray}</td>
   </tr>
   <tr>
-    <td>Hora de Salida</td>
-    <td>${compra.horaSalida}</td>
-    <td>Hora de Llegada</td>
-    <td>${compra.horaLlegada}</td>
-    <td>Total: $ ${compra.totalPago}</td>
+    <td>Hora de Salida / Hora Llegada</td>
+    <td>${compra.horaSalida} -> ${compra.horaLlegada}</td>
+    <td>Total: $ <h1>${compra.totalPago}</h1></td>
   </tr>
 </tbody>
 </table>

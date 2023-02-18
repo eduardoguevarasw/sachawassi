@@ -62,11 +62,23 @@
             <div class="col">
                 <label for="fecha" class="form-label">Fecha</label>
                 <input type="date" class="form-control" id="fecha">
+                <button type="button" class="btn btn-primary" id="buscar" onclick="buscarRuta()">Buscar</button>
             </div>
-            <div class="col">
-                <label for="fecha" class="form-label">Buscar</label>
-                <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
-            </div>
+         </div>
+         <div class="row">
+            <!--resutado de búsqueda-->
+            <table id="rutas2" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Embarcación</th>
+                        <th>Hora</th>
+                        <th>Precio</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="botes_disponibles">
+                </tbody>
+            </table>
          </div>
       </div>
    </div>

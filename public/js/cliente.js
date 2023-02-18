@@ -76,6 +76,7 @@ const infoRuta = async () => {
 };
 infoRuta();
 
+/*
 //temporizador
 function temporizador() {
   //iniciar temporizador de 10 minutos
@@ -101,6 +102,7 @@ function temporizador() {
   }, 1000);
 }
 temporizador();
+*/
 
 function cerrarSesion() {
   sessionStorage.clear();

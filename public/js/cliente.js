@@ -17,14 +17,18 @@ const checkAsiento = async () => {
   let bote = resp.data[0].bote_asignado;
   console.log("holamundo");
   let resp2 = await database.from("compras").select("*");
-  for (var i in resp2.data) {
-    if (resp2.data[i].fecha == fecha && resp2.data[i].bote_asignado == bote) {
-      let asiento = resp2.data[i].asientosArray;
+  resp2.data.forEach((element) => {
+    //guardar en array los asientos reservados
+    if (element.fecha == fecha && element.idRuta == idRuta) {
+      //cambiar de color los asientos reservados
+      let asiento = element.asientosArray;
+      console.log(asiento);
       let seat = document.getElementById(asiento);
       seat.classList.remove("seat");
       seat.classList.add("seat-ocupado");
+
     }
-  }
+  });
 };
 checkAsiento();
 
@@ -745,7 +749,7 @@ paypal
   <tr>
     <td>Hora de Salida / Hora Llegada</td>
     <td>${compra.horaSalida} -> ${compra.horaLlegada}</td>
-    <td>Total: $ <h1>${compra.totalPago}</h1></td>
+    <td>Total: $ <h1> ${compra.totalPago}</h1></td>
   </tr>
 </tbody>
 </table>

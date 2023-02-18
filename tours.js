@@ -189,7 +189,7 @@ function generarPDF(){
             //agregar imagen con esas dimenciones
             doc.addImage(imgData, "JPEG", 15, 10, 60, 20);
             doc.setFontSize(15);
-            doc.text(15, 35, "Reserva de Tour");
+            doc.text(20, 35, "Reserva de Tour");
             doc.setFontSize(10);
             doc.text(10, 40, "Nombre: " + datos.nombre);
             doc.text(10, 50, "Apellido: " + datos.apellido);

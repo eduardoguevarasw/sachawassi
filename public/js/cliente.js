@@ -748,7 +748,7 @@ paypal
   </tr>
   <tr>
     <td>Hora de Salida / Hora Llegada</td>
-    <td>${compra.horaSalida} -> ${compra.horaLlegada}</td>
+    <td>${compra.horaSalida} -> ${compra.llegadaBoleto}</td>
     <td>Total: $ <h1> ${compra.totalPago}</h1></td>
   </tr>
 </tbody>

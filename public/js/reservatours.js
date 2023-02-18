@@ -166,26 +166,36 @@ const calcularTotal = () => {
 
 //funcion para registrar un tour
 const registrarTour = async () => {
-    let nombre = document.getElementById("nombre").value;
-    let apellido = document.getElementById("apellido").value;
-    let email = document.getElementById("correo").value;
-    let telefono = document.getElementById("telefono").value;
-    let pais = document.getElementById("pais").value;
-    let cantidad = document.getElementById("cantidad").value;
-    let checkin = document.getElementById("fecha").value;
-    let tour = document.getElementById("tourSelect").value;
-    let total = document.getElementById("total").value;
-    let { data, error } = await database
-    .from("reservas")
-    .insert([
-        { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
-    ])
-    if (error) {
-        console.log("error", error);
-        alert("Error al registrar el tour ❌");
+    //validar que los campos no esten vacios
+    if(document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("correo").value == "" || document.getElementById("telefono").value == "" || document.getElementById("pais").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("fecha").value == "" || document.getElementById("tourSelect").value == "" || document.getElementById("total").value == ""){
+        alert("Todos los campos son obligatorios");
+        return;
+    }else{
+
+        let nombre = document.getElementById("nombre").value;
+        let apellido = document.getElementById("apellido").value;
+        let email = document.getElementById("correo").value;
+        let telefono = document.getElementById("telefono").value;
+        let pais = document.getElementById("pais").value;
+        let cantidad = document.getElementById("cantidad").value;
+        let checkin = document.getElementById("fecha").value;
+        let tour = document.getElementById("tourSelect").value;
+        let total = document.getElementById("total").value;
+        let { data, error } = await database
+        .from("reservas")
+        .insert([
+            { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
+        ])
+        if (error) {
+            console.log("error", error);
+            alert("Error al registrar el tour ❌");
+        }
+        alert("Tour registrado con exito ✅");
+        location.reload();
+
     }
-    alert("Tour registrado con exito ✅");
-    location.reload();
+
+    
 }
 
 //funcion para eliminar un tour

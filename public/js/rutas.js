@@ -499,7 +499,7 @@ function updateRuta(id) {
           //actualizar datos
             database.from("rutas").update(data).eq("id", clave).then((res) => {
             console.log(res);
-            alert("Ruta actualizada");
+            alert("Ruta actualizada correctamente ✅");
             //recargar la pagina
             location.reload();
             

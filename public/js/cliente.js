@@ -740,7 +740,7 @@ paypal
     <td colspan="2">${compra.nombresyapellidos[0]}</td>
   </tr>
   <tr>
-    <td>Número de Asiento:</td>
+    <td>Número de Asiento/s:</td>
     <td colspan="2">${compra.asientosArray}</td>
   </tr>
   <tr>

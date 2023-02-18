@@ -23,7 +23,7 @@ const listarTours = async () => {
                 <p class="card-text">${tour.descripcion}</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">${tour.dias} días - ${tour.noches} noches</li>
+                <li class="list-group-item">Duración: ${tour.dias} días - ${tour.noches} noches</li>
                 <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
                 <li class="list-group-item">
                 Incluye:
@@ -34,7 +34,7 @@ const listarTours = async () => {
                 </li>
                 <li class="list-group-item">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}')">
-                    Seleccionar
+                    Reservar
                 </button>
                 </li>
             </ul>

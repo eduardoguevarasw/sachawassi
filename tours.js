@@ -34,7 +34,7 @@ const listarTours = async () => {
                 </li>
                 <li class="list-group-item">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}')">
-                    Reservar
+                  ☞ Elegir
                 </button>
                 </li>
             </ul>
@@ -59,44 +59,51 @@ function modal(nombreTour,precio) {
 }
 
 function enviar() {
+  //validar los campos del formulario no esten vacios
+  if ( document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("email").value == "" || document.getElementById("pais").value == "" || document.getElementById("telefono").value == "" || document.getElementById("fecha").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("mensaje").value == "" ) {
+    alert("Por favor, complete todos los campos del formulario");
+    return false;
+  }else{
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const email = document.getElementById("email").value;
+    const pais = document.getElementById("pais").value;
+    const telefono = document.getElementById("telefono").value;
+    const fecha = document.getElementById("fecha").value;
+    const cantidad = document.getElementById("cantidad").value;
+    const mensaje = document.getElementById("mensaje").value;
+    const nombreTour = document.getElementById("nombreTour").value;
+  
+    // const cantidad = document.getElementById("cantidad").value;
+    const precio = document.getElementById("precio").value;
+    const total = cantidad * precio;
+    //guardar total en localstorage
+    sessionStorage.setItem("totalTour", total);
+  
+    let datos = {
+      nombre: nombre,
+      apellido: apellido,
+      email: email,
+      pais: pais,
+      telefono: telefono,
+      checkin: fecha,
+      cantidad: cantidad,
+      mensaje: mensaje,
+      tour: nombreTour,
+      total: total,
+    }
+      console.log(datos);
+      //guardar en base de datos 
+      database.from("reservas").insert(datos).then((res) => {
+          //mostrar boton de paypal
+          document.getElementById("paypal-button-container").style.display = "block";
+          //ocultar boton de enviar
+         document.querySelector("btn btn-primary").style.display = "none";
+          
+      } ); 
 
-  const nombre = document.getElementById("nombre").value;
-  const apellido = document.getElementById("apellido").value;
-  const email = document.getElementById("email").value;
-  const pais = document.getElementById("pais").value;
-  const telefono = document.getElementById("telefono").value;
-  const fecha = document.getElementById("fecha").value;
-  const cantidad = document.getElementById("cantidad").value;
-  const mensaje = document.getElementById("mensaje").value;
-  const nombreTour = document.getElementById("nombreTour").value;
-
-  // const cantidad = document.getElementById("cantidad").value;
-  const precio = document.getElementById("precio").value;
-  const total = cantidad * precio;
-  //guardar total en localstorage
-  sessionStorage.setItem("totalTour", total);
-
-  let datos = {
-    nombre: nombre,
-    apellido: apellido,
-    email: email,
-    pais: pais,
-    telefono: telefono,
-    checkin: fecha,
-    cantidad: cantidad,
-    mensaje: mensaje,
-    tour: nombreTour,
-    total: total,
   }
-    console.log(datos);
-    //guardar en base de datos 
-    database.from("reservas").insert(datos).then((res) => {
-        //mostrar boton de paypal
-        document.getElementById("paypal-button-container").style.display = "block";
-        //ocultar boton de enviar
-       document.querySelector("btn btn-primary").style.display = "none";
-        
-    } ); 
+
 }
 
 paypal

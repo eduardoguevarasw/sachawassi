@@ -38,6 +38,11 @@ sidebarToggle.addEventListener("click", () => {
 //boton btn btn-warning en none
 document.getElementById("btnActualizar").style.display = "none";
 
+//restringir la seleccion de fechas anteriores
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#fecha").value = today;
+document.querySelector("#fecha").min = today;
+//restringir la seleccion de fechas anteriores
 
 let dataTable;
 let dataTableisInit = false;

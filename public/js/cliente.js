@@ -64,14 +64,11 @@ const infoRuta = async () => {
           localStorage.setItem("origen", data[0].origen);
           localStorage.setItem("destino", data[0].destino);
           let infoBoleto = document.getElementById("infoBoleto");
-          infoBoleto.innerHTML = `<div class="alert alert-success" role="alert">
-                <h5 class="alert-heading">Informacion de la ruta</h5>
-                <strong id="bote_a">${data[0].bote_asignado}</strong><br>
-                <strong>${data[0].origen} ➡️ ${data[0].destino}</strong>
-                <p class="mb-0">Precio: $ <strong id="precioBoleto">${data[0].precio}</strong></p>
-                <p class="mb-0">Hora: <strong id="horaBoleto">${data[0].hora}</strong></p>
-                <p class="mb-0">Llegada Aprox: <strong id="llegadaBoleto">${data[0].llegada}</strong></p>
-                </div>
+          infoBoleto.innerHTML = `
+          <h5>Información del Viaje</h5>
+          <div class="alert alert-success" role="alert">
+          Embarcación: <strong id="bote_a">${data[0].bote_asignado} </strong>&nbsp&nbsp Ruta: <strong>${data[0].origen} ➡️ ${data[0].destino}</strong> <br> Precio: 💲 <strong id="precioBoleto">${data[0].precio}</strong>&nbsp&nbsp Fecha: <strong>${fecha}</strong>&nbsp&nbsp Hora Salida: <strong id="horaBoleto">${data[0].hora}</strong>&nbsp&nbsp Llegada Aprox: <strong id="llegadaBoleto">${data[0].llegada}</strong>
+          </div>
                 `;
         }
       }

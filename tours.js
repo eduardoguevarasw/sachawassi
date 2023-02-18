@@ -188,20 +188,20 @@ function generarPDF(){
             //agregar texto con esas dimenciones
             //agregar imagen con esas dimenciones
             doc.addImage(imgData, "JPEG", 15, 10, 60, 20);
-            doc.text(10, 20, "Sacha Wassi");
+            doc.text(10, 30, "Sacha Wassi");
             doc.setFontSize(15);
-            doc.text(15, 25, "Reserva de Tour");
+            doc.text(15, 35, "Reserva de Tour");
             doc.setFontSize(10);
-            doc.text(10, 30, "Nombre: " + datos.nombre);
-            doc.text(10, 40, "Apellido: " + datos.apellido);
-            doc.text(10, 50, "Correo: " + datos.email);
-            doc.text(10, 60, "Pais: " + datos.pais);
-            doc.text(10, 70, "Telefono: " + datos.telefono);
-            doc.text(10, 80, "Fecha Salida: " + datos.checkin);
-            doc.text(10, 90, "No Personas: " + datos.cantidad);
+            doc.text(10, 40, "Nombre: " + datos.nombre);
+            doc.text(10, 50, "Apellido: " + datos.apellido);
+            doc.text(10, 60, "Correo: " + datos.email);
+            doc.text(10, 70, "Pais: " + datos.pais);
+            doc.text(10, 80, "Telefono: " + datos.telefono);
+            doc.text(10, 90, "Fecha Salida: " + datos.checkin);
+            doc.text(10, 100, "No Personas: " + datos.cantidad);
             //doc.text(10, 55, "Mensaje: " + datos.mensaje);
-            doc.text(10, 100, "Tour: " + datos.tour);
-            doc.text(10, 110, "Total a Pagar: " + datos.total);
+            doc.text(10, 110, "Tour: " + datos.tour);
+            doc.text(10, 120, "Total: $ " + datos.total);
             doc.save("reserva.pdf");
         });
     });

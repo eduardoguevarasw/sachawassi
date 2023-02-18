@@ -148,7 +148,7 @@ document.getElementById("registrar").addEventListener(
                       } else {
                         localStorage.setItem("sesion", true);
                         window.location.href =
-                          "https://eduardoguevarasw.github.io/sachawassi";
+                          "https://eduardoguevarasw.github.io/sachawassi/public/client/nuevabusqueda.html";
                           
                       }
                       //redirigir a inicio de client
@@ -210,7 +210,7 @@ document.getElementById("ingresar").addEventListener(
           } else {
             localStorage.setItem("sesion", true);
             window.location.href =
-              "https://eduardoguevarasw.github.io/sachawassi";
+              "https://eduardoguevarasw.github.io/sachawassi/public/client/nuevabusqueda.html";
             
           }
         }

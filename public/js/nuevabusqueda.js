@@ -115,7 +115,21 @@ function buscarRuta() {
           }
           document.getElementById("botes_disponibles").innerHTML += option;
       })
-      
-      
   }
+}
+
+function procesoCompra(id) {
+  //subir idRuta a localstorage
+  localStorage.setItem("idRuta", id);
+  //subir fecha a localstorage
+  const fecha = document.getElementById("fecha").value;
+  localStorage.setItem("fecha", fecha);
+  //subir origen a localstorage
+  const origen = document.getElementById("origen").value;
+  localStorage.setItem("origen", origen);
+  //subir destino a localstorage
+  const destino = document.getElementById("destino").value;
+  localStorage.setItem("destino", destino);
+  //llevar a index.html
+  window.location.href = "index.html";
 }

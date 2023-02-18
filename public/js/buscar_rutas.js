@@ -10,7 +10,6 @@ logout.addEventListener("click", () => {
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
-
 const body = document.querySelector("body"),
       modeToggle = body.querySelector(".mode-toggle");
       sidebar = body.querySelector("nav");

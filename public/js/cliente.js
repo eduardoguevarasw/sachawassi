@@ -727,17 +727,17 @@ paypal
   <tr>
     <td>Embarcación</td>
     <td>Fecha</td>
-    <td>Destino</td>
+    <td>Ruta</td>
   </tr>
   <tr>
     <td>${compra.bote_asignado}</td>
     <td>${compra.fecha}</td>
-    <td>${compra.destino}</td>
+    <td>${compra.origen}-> ${compra.destino}</td>
   </tr>
   <tr>
     <td>Datos del Pasajero</td>
     <td colspan="2">${compra.cedula}</td>
-    <td colspan="2">${compra.nombresyapellidos}</td>
+    <td colspan="2">${compra.nombresyapellidos[0]}</td>
   </tr>
   <tr>
     <td>Número de Asiento:</td>
@@ -745,8 +745,10 @@ paypal
   </tr>
   <tr>
     <td>Hora de Salida</td>
-    <td>${compra.hora}</td>
-    <td>Total: ${compra.totalPago}</td>
+    <td>${compra.horaSalida}</td>
+    <td>Hora de Llegada</td>
+    <td>${compra.horaLlegada}</td>
+    <td>Total: $ ${compra.totalPago}</td>
   </tr>
 </tbody>
 </table>

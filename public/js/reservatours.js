@@ -228,6 +228,15 @@ const selectTour = async (id) => {
         alert("Error al seleccionar el tour ❌");
     }
     let tour = data[0];
+    let data2 = await database
+    .from("tour")
+    .select("*")
+    .eq("nombre", tour.nombre)
+    if (error) {
+        console.log("error", error);
+        alert("Error al seleccionar el tour ❌");
+    }
+    let tour2 = data2[0];
     document.getElementById("nombre").value = tour.nombre;
     document.getElementById("apellido").value = tour.apellido;
     document.getElementById("correo").value = tour.email;
@@ -236,6 +245,7 @@ const selectTour = async (id) => {
     document.getElementById("cantidad").value = tour.cantidad;
     document.getElementById("fecha").value = tour.checkin;
     document.getElementById("tourSelect").value = tour.tour;
+    document.getElementById("precio").value = tour2.precio;
     document.getElementById("total").value = tour.total;
     document.getElementById("id").value = tour.id;
     document.getElementById("btnActualizar").style.display = "block";

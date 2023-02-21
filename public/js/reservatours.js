@@ -238,6 +238,7 @@ const selectTour = async (id) => {
         alert("Error al seleccionar el tour ❌");
     }
     let tour2 = data2[0];
+    console.log(tour2);
     document.getElementById("nombre").value = tour.nombre;
     document.getElementById("apellido").value = tour.apellido;
     document.getElementById("correo").value = tour.email;

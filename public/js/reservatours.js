@@ -172,10 +172,7 @@ const calcularTotal = () => {
 //funcion para registrar un tour
 const registrarTour = async () => {
     //validar que los campos no esten vacios
-    if(document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("correo").value == "" || document.getElementById("telefono").value == "" || document.getElementById("pais").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("fecha").value == "" || document.getElementById("tourSelect").value == "" || document.getElementById("total").value == ""){
-        alert("Todos los campos son obligatorios");
-        return;
-    }else{
+   
 
         let nombre = document.getElementById("nombre").value;
         let apellido = document.getElementById("apellido").value;
@@ -186,21 +183,46 @@ const registrarTour = async () => {
         let checkin = document.getElementById("fecha").value;
         let tour = document.getElementById("tourSelect").value;
         let total = document.getElementById("total").value;
-        let { data, error } = await database
-        .from("reservas")
-        .insert([
-            { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
-        ])
-        if (error) {
-            console.log("error", error);
-            alert("Error al registrar el tour ❌");
+        
+        //validar que los campos esten llenos
+        if(nombre == "" || apellido == "" || email == "" || telefono == "" || pais == "" || cantidad == "" || checkin == "" || tour == "" || total == ""){
+            alert("Todos los campos son obligatorios");
+            return;
+        }else{
+            //validar que el email sea valido
+            if(!validateEmail(email)){
+                alert("El email no es valido");
+                return;
+            }else{
+                //validar el número de telefono tenga 10 números
+                if(telefono.length != 10){
+                    alert("El número de telefono debe tener 10 números");
+                    return;
+                }else{
+                    let { data, error } = await database
+                    .from("reservas")
+                    .insert([
+                        { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
+                    ])
+                    if (error) {
+                        console.log("error", error);
+                        alert("Error al registrar el tour ❌");
+                    }
+                    alert("Tour registrado con exito ✅");
+                    location.reload();
+
+
+                }
+            }
         }
-        alert("Tour registrado con exito ✅");
-        location.reload();
 
-    }
+}
 
-    
+//funcion para validar el email
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+
 }
 
 //funcion para eliminar un tour
@@ -267,16 +289,38 @@ const editarTour = async () => {
     let tour = document.getElementById("tourSelect").value;
     let total = document.getElementById("total").value;
     let id = document.getElementById("id").value;
-    let { data, error } = await database
-    .from("reservas")
-    .update({ nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total })
-    .eq("id", id)
-    if (error) {
-        console.log("error", error);
-        alert("Error al editar el tour ❌");
+
+    //validar que los campos esten llenos
+     //validar que los campos esten llenos
+     if(nombre == "" || apellido == "" || email == "" || telefono == "" || pais == "" || cantidad == "" || checkin == "" || tour == "" || total == ""){
+        alert("Todos los campos son obligatorios");
+        return;
+    }else{
+        //validar que el email sea valido
+        if(!validateEmail(email)){
+            alert("El email no es valido");
+            return;
+        }else{
+            //validar el número de telefono tenga 10 números
+            if(telefono.length != 10){
+                alert("El número de telefono debe tener 10 números");
+                return;
+            }else{
+                let { data, error } = await database
+                .from("reservas")
+                .update({ nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total })
+                .eq("id", id)
+                if (error) {
+                    console.log("error", error);
+                    alert("Error al editar el tour ❌");
+                }
+                alert("Tour editado con exito ✅");
+                location.reload();
+
+            }
+        }
     }
-    alert("Tour editado con exito ✅");
-    location.reload();
+
 }
 
 //cerrar sesion si hizo click 

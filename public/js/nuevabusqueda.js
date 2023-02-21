@@ -129,7 +129,7 @@ function procesoCompra(id) {
   localStorage.setItem("idRuta", id);
   //subir fecha a localstorage
   const fecha = document.getElementById("fecha").value;
-  localStorage.setItem("fecha", fecha);
+  localStorage.setItem("fechaViaje", fecha);
   //subir origen a localstorage
   const origen = document.getElementById("origen").value;
   localStorage.setItem("origen", origen);

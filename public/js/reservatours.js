@@ -228,11 +228,11 @@ const selectTour = async (id) => {
         alert("Error al seleccionar el tour ❌");
     }
     let tour = data[0];
-    console.log(tour.nombre);
+    console.log(tour.tour);
     let data2 = await database
     .from("tour")
     .select("*")
-    .eq("nombre", tour.nombre)
+    .eq("nombre", tour.tour)
     if (error) {
         console.log("error", error);
         alert("Error al seleccionar el tour ❌");

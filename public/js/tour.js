@@ -289,6 +289,18 @@ document.getElementById("dias").addEventListener("change", () => {
 });
 
 
+//al escuchar ingresar un preio en el input precio verificar que no sea negativo
+document.getElementById("precio").addEventListener("change", () => {
+  let precio = document.getElementById("precio").value;
+  //validar que no se ingrese un numero negativo
+  if (precio < 1) {
+    alert("No se puede ingresar un numero negativo");
+    document.getElementById("precio").value = 1;
+    return;
+  }
+});
+
+
 function guardarTour() {
   //validar que los campos no esten vacios y que origen y destino sean diferentes
   if (document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" ||  document.getElementById("precio").value < 1 || document.getElementById("descripcion").value == "") {

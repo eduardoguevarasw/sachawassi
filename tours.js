@@ -249,18 +249,19 @@ function generarPDF() {
       pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
       pdf.text(20, 170, "Mensaje: " + datos.mensaje);
       pdf.text(20, 180, "Total: " + datos.total + " USD");
-      pdf.text(20, 190, "Gracias por su compra");
-      pdf.text(20, 200, "SachaWassi");
-      //agregar una linea
-      pdf.line(20, 205, 180, 205);
-      pdf.text(20, 210, "www.sachawassi.com");
-      //letra pequeña
-      pdf.setFontSize(8);
-      pdf.text(20, 220, "Terminos y Condiciones");
-      pdf.text(20, 230, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
-      pdf.text(20, 240, "2. Los tours no son reembolsables.");
-      pdf.text(20, 250, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
-      pdf.text(20, 260, "4. Seguir las indicaciones del guía de turismo");
+      //negrilla
+      pdf.setFont("helvetica", "bold");
+      pdf.text(70, 200, "Terminos y Condiciones");
+      //normal
+      pdf.setFont("helvetica", "normal");
+      //LETRA PEQUEÑA
+      pdf.setFontSize(10);
+      pdf.text(20, 210, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
+      pdf.text(20, 215, "2. Los tours no son reembolsables.");
+      pdf.text(20, 220, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
+      pdf.text(20, 225, "4. Seguir las indicaciones del guía de turismo");
+
+      pdf.text(20, 230, "Gracias por su preferencia");
       pdf.save("ComprobanteTour.pdf");
 
     });

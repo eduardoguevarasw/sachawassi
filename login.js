@@ -209,6 +209,7 @@ document.getElementById("ingresar").addEventListener(
           //guardar el correo
           localStorage.setItem("correo", correo);
           let idRuta = localStorage.getItem("idRuta");
+          let tour  = localStorage.getItem("tour");
           if (idRuta != null) {
             setTimeout(function () {
               localStorage.setItem("sesion", true);
@@ -216,10 +217,15 @@ document.getElementById("ingresar").addEventListener(
                 "https://eduardoguevarasw.github.io/sachawassi/public/client/index.html";
             }, 5000);
           } else {
-            localStorage.setItem("sesion", true);
-            window.location.href =
-              "https://eduardoguevarasw.github.io/sachawassi/public/client/nuevabusqueda.html";
-            
+            if(tour != null){
+              localStorage.setItem("sesion", true);
+              window.location.href =
+                "https://eduardoguevarasw.github.io/sachawassi/public/client/tour.html";
+            }else{
+              localStorage.setItem("sesion", true);
+              window.location.href =
+                "https://eduardoguevarasw.github.io/sachawassi/public/client/nuevabusqueda.html";
+            }  
           }
         }
       });

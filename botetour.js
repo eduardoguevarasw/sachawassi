@@ -70,4 +70,9 @@ const selecttour = async (id) => {
     hora : data[0].hora,
   }
   console.log(datosTour);
+   localStorage.setItem("tour", JSON.stringify(datosTour));
+
+   //redigir a iniciar sesión 
+   window.location.href = "login.html";
+
 };

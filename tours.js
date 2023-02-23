@@ -221,6 +221,7 @@ function eliminartx() {
 }
 
 function generarPDF() {
+  
   //obtener datosTour de localstorage
   let datos = JSON.parse(localStorage.getItem("datosTour"));
   //obtener datos del tour
@@ -250,7 +251,7 @@ function generarPDF() {
       pdf.text(20, 70, "Destino: " + tour.destino);
       pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
       pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
-      pdf.text(80, 90, "Fecha de Retorno : " + datos.checkout);
+      pdf.text(110, 90, "Fecha de Retorno : " + datos.checkout);
       pdf.text(20, 95, "Hora de Salida : " + tour.hora);
       //negrilla
       pdf.setFont("helvetica", "bold");
@@ -281,10 +282,10 @@ function generarPDF() {
       pdf.text(20, 225, "4. Seguir las indicaciones del guía de turismo");
 
       //tamaño normal
-      pdf.setFontSize(12);
+      pdf.setFontSize(15);
       //negrita
       pdf.setFont("helvetica", "bold");
-      pdf.text(70, 230, "Gracias por su preferencia");
+      pdf.text(70, 240, "Gracias por su preferencia");
       pdf.save("ComprobanteTour.pdf");
 
     });

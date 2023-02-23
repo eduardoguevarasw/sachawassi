@@ -99,6 +99,7 @@ function enviar() {
     const pais = document.getElementById("pais").value;
     const telefono = document.getElementById("telefono").value;
     const fecha = document.getElementById("fecha").value;
+    const fecha2 = document.getElementById("fecha2").value;
     const cantidad = document.getElementById("cantidad").value;
     const mensaje = document.getElementById("mensaje").value;
     const nombreTour = document.getElementById("nombreTour").value;
@@ -128,6 +129,7 @@ function enviar() {
             pais: pais,
             telefono: telefono,
             checkin: fecha,
+            checkout: fecha2,
             cantidad: cantidad,
             mensaje: mensaje,
             tour: nombreTour,
@@ -248,6 +250,7 @@ function generarPDF() {
       pdf.text(20, 70, "Destino: " + tour.destino);
       pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
       pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
+      pdf.text(40, 90, "Fecha de Retorno : " + tour.checkout);
       pdf.text(20, 95, "Hora de Salida : " + tour.hora);
       //negrilla
       pdf.setFont("helvetica", "bold");

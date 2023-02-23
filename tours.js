@@ -31,6 +31,7 @@ const listarTours = async () => {
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Ruta: ${tour.origen} ➡️ ${tour.destino}</li>
                 <li class="list-group-item">Duración: ${tour.dias} días - ${tour.noches} noches</li>
+                <li class="list-group-item">Hora de Salida: ${tour.hora}</li>
                 <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
                 <li class="list-group-item">
                 Incluye:
@@ -233,6 +234,7 @@ function generarPDF() {
       pdf.text(20, 70, "Destino: " + tour.destino);
       pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
       pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
+      pdf.text(20, 95, "Hora de Salida : " + tour.hora);
       //negrilla
       pdf.setFont("helvetica", "bold");
       pdf.text(80, 100, "Datos del Cliente");

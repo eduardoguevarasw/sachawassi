@@ -41,7 +41,7 @@ const listarTours = async () => {
                     <ul>Entradas</ul>
                 </li>
                 <li class="list-group-item">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}','${tour.dias}')">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.dias}')">
                   ☞ Elegir
                 </button>
                 </li>
@@ -67,12 +67,7 @@ document.getElementById("fecha").addEventListener("change", () => {
   document.getElementById("fecha2").value = fechaCheckoutString;
 });
 
-function modal(nombreTour, precio, dias) {
-  //agregar datos al tour
-  let nombre = document.getElementById("nombreTour");
-  nombre.value = nombreTour;
-  let price = document.getElementById("precio");
-  price.value = precio;
+function modal(dias) {
   let day = document.getElementById("dias");
   day.value = dias;
 }
@@ -85,8 +80,7 @@ function enviar() {
     document.getElementById("email").value == "" ||
     document.getElementById("pais").value == "" ||
     document.getElementById("telefono").value == "" ||
-    document.getElementById("fecha").value == "" ||
-    document.getElementById("cantidad").value == ""
+    document.getElementById("fecha").value == "" 
   ) {
     alert("Por favor, complete todos los campos del formulario");
     return false;
@@ -98,9 +92,6 @@ function enviar() {
     const telefono = document.getElementById("telefono").value;
     const fecha = document.getElementById("fecha").value;
     const fecha2 = document.getElementById("fecha2").value;
-    const cantidad = document.getElementById("cantidad").value;
-    const mensaje = document.getElementById("mensaje").value;
-    const nombreTour = document.getElementById("nombreTour").value;
     const terminos = document.getElementById("terminos").checked;
     if (terminos == false) {
       alert("Por favor, acepte los términos y condiciones");
@@ -114,12 +105,6 @@ function enviar() {
           alert("Por favor, ingrese un número de teléfono válido");
           return false;
         } else {
-          // const cantidad = document.getElementById("cantidad").value;
-          const precio = document.getElementById("precio").value;
-          const total = cantidad * precio;
-          //guardar total en localstorage
-          sessionStorage.setItem("totalTour", total);
-
           let datos = {
             nombre: nombre,
             apellido: apellido,
@@ -128,31 +113,20 @@ function enviar() {
             telefono: telefono,
             checkin: fecha,
             checkout: fecha2,
-            cantidad: cantidad,
-            mensaje: mensaje,
-            tour: nombreTour,
-            total: total,
           };
           console.log(datos);
           //guardar en base de datos
           //guardar en localstorage
-          localStorage.setItem("datosTour", JSON.stringify(datos));
-          database
-            .from("reservas")
-            .insert(datos)
-            .then((res) => {
-              //mostrar boton de paypal
-              document.getElementById("paypal-button-container").style.display =
-                "block";
-              //ocultar boton de enviar
-              document.querySelector("btn btn-primary").style.display = "none";
-            });
+          localStorage.setItem("tour", JSON.stringify(datos));
+          //redirigir a la selección de asientos
+          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/login.html";
         }
       }
     }
   }
 }
 
+/*
 paypal
   .Buttons({
     // Sets up the transaction when a payment button is clicked
@@ -290,3 +264,4 @@ function generarPDF() {
 
   
 }
+*/

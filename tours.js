@@ -218,43 +218,49 @@ function generarPDF() {
           let datos = res.data[0];
 
           //buscar tour por nombre
-          let tour;
-            database
+          database
             .from("tour")
             .select("*")
             .eq("nombre", datos.tour)
             .then((res) => {
-               tour = res.data[0];
+              let tour = res.data[0];
+
+              //generar pdf
+
+              var pdf = new jsPDF();
+
+              //pdf.text(20, 20, 'SachaWassi');
+              pdf.addImage(imgData, "JPEG", 30, 6, 25, 25);
+              pdf.text(60, 20, "Cooperativa de Transporte Fluvial SachaWassi");
+              pdf.text(70, 30, "Ruc: 1500466386001");
+              //agregar una linea
+              pdf.line(20, 25, 180, 25);
+              pdf.text(20, 40, "Datos del Tour");
+              pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
+              pdf.text(20, 60, "Origen: " + tour.origen);
+              pdf.text(20, 70, "Destino: " + tour.destino);
+              pdf.text(
+                20,
+                80,
+                "Duración: " + tour.dias + " días" + tour.noches + " noches"
+              );
+              pdf.text(20, 90, "Descripción: " + tour.descripcion);
+              pdf.text(20, 100, "Datos del Cliente");
+              pdf.text(
+                20,
+                110,
+                "Nombre: " + datos.nombre + " " + datos.apellido
+              );
+              pdf.text(20, 120, "Email: " + datos.email);
+              pdf.text(20, 130, "País: " + datos.pais);
+              pdf.text(20, 140, "Teléfono: " + datos.telefono);
+              pdf.text(20, 150, "Fecha de Inicio: " + datos.checkin);
+              pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
+              pdf.text(20, 170, "Mensaje: " + datos.mensaje);
+              pdf.text(20, 180, "Total: " + datos.total);
+              pdf.text(20, 190, "Gracias por su compra");
+              pdf.save("ComprobanteTour.pdf");
             });
-
-
-          //generar pdf
-
-          var pdf = new jsPDF();
-
-          //pdf.text(20, 20, 'SachaWassi');
-          pdf.addImage(imgData, "JPEG", 30, 6, 25, 25);
-          pdf.text(60, 20, "Cooperativa de Transporte Fluvial SachaWassi");
-          pdf.text(70, 30, "Ruc: 1500466386001");
-          //agregar una linea
-          pdf.line(20, 25, 180, 25);
-          pdf.text(20, 40, "Datos del Tour");
-          pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
-          pdf.text(20, 60, "Origen: " + tour.origen);
-          pdf.text(20, 70, "Destino: " + tour.destino);
-          pdf.text(20, 80, "Duración: " + tour.dias + " días" + tour.noches + " noches");
-          pdf.text(20, 90, "Descripción: " + tour.descripcion);
-          pdf.text(20, 100, "Datos del Cliente");
-          pdf.text(20, 110, "Nombre: " + datos.nombre + " " + datos.apellido);
-          pdf.text(20, 120, "Email: " + datos.email);
-          pdf.text(20, 130, "País: " + datos.pais);
-          pdf.text(20, 140, "Teléfono: " + datos.telefono);
-          pdf.text(20, 150, "Fecha de Inicio: " + datos.checkin);
-          pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
-          pdf.text(20, 170, "Mensaje: " + datos.mensaje); 
-          pdf.text(20, 180, "Total: " + datos.total);
-          pdf.text(20, 190, "Gracias por su compra");
-          pdf.save("ComprobanteTour.pdf");
         });
     });
 }

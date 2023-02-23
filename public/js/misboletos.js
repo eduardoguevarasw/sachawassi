@@ -88,7 +88,7 @@ function pdfBoleto(id){
         let { data, error } =  database
         .from("rutas")
         .select("*")
-        .eq("id", data[0].idRuta)
+        .eq("id", data1[0].idRuta)
         .then(({ data, error }) => {
 
             let datosCompra = {

@@ -63,7 +63,7 @@ function modal(nombreTour,precio) {
 
 function enviar() {
   //validar los campos del formulario no esten vacios
-  if ( document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("email").value == "" || document.getElementById("pais").value == "" || document.getElementById("telefono").value == "" || document.getElementById("fecha").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("mensaje").value == "" ) {
+  if ( document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("email").value == "" || document.getElementById("pais").value == "" || document.getElementById("telefono").value == "" || document.getElementById("fecha").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("mensaje").value == "") {
     alert("Por favor, complete todos los campos del formulario");
     return false;
   }else{
@@ -76,7 +76,13 @@ function enviar() {
     const cantidad = document.getElementById("cantidad").value;
     const mensaje = document.getElementById("mensaje").value;
     const nombreTour = document.getElementById("nombreTour").value;
-  
+    const terminos = document.getElementById("terminos").checked;
+    if(terminos == false){
+      alert("Por favor, acepte los términos y condiciones");
+      return false;
+    }else{
+
+
     // const cantidad = document.getElementById("cantidad").value;
     const precio = document.getElementById("precio").value;
     const total = cantidad * precio;
@@ -104,6 +110,9 @@ function enviar() {
          document.querySelector("btn btn-primary").style.display = "none";
           
       } ); 
+
+    }
+  
 
   }
 

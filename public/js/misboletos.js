@@ -85,7 +85,7 @@ function pdfBoleto(id){
     .eq("id", id)
     .then(({ data1, error1 }) => {
         //con el idRuta buscar los datos de la ruta
-        let idRuta = data1[0].idRuta;
+        let idRuta = data1.idRuta;
         console.log(idRuta);
         let { data, error } =  database
         .from("rutas")
@@ -94,16 +94,16 @@ function pdfBoleto(id){
         .then(({ data, error }) => {
 
             let datosCompra = {
-                nombre: data1[0].nombre,
-                apellido: data1[0].apellido,
-                cedula: data1[0].cedula,
-                asientos: data1[0].asientosArray,
-                destino: data[0].destino,
-                fecha: data1[0].fecha,
-                horaSalida: data[0].hora,
-                llegadaBoleto: data[0].llegada,
-                totalPago: data1[0].totalPago,
-                bote_asignado : data1[0].bote_asignado
+                nombre: data1.nombre,
+                apellido: data1.apellido,
+                cedula: data1.cedula,
+                asientos: data1.asientosArray,
+                destino: data.destino,
+                fecha: data1.fecha,
+                horaSalida: data.hora,
+                llegadaBoleto: data.llegada,
+                totalPago: data1.totalPago,
+                bote_asignado : data1.bote_asignado
             }
             localStorage.setItem("datosCompra", JSON.stringify(datosCompra));
             window.location.href = "boleto.html";

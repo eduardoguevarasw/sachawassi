@@ -244,7 +244,6 @@ function generarPDF() {
                 80,
                 "Duración: " + tour.dias + " días" + tour.noches + " noches"
               );
-              pdf.text(20, 90, "Descripción: " + tour.descripcion);
               pdf.text(20, 100, "Datos del Cliente");
               pdf.text(
                 20,

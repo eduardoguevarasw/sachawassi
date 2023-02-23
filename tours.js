@@ -25,6 +25,7 @@ const listarTours = async () => {
                 <p class="card-text">${tour.descripcion}</p>
             </div>
             <ul class="list-group list-group-flush">
+                <li class="list-group-item">Ruta: ${tour.origen} ➡️ ${tour.destino} noches</li>
                 <li class="list-group-item">Duración: ${tour.dias} días - ${tour.noches} noches</li>
                 <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
                 <li class="list-group-item">

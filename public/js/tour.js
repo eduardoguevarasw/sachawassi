@@ -191,6 +191,8 @@ const selectBote = async (id) => {
   document.getElementById("precio").value = data[0].precio;
   document.getElementById("descripcion").value = data[0].descripcion;
   document.getElementById("estado").value = data[0].estado;
+  document.getElementById("foto").value = data[0].foto;
+  document.getElementById("hora").value = data[0].hora;
   document.getElementById("btnGuardar").style.display = "none";
   document.getElementById("btnActualizar").style.display = "block";
 };
@@ -212,6 +214,7 @@ const actualizarBote = async () => {
     let descripcion = document.getElementById("descripcion").value;
     let imagen = localStorage.getItem("imagen");
     let estado = document.getElementById("estado").value;
+    let hora = document.getElementById("hora").value;
     let { data, error } = await database
       .from("tour")
       .update({
@@ -223,7 +226,8 @@ const actualizarBote = async () => {
         precio: precio,
         descripcion: descripcion,
         foto: imagen,
-        estado: estado
+        estado: estado,
+        hora: hora
       })
       .eq("id", id);
     if (error) {
@@ -320,6 +324,7 @@ function guardarTour() {
       let descripcion = document.getElementById("descripcion").value;
       let imagen = localStorage.getItem("imagen");
       let estado = document.getElementById("estado").value;
+      let hora = document.getElementById("hora").value;
       console.log(imagen);
 
       if (
@@ -329,7 +334,8 @@ function guardarTour() {
         dias === "" ||
         noches === "" ||
         precio === "" ||
-        descripcion === ""
+        descripcion === "" ||
+        hora === ""
       ) {
         alert("Todos los campos son obligatorios 💡");
       } else {
@@ -347,7 +353,8 @@ function guardarTour() {
               precio: precio,
               descripcion: descripcion,
               foto: imagen,
-              estado: estado
+              estado: estado,
+              hora : hora
             },
           ])
           .then((res) => {

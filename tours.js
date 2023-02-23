@@ -56,6 +56,13 @@ listarTours();
 let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#fecha").value = today;
 document.querySelector("#fecha").min = today;
+//del dia seleccionado marcar 4 dias despues como fecha maxima
+document.querySelector("#fecha").addEventListener("change", function () {
+  let fecha = new Date(this.value);
+  fecha.setDate(fecha.getDate() + 4);
+  let fechaMax = fecha.toISOString().substr(0, 10);
+  document.querySelector("#fecha").max = fechaMax;
+});
 
 function modal(nombreTour, precio) {
   //agregar datos al tour

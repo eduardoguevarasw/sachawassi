@@ -306,12 +306,12 @@ const continuar = async () => {
           }
         }
         else {
-          alert("La cedula:" + cedula + " es invalida ❌")
+          alert("La cédula:" + cedula + " es invalida ❌")
           return false;
         }
       }
       else {
-        alert("La cedula:" + cedula + " no tiene los 10 digitos ❌")
+        alert("La cédula:" + cedula + " no tiene los 10 digitos ❌")
         return false;
       }
       });

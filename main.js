@@ -62,7 +62,7 @@ fecha.addEventListener("change", function(){
     fechaMax.setDate(fechaMax.getDate() + 90);
     console.log(fechaMax.toISOString().split("T")[0]);
     if(fecha.value > fechaMax.toISOString().split("T")[0]){
-        alert("La fecha maxima es " + fechaMax.toISOString().split("T")[0]);
+        alert("La fecha maxima de compra es 3 meses ");
         fecha.value = "";
     }
 });

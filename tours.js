@@ -237,7 +237,7 @@ function generarPDF() {
               pdf.line(20, 25, 180, 25);
               //negrilla
               pdf.setFont("helvetica", "bold");
-              pdf.text(20, 60, "Datos del Tour");
+              pdf.text(80,40, "Datos del Tour");
               //normal
               pdf.setFont("helvetica", "normal");
               pdf.text(20, 50, "Nombre del Tour: " + datos.tour);

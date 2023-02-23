@@ -206,7 +206,7 @@ const selectBote = async (id) => {
   document.getElementById("precio").value = data[0].precio;
   document.getElementById("descripcion").value = data[0].descripcion;
   document.getElementById("estado").value = data[0].estado;
-  document.getElementById("foto").value = data[0].foto;
+  //document.getElementById("foto").value = data[0].foto;
   document.getElementById("hora").value = data[0].hora;
   document.getElementById("btnGuardar").style.display = "none";
   document.getElementById("btnActualizar").style.display = "block";

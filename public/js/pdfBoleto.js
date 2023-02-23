@@ -29,7 +29,7 @@ pdf.text(20, 70, 'Hora de Salida:');
 pdf.text(110, 70, 'Hora Llegada:');
 pdf.text(110,50, 'Embarcación:');
 pdf.setFontType("bold");
-pdf.text(38, 50, ''+compra.tx[0]);
+pdf.text(38, 50, ''+compra.tx);
 pdf.text(64, 60,''+ compra.fecha);
 pdf.text(60, 70, ''+ compra.horaSalida);
 pdf.text(150, 70, ''+ compra.llegadaBoleto);
@@ -63,7 +63,7 @@ let pasajeros =[
 console.log(pasajeros);
 
     pdf.table(15, 130, pasajeros , [
-        'Cédula', 'Nombres', 'Asiento No'
+        'Cédula', 'Nombres', 'AsientoNo'
     ],
         {headerBackgroundColor: '#0298', headerTextColor: '#FFFFFF', fontSize: 10, fontStyle: 'normal', overflow: 'linebreak', autoSize: true, printHeaders: true}
     );

@@ -79,14 +79,33 @@ window.addEventListener("load",  async () => {
 
 function pdfBoleto(id){
     //obtener los datos de la compra para el boleto
-    let { data, error } =  database
+    let { data1, error } =  database
     .from("compras")
     .select("*")
     .eq("id", id)
-    .then(({ data, error }) => {
-        //guardar en localsotrage los datos de la compra
-        localStorage.setItem("datosCompra", JSON.stringify(data[0]));
-        //redireccionar a la pagina del boleto
+    .then(({ data1, error }) => {
+        //con el idRuta buscar los datos de la ruta
+        let { data, error } =  database
+        .from("rutas")
+        .select("*")
+        .eq("id", data[0].idRuta)
+        .then(({ data, error }) => {
+
+            let datosCompra = {
+                nombre: data1[0].nombre,
+                apellido: data1[0].apellido,
+                cedula: data1[0].cedula,
+                asientos: data1[0].asientosArray,
+                destino: data[0].destino,
+                fecha: data1[0].fecha,
+                horaSalida: data[0].hora,
+                llegadaBoleto: data[0].llegada,
+                totalPago: data1[0].totalPago,
+                bote_asignado : data1[0].bote_asignado
+
+
+            }
+        })
         window.location.href = "boleto.html";
     })
 }

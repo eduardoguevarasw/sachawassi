@@ -56,22 +56,17 @@ listarTours();
 let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#fecha").value = today;
 document.querySelector("#fecha").min = today;
-//del dia seleccionado en el calendario, marcar como seleccionado los 4 dias siguientes
-document.querySelector("#fecha").addEventListener("change", function () {
-  let fecha = new Date(this.value);
-  let fecha2 = new Date(this.value);
-  let fecha3 = new Date(this.value);
-  let fecha4 = new Date(this.value);
-  fecha2.setDate(fecha.getDate() + 1);
-  fecha3.setDate(fecha.getDate() + 2);
-  fecha4.setDate(fecha.getDate() + 3);
-  let fecha2String = fecha2.toISOString().substr(0, 10);
-  let fecha3String = fecha3.toISOString().substr(0, 10);
-  let fecha4String = fecha4.toISOString().substr(0, 10);
-  document.querySelector("#fecha2").value = fecha2String;
-  document.querySelector("#fecha3").value = fecha3String;
-  document.querySelector("#fecha4").value = fecha4String;
-});
+//del día seleccionado poner fecha de checkout dependiendo del número de dias
+function calcularCheckout() {
+  let fecha = document.getElementById("fecha").value;
+  let dias = document.getElementById("dias").value;
+  let fechaCheckout = new Date(fecha);
+  fechaCheckout.setDate(fechaCheckout.getDate() + parseInt(dias));
+  let fechaCheckoutString = fechaCheckout.toISOString().substr(0, 10);
+  document.getElementById("checkout").value = fechaCheckoutString;
+}
+
+
 
 function modal(nombreTour, precio) {
   //agregar datos al tour

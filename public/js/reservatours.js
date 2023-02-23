@@ -192,6 +192,7 @@ const registrarTour = async () => {
         let pais = document.getElementById("pais").value;
         let cantidad = document.getElementById("cantidad").value;
         let checkin = document.getElementById("fecha").value;
+        let checkout = document.getElementById("fecha2").value;
         let tour = document.getElementById("tourSelect").value;
         let total = document.getElementById("total").value;
         
@@ -213,7 +214,7 @@ const registrarTour = async () => {
                     let { data, error } = await database
                     .from("reservas")
                     .insert([
-                        { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total}
+                        { nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, checkout: checkout, tour: tour, total: total}
                     ])
                     if (error) {
                         console.log("error", error);
@@ -280,6 +281,7 @@ const selectTour = async (id) => {
     document.getElementById("pais").value = tour.pais;
     document.getElementById("cantidad").value = tour.cantidad;
     document.getElementById("fecha").value = tour.checkin;
+    document.getElementById("fecha2").value = tour.checkout;
     document.getElementById("tourSelect").value = tour.tour;
     document.getElementById("precio").value = tour2.precio;
     document.getElementById("total").value = tour.total;
@@ -297,6 +299,7 @@ const editarTour = async () => {
     let pais = document.getElementById("pais").value;
     let cantidad = document.getElementById("cantidad").value;
     let checkin = document.getElementById("fecha").value;
+    let checkout = document.getElementById("fecha2").value;
     let tour = document.getElementById("tourSelect").value;
     let total = document.getElementById("total").value;
     let id = document.getElementById("id").value;
@@ -319,7 +322,7 @@ const editarTour = async () => {
             }else{
                 let { data, error } = await database
                 .from("reservas")
-                .update({ nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, tour: tour, total: total })
+                .update({ nombre: nombre, apellido: apellido, email: email, telefono: telefono, pais: pais, cantidad: cantidad, checkin: checkin, checkout: checkout, tour: tour, total: total })
                 .eq("id", id)
                 if (error) {
                     console.log("error", error);

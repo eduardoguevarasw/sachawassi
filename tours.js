@@ -57,7 +57,8 @@ let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#fecha").value = today;
 document.querySelector("#fecha").min = today;
 //del día seleccionado poner fecha de checkout dependiendo del número de dias
-function calcularCheckout() {
+//al escuchar el evento change del input fecha
+document.getElementById("fecha").addEventListener("change", () => {
   let fecha = document.getElementById("fecha").value;
   let dias = document.getElementById("dias").value;
   let fechaCheckout = new Date(fecha);

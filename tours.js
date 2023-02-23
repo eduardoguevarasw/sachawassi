@@ -266,6 +266,8 @@ function generarPDF() {
               //agregar una linea
               pdf.line(20, 205, 180, 205);
               pdf.text(20, 210, "www.sachawassi.com");
+              //letra pequeña
+              pdf.setFontSize(8);
               pdf.text(20, 220, "Terminos y Condiciones");
               pdf.text(20, 230, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
               pdf.text(20, 240, "2. Los tours no son reembolsables.");

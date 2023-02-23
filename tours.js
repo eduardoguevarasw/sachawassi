@@ -67,7 +67,7 @@ document.getElementById("fecha").addEventListener("change", () => {
   document.getElementById("fecha2").value = fechaCheckoutString;
 });
 
-function modal(dias,id) {
+function modal(id,dias) {
   let day = document.getElementById("dias");
   day.value = dias;
   let idtour = document.getElementById("idtour");

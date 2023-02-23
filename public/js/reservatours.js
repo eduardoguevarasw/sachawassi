@@ -268,12 +268,8 @@ const selectTour = async (id) => {
     document.getElementById("telefono").value = tour.telefono;
     document.getElementById("pais").value = tour.pais;
     document.getElementById("cantidad").value = tour.cantidad;
-    //bloquear el input de cantidad
-    document.getElementById("cantidad").disabled = true;
     document.getElementById("fecha").value = tour.checkin;
     document.getElementById("tourSelect").value = tour.tour;
-    //bloquear el select de tours
-    document.getElementById("tourSelect").disabled = true;
     document.getElementById("precio").value = tour2.precio;
     document.getElementById("total").value = tour.total;
     document.getElementById("id").value = tour.id;

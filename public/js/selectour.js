@@ -12,4 +12,8 @@ logout.addEventListener("click", () => {
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
-//mostrar información del tour
+const infoTour = async () => {
+    let tour = localStorage.getItem("tour");
+    //buscar tour en la base de datos
+    console.log(tour);
+}

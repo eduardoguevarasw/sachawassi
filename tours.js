@@ -235,16 +235,24 @@ function generarPDF() {
               pdf.text(70, 30, "Ruc: 1500466386001");
               //agregar una linea
               pdf.line(20, 25, 180, 25);
-              pdf.text(20, 40, "Datos del Tour");
+              //negrilla
+              pdf.setFont("helvetica", "bold");
+              pdf.text(20, 60, "Datos del Tour");
+              //normal
+              pdf.setFont("helvetica", "normal");
               pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
               pdf.text(20, 60, "Origen: " + tour.origen);
               pdf.text(20, 70, "Destino: " + tour.destino);
               pdf.text(
                 20,
                 80,
-                "Duración: " + tour.dias + " días" + tour.noches + " noches"
+                "Duración: " + tour.dias + " días " + tour.noches + " noches"
               );
+              //negrilla
+              pdf.setFont("helvetica", "bold");
               pdf.text(20, 100, "Datos del Cliente");
+              //normal
+              pdf.setFont("helvetica", "normal");
               pdf.text(
                 20,
                 110,

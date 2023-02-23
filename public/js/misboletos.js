@@ -85,10 +85,12 @@ function pdfBoleto(id){
     .eq("id", id)
     .then(({ data1, error1 }) => {
         //con el idRuta buscar los datos de la ruta
+        let idRuta = data1[0].idRuta;
+        console.log(idRuta);
         let { data, error } =  database
         .from("rutas")
         .select("*")
-        .eq("id", data1[0].idRuta)
+        .eq("id", idRuta)
         .then(({ data, error }) => {
 
             let datosCompra = {

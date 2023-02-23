@@ -171,6 +171,20 @@ const eliminarBote = async (id) => {
   initDataTable();
 };
 
+
+//control de hora 
+const hora = document.querySelector('input[type="time"]');
+hora.setAttribute('min', '06:00');
+hora.setAttribute('max', '17:00');
+
+hora.addEventListener('change', () => {
+  const value = hora.value;
+  if (value < '06:00' || value >= '17:00') {
+    alert('Seleccione una hora entre las 6:00 AM y las 17:00 PM');
+    hora.value = '';
+  }
+});
+
 //funcion para seleccionar un bote
 const selectBote = async (id) => {
   let { data, error } = await database
@@ -200,7 +214,7 @@ const selectBote = async (id) => {
 //funcion para actualizar un bote
 const actualizarBote = async () => {
   //validar que los campos no esten vacios
-  if (document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" || document.getElementById("descripcion").value == "") {
+  if (document.getElementById("nombre").value == "" || document.getElementById("origen").value == "" || document.getElementById("destino").value == "" || document.getElementById("dias").value == "" || document.getElementById("noches").value == "" || document.getElementById("precio").value == "" || document.getElementById("descripcion").value == "" || document.getElementById("estado").value == "" || document.getElementById("hora").value == "") {
     alert("Por favor llene todos los campos");
     return;
   } else {

@@ -41,7 +41,7 @@ const listarTours = async () => {
                     <ul>Entradas</ul>
                 </li>
                 <li class="list-group-item">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.dias}')">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.id}','${tour.dias}')">
                   ☞ Elegir
                 </button>
                 </li>
@@ -67,9 +67,11 @@ document.getElementById("fecha").addEventListener("change", () => {
   document.getElementById("fecha2").value = fechaCheckoutString;
 });
 
-function modal(dias) {
+function modal(dias,id) {
   let day = document.getElementById("dias");
   day.value = dias;
+  let idtour = document.getElementById("idtour");
+  idtour.value = id;
 }
 
 function enviar() {
@@ -93,6 +95,7 @@ function enviar() {
     const fecha = document.getElementById("fecha").value;
     const fecha2 = document.getElementById("fecha2").value;
     const terminos = document.getElementById("terminos").checked;
+    const idTour = document.getElementById("idtour").value;
     if (terminos == false) {
       alert("Por favor, acepte los términos y condiciones");
       return false;
@@ -106,6 +109,7 @@ function enviar() {
           return false;
         } else {
           let datos = {
+            idTour: idTour,
             nombre: nombre,
             apellido: apellido,
             email: email,

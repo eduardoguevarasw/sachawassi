@@ -97,6 +97,7 @@ function pdfBoleto(id){
         let fecha = datosCompra.fecha;
         let totalPago = datosCompra.totalPago;
         let idRuta = datosCompra.idRuta;
+        let bote_asignado = datosCompra.bote_asignado;
         console.log(datosCompra);
         //con el id ruta obtener los datos de la ruta
         let { data  , error } =  database
@@ -119,7 +120,8 @@ function pdfBoleto(id){
                 fecha: fecha,
                 totalPago: totalPago,
                 horaSalida: horaSalida,
-                horaLlegada: horaLlegada
+                llegadaBoleto: horaLlegada,
+                bote_asignado :  bote_asignado
                 
             }
 

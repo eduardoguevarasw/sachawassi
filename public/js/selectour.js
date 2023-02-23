@@ -19,14 +19,15 @@ const infoTour = async () => {
     .from("tour")
     .select("*")
     .eq("id", tour.idTour)
-    .then((response) => {
-        console.log(response);
-        let infoBoleto = document.getElementById("infoBoleto");
-          infoBoleto.innerHTML = `<div class="alert alert-success" role="alert">
-          <h5 class="alert-heading">Informacion del Tour</h5>
-          <strong id="tournombre">${response.nombre}</strong><br>
+    .single();
+    //mostrar informacion del tour
+    console.log(data);
+    let infoBoleto = document.getElementById("infoBoleto");
+          infoBoleto.innerHTML = `
+          <h5>Información del Viaje</h5>
+          <div class="alert alert-success" role="alert">
+          Embarcación: <strong id="bote_a">${data.nombre} </strong>&nbsp&nbsp Ruta: <strong>${data.origen} ➡️ ${data.destino}</strong> <br> Precio: 💲 <strong id="precioBoleto">${data.precio}</strong>&nbsp&nbsp Fecha: <strong>${tour.fecha}</strong>&nbsp&nbsp Hora Salida: <strong id="horaBoleto">${data.hora}</strong>&nbsp&nbsp </strong>
           </div>
-          `
-    });
+                `;
 }
 infoTour();

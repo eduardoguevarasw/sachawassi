@@ -6,7 +6,7 @@ logout.addEventListener("click", () => {
     window.location.href = "https://eduardoguevarasw.github.io/sachawassi/";
 })
 
-let compra = localStorage.getItem('datosCompra');
+let compra = localStorage.getItem('infoCompras');
 compra = JSON.parse(compra);
 console.log(compra);
 

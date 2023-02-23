@@ -79,35 +79,60 @@ window.addEventListener("load",  async () => {
 
 function pdfBoleto(id){
     //obtener los datos de la compra para el boleto
-    let { data1, error1 } =  database
+    let { data  , error } =  database
     .from("compras")
     .select("*")
     .eq("id", id)
-    .then(({ data1, error1 }) => {
-        //con el idRuta buscar los datos de la ruta
-        console.log(data1);
-        let { data, error } =  database
+    .then((response) => {
+        let datosCompra = response.data[0];
+        
+        //obtener los datos de la compra 
+        let tx = datosCompra.tx;
+        let cedula = datosCompra.cedula;
+        let nombre = datosCompra.nombre;
+        let apellido = datosCompra.apellido;
+        let asientosArray = datosCompra.asientosArray;
+        let origen = datosCompra.origen;
+        let destino = datosCompra.destino;
+        let fecha = datosCompra.fecha;
+        let totalPago = datosCompra.totalPago;
+        let idRuta = datosCompra.idRuta;
+        console.log(datosCompra);
+        //con el id ruta obtener los datos de la ruta
+        let { data  , error } =  database
         .from("rutas")
         .select("*")
         .eq("id", idRuta)
-        .then(({ data, error }) => {
+        .then((response) => {
+            //obtener hora de salida y llegada
+            let horaSalida = response.data[0].hora;
+            let horaLlegada = response.data[0].llegada;
 
-            let datosCompra = {
-                nombre: data1.nombre,
-                apellido: data1.apellido,
-                cedula: data1.cedula,
-                asientos: data1.asientosArray,
-                destino: data.destino,
-                fecha: data1.fecha,
-                horaSalida: data.hora,
-                llegadaBoleto: data.llegada,
-                totalPago: data1.totalPago,
-                bote_asignado : data1.bote_asignado
+            let infoCompras = {
+                tx: tx,
+                cedula: cedula,
+                nombre: nombre,
+                apellido: apellido,
+                asientosArray: asientosArray,
+                origen: origen,
+                destino: destino,
+                fecha: fecha,
+                totalPago: totalPago,
+                horaSalida: horaSalida,
+                horaLlegada: horaLlegada
+                
             }
-            localStorage.setItem("datosCompra", JSON.stringify(datosCompra));
-            window.location.href = "boleto.html";
+
+            console.log(infoCompras);
+
+            ///guardar en el local storage
+            localStorage.setItem("infoCompras", JSON.stringify(infoCompras));
+            //llevar a boleto 
+            window.location.href = 'boleto.html'
         })
-        
+
+       
+
     })
 }
 

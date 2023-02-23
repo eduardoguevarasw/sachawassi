@@ -120,6 +120,8 @@ function enviar() {
           };
           console.log(datos);
           //guardar en base de datos
+          //guardar en localstorage
+          localStorage.setItem("datosTour", JSON.stringify(datos));
           database
             .from("reservas")
             .insert(datos)
@@ -202,79 +204,66 @@ function eliminartx() {
 }
 
 function generarPDF() {
-  //obtener el id de la ultima reserva
+  //obtener datosTour de localstorage
+  let datos = JSON.parse(localStorage.getItem("datosTour"));
+  //obtener datos del tour
   database
-    .from("reservas")
+    .from("tour")
     .select("*")
+    .eq("nombre", datos.tour)
     .then((res) => {
-      let id = res.data[res.data.length - 1].id;
-      //obtener los datos de la reserva
-      database
-        .from("reservas")
-        .select("*")
-        .eq("id", id)
-        .then((res) => {
-          console.log(res.data[0]);
-          let datos = res.data[0];
+      let tour = res.data[0];
+      //generar pdf
 
-          //buscar tour por nombre
-          database
-            .from("tour")
-            .select("*")
-            .eq("nombre", datos.tour)
-            .then((res) => {
-              let tour = res.data[0];
+      var pdf = new jsPDF();
 
-              //generar pdf
+      //pdf.text(20, 20, 'SachaWassi');
+      pdf.addImage(imgData, "JPEG", 30, 6, 25, 25);
+      pdf.text(60, 20, "Cooperativa de Transporte Fluvial SachaWassi");
+      pdf.text(70, 30, "Ruc: 1500466386001");
+      //agregar una linea
+      pdf.line(20, 25, 180, 25);
+      //negrilla
+      pdf.setFont("helvetica", "bold");
+      pdf.text(80,40, "Datos del Tour");
+      //normal
+      pdf.setFont("helvetica", "normal");
+      pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
+      pdf.text(20, 60, "Origen: " + tour.origen);
+      pdf.text(20, 70, "Destino: " + tour.destino);
+      pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
+      pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
+      //negrilla
+      pdf.setFont("helvetica", "bold");
+      pdf.text(80, 100, "Datos del Cliente");
+      //normal
+      pdf.setFont("helvetica", "normal");
+      pdf.text(
+        20,
+        110,
+        "Nombre: " + datos.nombre + " " + datos.apellido
+      );
+      pdf.text(20, 120, "Email: " + datos.email);
+      pdf.text(20, 130, "País: " + datos.pais);
+      pdf.text(20, 140, "Teléfono: " + datos.telefono);
+      pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
+      pdf.text(20, 170, "Mensaje: " + datos.mensaje);
+      pdf.text(20, 180, "Total: " + datos.total + " USD");
+      pdf.text(20, 190, "Gracias por su compra");
+      pdf.text(20, 200, "SachaWassi");
+      //agregar una linea
+      pdf.line(20, 205, 180, 205);
+      pdf.text(20, 210, "www.sachawassi.com");
+      //letra pequeña
+      pdf.setFontSize(8);
+      pdf.text(20, 220, "Terminos y Condiciones");
+      pdf.text(20, 230, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
+      pdf.text(20, 240, "2. Los tours no son reembolsables.");
+      pdf.text(20, 250, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
+      pdf.text(20, 260, "4. Seguir las indicaciones del guía de turismo");
+      pdf.save("ComprobanteTour.pdf");
 
-              var pdf = new jsPDF();
-
-              //pdf.text(20, 20, 'SachaWassi');
-              pdf.addImage(imgData, "JPEG", 30, 6, 25, 25);
-              pdf.text(60, 20, "Cooperativa de Transporte Fluvial SachaWassi");
-              pdf.text(70, 30, "Ruc: 1500466386001");
-              //agregar una linea
-              pdf.line(20, 25, 180, 25);
-              //negrilla
-              pdf.setFont("helvetica", "bold");
-              pdf.text(80,40, "Datos del Tour");
-              //normal
-              pdf.setFont("helvetica", "normal");
-              pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
-              pdf.text(20, 60, "Origen: " + tour.origen);
-              pdf.text(20, 70, "Destino: " + tour.destino);
-              pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
-              pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
-              //negrilla
-              pdf.setFont("helvetica", "bold");
-              pdf.text(80, 100, "Datos del Cliente");
-              //normal
-              pdf.setFont("helvetica", "normal");
-              pdf.text(
-                20,
-                110,
-                "Nombre: " + datos.nombre + " " + datos.apellido
-              );
-              pdf.text(20, 120, "Email: " + datos.email);
-              pdf.text(20, 130, "País: " + datos.pais);
-              pdf.text(20, 140, "Teléfono: " + datos.telefono);
-              pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
-              pdf.text(20, 170, "Mensaje: " + datos.mensaje);
-              pdf.text(20, 180, "Total: " + datos.total + " USD");
-              pdf.text(20, 190, "Gracias por su compra");
-              pdf.text(20, 200, "SachaWassi");
-              //agregar una linea
-              pdf.line(20, 205, 180, 205);
-              pdf.text(20, 210, "www.sachawassi.com");
-              //letra pequeña
-              pdf.setFontSize(8);
-              pdf.text(20, 220, "Terminos y Condiciones");
-              pdf.text(20, 230, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
-              pdf.text(20, 240, "2. Los tours no son reembolsables.");
-              pdf.text(20, 250, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
-              pdf.text(20, 260, "4. Seguir las indicaciones del guía de turismo");
-              pdf.save("ComprobanteTour.pdf");
-            });
-        });
     });
+
+  
 }

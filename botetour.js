@@ -73,6 +73,6 @@ const selecttour = async (id) => {
    localStorage.setItem("tour", JSON.stringify(datosTour));
 
    //redigir a iniciar sesión 
-   window.location.href = "login.html";
+   window.location.href = "botetour.html";
 
 };

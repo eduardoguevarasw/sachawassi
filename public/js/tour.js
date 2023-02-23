@@ -165,7 +165,8 @@ const eliminarBote = async (id) => {
     alert("Error al eliminar el tour ❌");
   } else {
     alert("Tour eliminado correctamente ✅");
-    window.reload();
+    //recargar la pagina
+    location.reload();
   }
   //actualizar la tabla
   initDataTable();
@@ -249,7 +250,8 @@ const actualizarBote = async () => {
       alert("Error al actualizar el tour ❌");
     } else {
       alert("Tour actualizado con éxito ✅");
-      window.reload();
+      //recargar la pagina
+      window.location.reload();
     }
     //actualizar la tabla
     initDataTable();
@@ -377,6 +379,8 @@ function guardarTour() {
               alert("Error al guardar el tour 😢");
             } else {
               alert("Tour guardado con exito ✅");
+              //recargar la pagina
+              window.location.reload();
             }
           });
       }

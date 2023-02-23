@@ -39,11 +39,19 @@ document.getElementById("registrar").addEventListener(
     //var cedula = document.getElementById("cedula").value;
     var correo = document.getElementById("correo").value;
     var contrasena = document.getElementById("contrasena1").value;
-    var securepassword = btoa(contrasena);
+    //si la contraseña es menor a 8 caracteres
+    if (contrasena.length < 8) {
+      result.innerHTML = "La contraseña debe tener al menos 8 caracteres";
+      result.style.color = "red";
+      return;
+    }else{
+      var securepassword = btoa(contrasena);
+    }
 
     var pasaporte = document.getElementById("pasaporte").checked;
     var cedula = document.getElementById("cedula").checked;
     var identificacion = document.getElementById("identificacion").value;
+
     if (pasaporte) {
       //guardar en supabase
       var datos = {

@@ -63,7 +63,7 @@ function modal(nombreTour,precio) {
 
 function enviar() {
   //validar los campos del formulario no esten vacios
-  if ( document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("email").value == "" || document.getElementById("pais").value == "" || document.getElementById("telefono").value == "" || document.getElementById("fecha").value == "" || document.getElementById("cantidad").value == "" || document.getElementById("mensaje").value == "") {
+  if ( document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("email").value == "" || document.getElementById("pais").value == "" || document.getElementById("telefono").value == "" || document.getElementById("fecha").value == "" || document.getElementById("cantidad").value == "") {
     alert("Por favor, complete todos los campos del formulario");
     return false;
   }else{
@@ -82,8 +82,16 @@ function enviar() {
       return false;
     }else{
 
+      if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
+        alert("Por favor, ingrese un email válido");
+        return false;
+      }else{
+        if(telefono.length < 9){
+          alert("Por favor, ingrese un número de teléfono válido");
+          return false;
+        }else{
 
-    // const cantidad = document.getElementById("cantidad").value;
+          // const cantidad = document.getElementById("cantidad").value;
     const precio = document.getElementById("precio").value;
     const total = cantidad * precio;
     //guardar total en localstorage
@@ -109,7 +117,13 @@ function enviar() {
           //ocultar boton de enviar
          document.querySelector("btn btn-primary").style.display = "none";
           
-      } ); 
+      } );
+
+        }
+      }
+
+
+     
 
     }
   

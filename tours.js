@@ -250,7 +250,7 @@ function generarPDF() {
       pdf.text(20, 70, "Destino: " + tour.destino);
       pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
       pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
-      pdf.text(40, 90, "Fecha de Retorno : " + tour.checkout);
+      pdf.text(80, 90, "Fecha de Retorno : " + datos.checkout);
       pdf.text(20, 95, "Hora de Salida : " + tour.hora);
       //negrilla
       pdf.setFont("helvetica", "bold");

@@ -56,31 +56,18 @@ pdf.text(170,95,' ' + compra.totalPago);
 pdf.setFontType("normal");
 pdf.text(20, 120, 'Datos del Pasajero/s');
 pdf.line(20, 125, 180, 125);
-let pasajeros =[];
-
-compra.cedula.forEach(function (element, index) {
-    //mostrar un array de objetos
-    pasajeros.push(
-        {
-            "Cédula": compra.cedula[index],
-            "Nombres": compra.nombresyapellidos[index],
-            "Asiento No": compra.asientosArray[index],
-            
-        }
-    );
-});
+let pasajeros =[
+    {Cédula: compra.cedula, Nombres: compra.nombre, AsientoNo: compra.asientosArray}
+];
 
 console.log(pasajeros);
-
-compra.cedula.forEach(function (element, index) {
-    
 
     pdf.table(15, 130, pasajeros , [
         'Cédula', 'Nombres', 'Asiento No'
     ],
         {headerBackgroundColor: '#0298', headerTextColor: '#FFFFFF', fontSize: 10, fontStyle: 'normal', overflow: 'linebreak', autoSize: true, printHeaders: true}
     );
-});
+
 
 //terminos de la compra
 //letra negrita

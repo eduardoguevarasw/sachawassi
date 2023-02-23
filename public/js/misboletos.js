@@ -79,11 +79,11 @@ window.addEventListener("load",  async () => {
 
 function pdfBoleto(id){
     //obtener los datos de la compra para el boleto
-    let { data1, error } =  database
+    let { data1, error1 } =  database
     .from("compras")
     .select("*")
     .eq("id", id)
-    .then(({ data1, error }) => {
+    .then(({ data1, error1 }) => {
         //con el idRuta buscar los datos de la ruta
         let { data, error } =  database
         .from("rutas")
@@ -102,11 +102,11 @@ function pdfBoleto(id){
                 llegadaBoleto: data[0].llegada,
                 totalPago: data1[0].totalPago,
                 bote_asignado : data1[0].bote_asignado
-
-
             }
+            localStorage.setItem("datosCompra", JSON.stringify(datosCompra));
+            window.location.href = "boleto.html";
         })
-        window.location.href = "boleto.html";
+        
     })
 }
 

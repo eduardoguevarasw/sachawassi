@@ -8,6 +8,7 @@ var imgData =
 
 //ocultar boton de paypal
 document.getElementById("paypal-button-container").style.display = "none";
+
 const listarTours = async () => {
   let tours = document.getElementById("tours");
   let { data, error } = await database
@@ -20,273 +21,53 @@ const listarTours = async () => {
   console.log(data);
   data.forEach((tour) => {
     tours.innerHTML += `
-        <div class="col">
-            <div class="card">
-            <img src="${tour.foto}" class="card-img-top" alt="..." height="200">
-            <div class="card-body">
-                <input type="hidden" id="id" value="${tour.id}">
-                <h5 class="card-title" id="nametour">${tour.nombre}</h5>
-                <p class="card-text">${tour.descripcion}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Ruta: ${tour.origen} ➡️ ${tour.destino}</li>
-                <li class="list-group-item">Duración: ${tour.dias} días - ${tour.noches} noches</li>
-                <li class="list-group-item">Hora de Salida: ${tour.hora}</li>
-                <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
-                <li class="list-group-item">
-                Incluye:
-                    <ul>Transporte</ul>
-                    <ul>Guía</ul>
-                    <ul>Comidas</ul>
-                    <ul>Entradas</ul>
-                </li>
-                <li class="list-group-item">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}','${tour.dias}')">
-                  ☞ Elegir
-                </button>
-                </li>
-            </ul>
-            </div>
-        </div>`;
+          <div class="col">
+              <div class="card">
+              <img src="${tour.foto}" class="card-img-top" alt="..." height="200">
+              <div class="card-body">
+                  <input type="hidden" id="id" value="${tour.id}">
+                  <h5 class="card-title" id="nametour">${tour.nombre}</h5>
+                  <p class="card-text">${tour.descripcion}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Ruta: ${tour.origen} ➡️ ${tour.destino}</li>
+                  <li class="list-group-item">Duración: ${tour.dias} días - ${tour.noches} noches</li>
+                  <li class="list-group-item">Hora de Salida: ${tour.hora}</li>
+                  <li class="list-group-item">Precio : $${tour.precio} x PAX</li>
+                  <li class="list-group-item">
+                  Incluye:
+                      <ul>Transporte</ul>
+                      <ul>Guía</ul>
+                      <ul>Comidas</ul>
+                      <ul>Entradas</ul>
+                  </li>
+                  <li class="list-group-item">
+                  <button type="button" class="btn btn-success" onclick="selecttour('${tour.id}')">
+                    ☞ Elegir
+                  </button>
+                  </li>
+              </ul>
+              </div>
+          </div>`;
   });
 };
 listarTours();
 
-//restringir la fecha de checkin a partir de hoy
-let today = new Date().toISOString().substr(0, 10);
-document.querySelector("#fecha").value = today;
-document.querySelector("#fecha").min = today;
-//del día seleccionado poner fecha de checkout dependiendo del número de dias
-//al escuchar el evento change del input fecha
-document.getElementById("fecha").addEventListener("change", () => {
-  let fecha = document.getElementById("fecha").value;
-  let dias = document.getElementById("dias").value;
-  let fechaCheckout = new Date(fecha);
-  fechaCheckout.setDate(fechaCheckout.getDate() + parseInt(dias-1));
-  let fechaCheckoutString = fechaCheckout.toISOString().substr(0, 10);
-  document.getElementById("fecha2").value = fechaCheckoutString;
-});
-
-function modal(nombreTour, precio, dias) {
-  //agregar datos al tour
-  let nombre = document.getElementById("nombreTour");
-  nombre.value = nombreTour;
-  let price = document.getElementById("precio");
-  price.value = precio;
-  let day = document.getElementById("dias");
-  day.value = dias;
-}
-
-function enviar() {
-  //validar los campos del formulario no esten vacios
-  if (
-    document.getElementById("nombre").value == "" ||
-    document.getElementById("apellido").value == "" ||
-    document.getElementById("email").value == "" ||
-    document.getElementById("pais").value == "" ||
-    document.getElementById("telefono").value == "" ||
-    document.getElementById("fecha").value == "" ||
-    document.getElementById("cantidad").value == ""
-  ) {
-    alert("Por favor, complete todos los campos del formulario");
-    return false;
-  } else {
-    const nombre = document.getElementById("nombre").value;
-    const apellido = document.getElementById("apellido").value;
-    const email = document.getElementById("email").value;
-    const pais = document.getElementById("pais").value;
-    const telefono = document.getElementById("telefono").value;
-    const fecha = document.getElementById("fecha").value;
-    const fecha2 = document.getElementById("fecha2").value;
-    const cantidad = document.getElementById("cantidad").value;
-    const mensaje = document.getElementById("mensaje").value;
-    const nombreTour = document.getElementById("nombreTour").value;
-    const terminos = document.getElementById("terminos").checked;
-    if (terminos == false) {
-      alert("Por favor, acepte los términos y condiciones");
-      return false;
-    } else {
-      if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-        alert("Por favor, ingrese un email válido");
-        return false;
-      } else {
-        if (telefono.length < 9) {
-          alert("Por favor, ingrese un número de teléfono válido");
-          return false;
-        } else {
-          // const cantidad = document.getElementById("cantidad").value;
-          const precio = document.getElementById("precio").value;
-          const total = cantidad * precio;
-          //guardar total en localstorage
-          sessionStorage.setItem("totalTour", total);
-
-          let datos = {
-            nombre: nombre,
-            apellido: apellido,
-            email: email,
-            pais: pais,
-            telefono: telefono,
-            checkin: fecha,
-            checkout: fecha2,
-            cantidad: cantidad,
-            mensaje: mensaje,
-            tour: nombreTour,
-            total: total,
-          };
-          console.log(datos);
-          //guardar en base de datos
-          //guardar en localstorage
-          localStorage.setItem("datosTour", JSON.stringify(datos));
-          database
-            .from("reservas")
-            .insert(datos)
-            .then((res) => {
-              //mostrar boton de paypal
-              document.getElementById("paypal-button-container").style.display =
-                "block";
-              //ocultar boton de enviar
-              document.querySelector("btn btn-primary").style.display = "none";
-            });
-        }
-      }
-    }
+const selecttour = async (id) => {
+  let { data, error } = await database.from("tour").select("*").eq("id", id);
+  if (error) {
+    console.log(error);
   }
-}
-
-paypal
-  .Buttons({
-    // Sets up the transaction when a payment button is clicked
-    //cambiar idioma a español
-    locale: "es_ES",
-    style: {
-      color: "blue",
-      shape: "pill",
-    },
-    createOrder: (data, actions) => {
-      return actions.order.create({
-        purchase_units: [
-          {
-            amount: {
-              //obtener el valor de un session storage
-              value: sessionStorage.getItem("totalTour"),
-              //value: 16
-            },
-            //descripcion del producto
-            description: "Compra de boletos Sacha Wassi",
-          },
-        ],
-      });
-    },
-    // Finalize the transaction after payer approval
-    onApprove: (data, actions) => {
-      return actions.order.capture().then(function (orderData) {
-        alert("Compra realizada con éxito ✅ ");
-        //generar pdf con los datos de la compra del tour
-        generarPDF();
-      });
-    },
-    onCancel: (data, actions) => {
-      //mostrar mensaje de pago cancelado
-      alert("Pago cancelado 😢 ");
-      //borrar datos de compra de la base de datos
-      eliminartx();
-    },
-    onError: (data, actions) => {
-      //mostrar mensaje de error
-      alert("Error al procesar el pago 😢 ");
-      //borrar datos de compra de la base de datos
-      eliminartx();
-    },
-  })
-  .render("#paypal-button-container");
-
-function eliminartx() {
-  //obtener el id de la ultima reserva
-  database
-    .from("reservas")
-    .select("*")
-    .then((res) => {
-      let id = res.data[res.data.length - 1].id;
-      //eliminar la reserva
-      database
-        .from("reservas")
-        .delete()
-        .eq("id", id)
-        .then((res) => {
-          console.log(res);
-        });
-    });
-}
-
-function generarPDF() {
-  
-  //obtener datosTour de localstorage
-  let datos = JSON.parse(localStorage.getItem("datosTour"));
-  //obtener datos del tour
-  database
-    .from("tour")
-    .select("*")
-    .eq("nombre", datos.tour)
-    .then((res) => {
-      let tour = res.data[0];
-      //generar pdf
-
-      var pdf = new jsPDF();
-
-      //pdf.text(20, 20, 'SachaWassi');
-      pdf.addImage(imgData, "JPEG", 30, 6, 25, 25);
-      pdf.text(60, 20, "Cooperativa de Transporte Fluvial SachaWassi");
-      pdf.text(70, 30, "Ruc: 1500466386001");
-      //agregar una linea
-      pdf.line(20, 25, 180, 25);
-      //negrilla
-      pdf.setFont("helvetica", "bold");
-      pdf.text(80,40, "Datos del Tour");
-      //normal
-      pdf.setFont("helvetica", "normal");
-      pdf.text(20, 50, "Nombre del Tour: " + datos.tour);
-      pdf.text(20, 60, "Origen: " + tour.origen);
-      pdf.text(20, 70, "Destino: " + tour.destino);
-      pdf.text(20, 80, "Duración: " + tour.dias + " días " + tour.noches + " noches");
-      pdf.text(20, 90, "Fecha de Salida : " + datos.checkin);
-      pdf.text(110, 90, "Fecha de Retorno : " + datos.checkout);
-      pdf.text(20, 95, "Hora de Salida : " + tour.hora);
-      //negrilla
-      pdf.setFont("helvetica", "bold");
-      pdf.text(80, 100, "Datos del Cliente");
-      //normal
-      pdf.setFont("helvetica", "normal");
-      pdf.text(
-        20,
-        110,
-        "Nombre: " + datos.nombre + " " + datos.apellido
-      );
-      pdf.text(20, 120, "Email: " + datos.email);
-      pdf.text(20, 130, "País: " + datos.pais);
-      pdf.text(20, 140, "Teléfono: " + datos.telefono);
-      pdf.text(20, 160, "Cantidad de Personas: " + datos.cantidad);
-      pdf.text(20, 170, "Mensaje: " + datos.mensaje);
-      pdf.text(20, 180, "Total: " + datos.total + " USD");
-      //negrilla
-      pdf.setFont("helvetica", "bold");
-      pdf.text(70, 200, "Terminos y Condiciones");
-      //normal
-      pdf.setFont("helvetica", "normal");
-      //LETRA PEQUEÑA
-      pdf.setFontSize(10);
-      pdf.text(20, 210, "1. Debe ponerse en contrato con la empresa para coordinar la salida del tour.");
-      pdf.text(20, 215, "2. Los tours no son reembolsables.");
-      pdf.text(20, 220, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
-      pdf.text(20, 225, "4. Seguir las indicaciones del guía de turismo");
-
-      //tamaño normal
-      pdf.setFontSize(15);
-      //negrita
-      pdf.setFont("helvetica", "bold");
-      pdf.text(70, 240, "Gracias por su preferencia");
-      pdf.save("ComprobanteTour.pdf");
-
-    });
-
-  
-}
+  //guardar datos en el localstorage
+  let datosTour = {
+    id: data[0].id,
+    nombre: data[0].nombre,
+    precio: data[0].precio,
+    origen: data[0].origen,
+    destino: data[0].destino,
+    dias : data[0].dias,
+    noches : data[0].noches,
+    hora : data[0].hora,
+  }
+  console.log(datosTour);
+};

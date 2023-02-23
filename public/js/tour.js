@@ -173,7 +173,7 @@ const eliminarBote = async (id) => {
 
 
 //control de hora 
-const hora = document.querySelector('input[type="time"]');
+const hora = document.getElementById('hora');
 hora.setAttribute('min', '06:00');
 hora.setAttribute('max', '17:00');
 

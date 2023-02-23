@@ -43,6 +43,14 @@ let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#fecha").value = today;
 document.querySelector("#fecha").min = today;
 //restringir la seleccion de fechas anteriores
+document.getElementById("fecha").addEventListener("change", () => {
+    let fecha = document.getElementById("fecha").value;
+    let dias = document.getElementById("dias").value;
+    let fechaCheckout = new Date(fecha);
+    fechaCheckout.setDate(fechaCheckout.getDate() + parseInt(dias-1));
+    let fechaCheckoutString = fechaCheckout.toISOString().substr(0, 10);
+    document.getElementById("fecha2").value = fechaCheckoutString;
+  });
 
 let dataTable;
 let dataTableisInit = false;
@@ -151,6 +159,9 @@ document.getElementById("tourSelect").addEventListener("change", () => {
         data = response.data;
         console.log(data);
         document.getElementById("precio").value = data[0].precio;
+        document.getElementById("dias").value = data[0].dias;
+        console.log(data[0].precio);
+        console.log(data[0].dias);
     })
     //despues de 3 segundos se debe calcular el total
     setTimeout(() => {

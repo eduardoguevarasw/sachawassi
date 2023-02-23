@@ -240,14 +240,19 @@
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <label for="fecha">Fecha</label>
-                    <div class="fila">
-                        <input type="date" class="form-control" id="fecha" required>
-                    </div>
                     <label>Tour</label>
                     <div class="fila">
                         <select class="form-control" name="tour" id="tourSelect">
                         </select>
+                        <input type="hidden" id="dias">
+                    </div>
+                    <label for="fecha">Fecha de Salida</label>
+                    <div class="fila">
+                        <input type="date" class="form-control" id="fecha" required>
+                    </div>
+                    <label for="fecha">Fecha de Retorno</label>
+                    <div class="fila">
+                        <input type="date" class="form-control" id="fecha2" readonly>
                     </div>
                     <label>Precio x PAX</label>
                     <div class="fila">

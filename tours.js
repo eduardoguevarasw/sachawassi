@@ -41,7 +41,7 @@ const listarTours = async () => {
                     <ul>Entradas</ul>
                 </li>
                 <li class="list-group-item">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}')">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal('${tour.nombre}','${tour.precio}','${tour.dias}')">
                   ☞ Elegir
                 </button>
                 </li>
@@ -69,12 +69,14 @@ document.getElementById("fecha").addEventListener("change", () => {
 
 
 
-function modal(nombreTour, precio) {
+function modal(nombreTour, precio, dias) {
   //agregar datos al tour
   let nombre = document.getElementById("nombreTour");
   nombre.value = nombreTour;
   let price = document.getElementById("precio");
   price.value = precio;
+  let day = document.getElementById("dias");
+  day.value = dias;
 }
 
 function enviar() {

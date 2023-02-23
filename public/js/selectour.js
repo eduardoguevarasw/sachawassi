@@ -15,5 +15,18 @@ logout.addEventListener("click", () => {
 const infoTour = async () => {
     let tour = localStorage.getItem("tour");
     //buscar tour en la base de datos
-    console.log(tour);
+    const { data, error } = await database
+    .from("tour")
+    .select("*")
+    .eq("id", tour.idTour)
+    .then((response) => {
+        console.log(response);
+        let infoBoleto = document.getElementById("infoBoleto");
+          infoBoleto.innerHTML = `<div class="alert alert-success" role="alert">
+          <h5 class="alert-heading">Informacion del Tour</h5>
+          <strong id="tournombre">${response.nombre}</strong><br>
+          </div>
+          `
+    });
 }
+infoTour();

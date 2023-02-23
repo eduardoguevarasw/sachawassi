@@ -62,7 +62,7 @@ document.getElementById("fecha").addEventListener("change", () => {
   let fecha = document.getElementById("fecha").value;
   let dias = document.getElementById("dias").value;
   let fechaCheckout = new Date(fecha);
-  fechaCheckout.setDate(fechaCheckout.getDate() + parseInt(dias));
+  fechaCheckout.setDate(fechaCheckout.getDate() + parseInt(dias-1));
   let fechaCheckoutString = fechaCheckout.toISOString().substr(0, 10);
   document.getElementById("fecha2").value = fechaCheckoutString;
 });

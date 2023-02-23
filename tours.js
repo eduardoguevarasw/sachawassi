@@ -261,7 +261,11 @@ function generarPDF() {
       pdf.text(20, 220, "3. Los integrantes del tour debe cumplir con las normas de seguridad y de convivencia");
       pdf.text(20, 225, "4. Seguir las indicaciones del guía de turismo");
 
-      pdf.text(20, 230, "Gracias por su preferencia");
+      //tamaño normal
+      pdf.setFontSize(12);
+      //negrita
+      pdf.setFont("helvetica", "bold");
+      pdf.text(70, 230, "Gracias por su preferencia");
       pdf.save("ComprobanteTour.pdf");
 
     });

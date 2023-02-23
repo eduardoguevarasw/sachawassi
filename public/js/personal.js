@@ -179,32 +179,78 @@ function editCiudad(){
 }
 
 function registrarPersonal(){
+
     const cedula = document.getElementById("cedula").value;
     const nombre = document.getElementById("nombre").value;
     const apellido = document.getElementById("apellido").value;
     const password = document.getElementById("password").value;
     //rol
     const rol = document.getElementById("rol").value;
-    const bote = {
-        cedula: cedula,
-        nombres: nombre,
-        apellidos: apellido,
-        password: password,
-        rol : rol
+
+    //validar que los campos no esten vacios
+    if(document.getElementById("cedula").value == "" || document.getElementById("nombre").value == "" || document.getElementById("apellido").value == "" || document.getElementById("password").value == "" || document.getElementById("rol").value == ""){
+        alert("Todos los campos son obligatorios");
+        return;
+    }else{
+        //validar cédula 
+        if(!validarCedula(cedula)){
+            alert("Cédula incorrecta ❌");
+            return;
+        }else{
+            //validar que la contraseña tenga al menos 8 caracteres
+            if(password.length < 8){
+                alert("La contraseña debe tener al menos 8 caracteres");
+                return;
+            }else{
+
+                const bote = {
+                    cedula: cedula,
+                    nombres: nombre,
+                    apellidos: apellido,
+                    password: password,
+                    rol : rol
+                }
+                database
+                .from("usuarios")
+                .insert([bote])
+                .then((response) => {
+                    console.log("Registro exitoso", response);
+                    alert("Registro exitoso ✅");
+                    //RECARGAR LA PAGINA
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.log("Error", error);
+                    alert("Error al registrar ❌");
+                    //recargar la pagina
+                    location.reload();
+                });
+
+            }
+        }
     }
-    database
-    .from("usuarios")
-    .insert([bote])
-    .then((response) => {
-        console.log("Registro exitoso", response);
-        alert("Registro exitoso ✅");
-        //RECARGAR LA PAGINA
-        location.reload();
-    })
-    .catch((error) => {
-        console.log("Error", error);
-        alert("Error al registrar ❌");
-        //recargar la pagina
-        location.reload();
-    });
+}
+
+//validar cédula de ecuador 
+function validarCedula(cedula) {
+    var total = 0;
+    var longitud = cedula.length;
+    var longcheck = longitud - 1;
+    if (cedula !== "" && longitud === 10){
+        for(var i = 0; i < longcheck; i++){
+            if (i%2 === 0) {
+                var aux = cedula.charAt(i) * 2;
+                if (aux > 9) aux -= 9;
+                total += aux;
+            } else {
+                total += parseInt(cedula.charAt(i)); // parseInt o concatenará en lugar de sumar
+            }
+        }
+        total = total % 10 ? 10 - total % 10 : 0;
+        if (cedula.charAt(longitud-1) == total) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -57,7 +57,7 @@ pdf.setFontType("normal");
 pdf.text(20, 120, 'Datos del Pasajero/s');
 pdf.line(20, 125, 180, 125);
 let pasajeros =[
-    {Cédula: compra.cedula, Nombres: compra.nombre, AsientoNo: compra.asientosArray}
+    {Cédula: compra.cedula, Nombres: compra.nombresyapellidos, AsientoNo: compra.asientosArray}
 ];
 
 console.log(pasajeros);

@@ -98,6 +98,7 @@ function pdfBoleto(id){
         let totalPago = datosCompra.totalPago;
         let idRuta = datosCompra.idRuta;
         let bote_asignado = datosCompra.bote_asignado;
+        let nombresyapellidos = nombre + " " + apellido;
         console.log(datosCompra);
         //con el id ruta obtener los datos de la ruta
         let { data  , error } =  database
@@ -114,6 +115,7 @@ function pdfBoleto(id){
                 cedula: cedula,
                 nombre: nombre,
                 apellido: apellido,
+                nombresyapellidos: nombresyapellidos,
                 asientosArray: asientosArray,
                 origen: origen,
                 destino: destino,

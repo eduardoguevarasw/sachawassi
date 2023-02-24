@@ -113,8 +113,8 @@ const listarBotes = async () => {
             <td>${bote.email}</td>
             <td>${bote.telefono}</td>
             <td>${bote.pais}</td>
-            <td>${bote.checkout}</td>
             <td>${bote.checkin}</td>
+            <td>${bote.checkout}</td>
             <td>${bote.tour}</td>
             <td>${bote.total}</td>
             <td><button class="btnEditar" onclick="selectTour(${bote.id})">Editar</button></td>

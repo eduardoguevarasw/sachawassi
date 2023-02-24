@@ -123,7 +123,8 @@ function enviar() {
           //guardar en localstorage
           localStorage.setItem("tour", JSON.stringify(datos));
           //redirigir a la selección de asientos
-          window.location.href = "https://eduardoguevarasw.github.io/sachawassi/login.html";
+          // window.location.href = "https://eduardoguevarasw.github.io/sachawassi/login.html";
+          window.location.href = "botetour.html";
         }
       }
     }

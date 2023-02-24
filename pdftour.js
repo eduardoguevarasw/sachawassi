@@ -9,36 +9,6 @@ let compra = localStorage.getItem('compraTour');
 compra = JSON.parse(compra);
 console.log(compra);
 
-//buscar el nombre del tour con el id en la base de datos
-let nombreTour = '';
-let origen = '';
-let destino = '';
-let dias = '';
-let noches = '';
-let hora = '';
-
-let idTour = compra.idTour;
-database.from('tour').select().eq('id', idTour).then((response) => {
-    nombreTour = response.data[0].nombre;
-    origen = response.data[0].origen;
-    destino = response.data[0].destino;
-    dias = response.data[0].dias;
-    noches = response.data[0].noches;
-    hora = response.data[0].hora;
-
-    let datoTour = {
-        "nombre": nombreTour,
-        "origen": origen,
-        "destino": destino,
-        "dias": dias,
-        "noches": noches,
-        "hora": hora    
-    }
-    
-    //guardar en local storage
-    localStorage.setItem('datoTour', JSON.stringify(datoTour));
-});
-
 let compra2 = localStorage.getItem('datoTour');
 compra2 = JSON.parse(compra2);
 

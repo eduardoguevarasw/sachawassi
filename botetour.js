@@ -217,8 +217,29 @@ const continuar = async () => {
                 total,
                 tx
               };
+              
               localStorage.setItem("compraTour", JSON.stringify(compra));
               //comprobar que no exista asientos repetidos
+              database.from('tour').select().eq('id', idTour).then((response) => {
+                nombreTour = response.data[0].nombre;
+                origen = response.data[0].origen;
+                destino = response.data[0].destino;
+                dias = response.data[0].dias;
+                noches = response.data[0].noches;
+                hora = response.data[0].hora;
+            
+                let datoTour = {
+                    "nombre": nombreTour,
+                    "origen": origen,
+                    "destino": destino,
+                    "dias": dias,
+                    "noches": noches,
+                    "hora": hora    
+                }
+                
+                //guardar en local storage
+                localStorage.setItem('datoTour', JSON.stringify(datoTour));
+            });
               comprobar();
             }
           }

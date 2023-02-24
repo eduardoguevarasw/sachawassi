@@ -384,8 +384,8 @@ paypal
     return actions.order.capture().then(function (orderData) {
 
        alert("Compra realizada con éxito ✅ ");
-        //redireccionar en 5 segundos
-        setTimeout(function(){window.location.href = "../client/gracias.html" }, 5000);  
+        //generar pdf 
+        window.location.href = "gracias.html";
     });
   },
   onCancel: (data, actions) => {

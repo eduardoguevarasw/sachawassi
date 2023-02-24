@@ -104,22 +104,18 @@ const listarBotes = async () => {
         console.log("error", error);
         alert("Error al listar los botes ❌");
     }
-    //buscar la el destino con la id de la ruta
     
     data.forEach((bote,index) => {
         registroBotes.innerHTML += `
         <tr>
             <td>${index+1}</td>
+            <td>${bote.cedula}</td>
             <td>${bote.nombre}</td>
             <td>${bote.apellido}</td>
-            <td>${bote.email}</td>
-            <td>${bote.telefono}</td>
             <td>${bote.pais}</td>
             <td>${bote.checkin}</td>
             <td>${bote.checkout}</td>
-            <td>${bote.tour}</td>
-            <td>${bote.total}</td>
-            <td><button class="btnEliminar" onclick="eliminarTour(${bote.id})">Eliminar</button></td>
+            <td>${bote.asientos}</td>
         </tr>
       </div>
         `;

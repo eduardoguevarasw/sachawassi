@@ -9,6 +9,7 @@ let compra = localStorage.getItem('compraTour');
 compra = JSON.parse(compra);
 console.log(compra);
 
+
 let compra2 = localStorage.getItem('datoTour');
 compra2 = JSON.parse(compra2);
 
